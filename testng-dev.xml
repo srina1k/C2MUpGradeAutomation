@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE suite SYSTEM "http://testng.org/testng-1.0.dtd">
+<suite name="All Test Suite">
+    <parameter name="env" value="dev"/>
+    <test verbose="2" preserve-order="true"
+          name="C:/Users/srina1k/IdeaProjects/C2MUpGradeAutomation/src/test/java/org/example/Tests/InitialTest.java">
+        <classes>
+            <class name="org.example.Tests.ConnectionNew">
+                <methods>
+                    <include name="ConnectionNew"/>
+                </methods>
+            </class>
+        </classes>
+    </test>
+</suite>
