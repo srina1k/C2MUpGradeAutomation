@@ -187,9 +187,9 @@ public class PersonPage {
         driver.switchTo().defaultContent();
         WaitUtils.waitForFrameAndSwitch(driver,"main",3);
         WaitUtils.waitAndClick(driver, By.id("IM_menuButton"), 5);
-        WaitUtils.waitAndClick(driver, By.id("CI_MAINMENU_topMenuItem0x28"), 5);
-        WaitUtils.waitAndClick(driver, By.id("CI_ENROLLMENT_subMenuItem1x14"), 5);
-        WaitUtils.waitAndClick(driver, By.xpath("//li[@id='cmoppsrhTabMenu']"), 5);
+        WaitUtils.waitAndClick(driver, By.id("//li[@id='mainMenu']/child::div"), 5);
+        WaitUtils.waitAndClick(driver, By.id("//li[@id='CI_MAINMENU_topMenuItem0x28']"), 5);
+        WaitUtils.waitAndClick(driver, By.xpath("//li[@id='ci_mainmenu_topmenuitem0x28Opportunity']"), 5);
 
         WaitUtils.waitForFrameAndSwitch(driver,"tabPage",5);
         WaitUtils.sleep(2000);
