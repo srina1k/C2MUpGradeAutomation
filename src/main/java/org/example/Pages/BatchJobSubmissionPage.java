@@ -118,7 +118,6 @@ public class BatchJobSubmissionPage {
             WaitUtils.waitForFrameAndSwitch(driver,"main",10);
             WaitUtils.sleep(3000);
             WebElement refresh = driver.findElement(By.xpath("//div[@class='pageTitleArea clearFloat']/div/input[@id='IM_REFRESH']"));
-
             while(true) {
                 WaitUtils.waitForFrameAndSwitch(driver, "tabPage", 10);
                 WaitUtils.waitForFrameAndSwitch(driver,"zoneMapFrame_1",10);
@@ -134,7 +133,6 @@ public class BatchJobSubmissionPage {
                 WaitUtils.sleep(8000);
             }
             ScreenShotUtils.captureScreenshotToWord("COMC15P1.docx","Step12:Running Ecoes batch");
-
             driver.switchTo().defaultContent();
             WaitUtils.waitForFrameAndSwitch(driver, "main", 5);
             WaitUtils.waitAndClick(driver, By.xpath("//ou-button[@id='IM_GOBACK']"),5);
@@ -220,9 +218,10 @@ public class BatchJobSubmissionPage {
         driver.switchTo().defaultContent();
         WaitUtils.waitForFrameAndSwitch(driver,"main",10);
         WaitUtils.sleep(3000);
-        WebElement refresh = driver.findElement(By.xpath("//div[@class='pageTitleArea clearFloat']/div/input[@id='IM_REFRESH']"));
+        WebElement refresh = driver.findElement(By.xpath("//input[@id='IM_REFRESH']"));
         while(true) {
             WaitUtils.waitForFrameAndSwitch(driver, "tabPage", 5);
+            WaitUtils.waitForFrameAndSwitch(driver,"zoneMapFrame_1",5);
             String status = driver.findElement(By.xpath("//span[@id='batchJobStatus']")).getText().trim();
             System.out.println("Current Batch status: " + status);
             if ("Ended".equalsIgnoreCase(status)) {

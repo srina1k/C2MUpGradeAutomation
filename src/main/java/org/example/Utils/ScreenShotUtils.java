@@ -10,52 +10,43 @@ import java.io.*;
 
 public class ScreenShotUtils {
 
-    public static void captureScreenshotToWord(String filePath, String imageName) {
-        FileOutputStream fos = null;
-        FileInputStream fis = null;
-
-        try {
+    public static void captureScreenshotToWord(String filePath, String imageName){
+        try{
             WebDriver driver = DriverManager.getDriver();
+            //Take Screenshot
             File srcFile = ((TakesScreenshot) driver).getScreenshotAs(OutputType.FILE);
-            XWPFDocument document;
-            File file = new File(filePath);
 
-            if (file.exists()) {
-                document = new XWPFDocument(OPCPackage.open(file));
-                System.out.println("Appending to existing Word document...");
+            XWPFDocument document;
+            File file =  new File(filePath);
+
+            if(file.exists()){
+                FileInputStream fis = new FileInputStream(file);
+                document = new XWPFDocument(fis);
+                fis.close();
             } else {
                 document = new XWPFDocument();
-                System.out.println("Creating new Word document...");
             }
 
-            XWPFParagraph title = document.createParagraph();
-            title.setSpacingBefore(200);
-            XWPFRun titleRun = title.createRun();
-            titleRun.setText("Screenshot: " + imageName);
-            titleRun.setBold(true);
-            titleRun.addBreak();
+            //Add title to word
+            XWPFParagraph paragraph = document.createParagraph();
+            XWPFRun run = paragraph.createRun();
+            run.setText(" " + imageName);
+            run.setBold(true);
+            run.addBreak();
 
-            fis = new FileInputStream(srcFile);
-            XWPFRun imageRun = document.createParagraph().createRun();
-            imageRun.addPicture(
-                    fis,
-                    Document.PICTURE_TYPE_PNG,
-                    imageName,
-                    500 * 9525,
-                    300 * 9525
-            );
-            imageRun.addBreak();
+            //Add image to word
+            FileInputStream pic = new FileInputStream(srcFile);
+            run.addPicture(pic, Document.PICTURE_TYPE_PNG, imageName, 580*9525, 260*9525);
+            pic.close();
 
-            fos = new FileOutputStream(filePath);
-            document.write(fos);
+            FileOutputStream out = new FileOutputStream(filePath);
+            document.write(out);
+            out.close();
+            document.close();
 
-            System.out.println("Screenshot added to Word doc: " + imageName);
-
-        } catch (Exception e) {
+            System.out.println("Screenshot added to word with name: " + imageName);
+        } catch (Exception e){
             e.printStackTrace();
-        } finally {
-            try { if (fis != null) fis.close(); } catch (IOException ignored) {}
-            try { if (fos != null) fos.close(); } catch (IOException ignored) {}
         }
     }
 }

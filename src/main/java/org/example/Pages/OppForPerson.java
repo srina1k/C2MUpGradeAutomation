@@ -27,12 +27,18 @@ public class OppForPerson {
     private final By goBackBtn = By.id("IM_GOBACK");
 
     public void CreditCheck() {
-        WaitUtils.waitForFrameAndSwitch(driver, "tabPage", 3);
-        WaitUtils.waitAndClick(driver, creditCheckBtn, 15);
-        //WaitUtils.sleep(4000);
+        WaitUtils.sleep(8000);
+        driver.switchTo().defaultContent();
+        WaitUtils.waitForFrameAndSwitch(driver, "main", 10);
+        WaitUtils.waitForFrameAndSwitch(driver, "tabPage", 10);
+        WebElement creditbtn= driver.findElement(By.xpath("//a[text()='Initiate Credit Check']"));
+        JavascriptExecutor js=(JavascriptExecutor) driver;
+        js.executeScript("arguments[0].scrollIntoView({block: 'center'});", creditbtn);
+        //js.executeScript("arguments[0].click",creditCheckBtn);
+        WaitUtils.waitAndClick(driver,By.xpath("//a[text()='Initiate Credit Check']"), 15);
         WaitUtils.getWait(driver,15);
         WaitUtils.waitForVisible(driver, By.xpath("//span[text()='Credit Check Log']"));
-        WaitUtils.waitAndClick(driver,By.xpath("//span[text()='Credit Check Log']"),10);
+        WaitUtils.waitAndClick(driver,By.xpath("//span[text()='Credit Check Log']"),20);
         //driver.findElement(By.xpath("//span[text()='Credit Check Log']")).click();
         WaitUtils.sleep(4000);
     }
@@ -227,20 +233,22 @@ public class OppForPerson {
         WaitUtils.waitForFrameAndSwitch(driver,"tabPage",10);
         // driver.switchTo().frame(driver.findElement(By.cssSelector("iframe[title='zoneMapFrame_1']")));
         WaitUtils.waitForFrameAndSwitch(driver,"zoneMapFrame_1",15);
-        //WaitUtils.getWait(driver,15);
+//        WaitUtils.getWait(driver,20);
         WebElement PendingAnalysis=driver.findElement(By.xpath("//input[@value='Deemed Won - Pending Analysis']"));
+        WaitUtils.getWait(driver,20);
         JavascriptExecutor js=(JavascriptExecutor)driver;
         js.executeScript("arguments[0].click()",PendingAnalysis);
-        WaitUtils.getWait(driver,10);
-        //WaitUtils.waitAndClick(driver, By.xpath("//input[@value='Deemed Won - Pending Analysis']"), 15);
-        WaitUtils.waitForVisible(driver, By.xpath("//input[@value='Won']"));
+        WaitUtils.getWait(driver,20);
+//        //WaitUtils.waitAndClick(driver, By.xpath("//input[@value='Deemed Won - Pending Analysis']"), 15);
+//        WaitUtils.waitForVisible(driver, By.xpath("//input[@value='Won']"));
         driver.switchTo().defaultContent();
         WaitUtils.waitForFrameAndSwitch(driver,"main",2);
         WaitUtils.waitAndClick(driver, By.id("IM_REFRESH"), 5);
+        driver.switchTo().defaultContent();
+        WaitUtils.waitForFrameAndSwitch(driver,"main",2);
         WaitUtils.waitForFrameAndSwitch(driver,"tabPage",2);
         WaitUtils.waitForFrameAndSwitch(driver,"zoneMapFrame_1",15);
         //driver.switchTo().frame(driver.findElement(By.cssSelector("iframe[title='zoneMapFrame_1']")));
-        WaitUtils.getWait(driver,20);
         WaitUtils.waitForVisible(driver, By.xpath("//input[@value='Won']"));
         driver.switchTo().defaultContent();
         WaitUtils.waitForFrameAndSwitch(driver,"main",10);
@@ -248,6 +256,8 @@ public class OppForPerson {
             WaitUtils.waitAndClick(driver, By.xpath("//ou-button[@id='IM_GOBACK']"), 15);
             WaitUtils.sleep(2000); // ~2–3 sec
         }
+        driver.switchTo().defaultContent();
+        WaitUtils.waitForFrameAndSwitch(driver,"main",10);
         WaitUtils.waitForFrameAndSwitch(driver,"tabPage",2);
         driver.switchTo().frame(driver.findElement(By.cssSelector("iframe[title='zoneMapFrame_1']")));
         driver.findElement(By.xpath("//input[@value='Deemed Won - Pending Analysis']")).click();

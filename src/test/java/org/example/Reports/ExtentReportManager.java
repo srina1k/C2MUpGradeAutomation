@@ -13,7 +13,7 @@ public class ExtentReportManager {
     private static final ThreadLocal<ExtentTest> extentTest=new ThreadLocal<>();
     public static void initReport(){
         String timeStamp= LocalDateTime.now().format(DateTimeFormatter.ofPattern("yyyyMMdd_HHmmss"));
-        String reportPath=System.getProperty("user.dir")+"/test-output/ExtentReport_"+timeStamp+".html";
+        String reportPath=System.getProperty("user.dir")+"/test-output/Reports/ExtentReport_"+timeStamp+".html";
         ExtentSparkReporter spark = new ExtentSparkReporter(reportPath);
         spark.config().setDocumentTitle("C2M UpGrade Automation Report");
         spark.config().setReportName("Regression");

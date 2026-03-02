@@ -6,11 +6,18 @@ import org.example.Pages.*;
 import org.example.Utils.*;
 import org.testng.annotations.Test;
 
+import java.io.File;
 import java.io.IOException;
 
 public class smallFixed extends BaseClass {
     @Test
     public void Logintest(){
+        String fileName = "SmallFixed.docx";
+        File file = new File(fileName);
+        if (file.exists()) {
+            file.delete();
+            System.out.println("Old word file deleted: " + fileName);
+        }
         LoginPage loginPage=new LoginPage(DriverManager.getDriver());
         loginPage.Logincredentials();
     }
@@ -39,7 +46,6 @@ public class smallFixed extends BaseClass {
         premise.siteDetails();
         ScreenShotUtils.captureScreenshotToWord("SmallFixed.docx","Ecoes Validation - Yes.");
     }
-
     @Test(dependsOnMethods = "oppSearch")
     public void CCTermSet() throws IOException {
         OppForPerson oppPer = new OppForPerson();

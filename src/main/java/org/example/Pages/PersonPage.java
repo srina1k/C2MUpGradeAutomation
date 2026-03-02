@@ -2,10 +2,7 @@ package org.example.Pages;
 
 import org.example.Utils.ScreenShotUtils;
 import org.example.Utils.WaitUtils;
-import org.openqa.selenium.By;
-import org.openqa.selenium.JavascriptExecutor;
-import org.openqa.selenium.WebDriver;
-import org.openqa.selenium.WebElement;
+import org.openqa.selenium.*;
 import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.Select;
 import org.example.Utils.DriverManager;
@@ -27,10 +24,15 @@ public class PersonPage {
     }
 
     public void AddOpportunityDetails(String _Scenarioname){
+        driver.switchTo().defaultContent();
         WaitUtils.waitForFrameAndSwitch(driver,"main",20);
         WaitUtils.getWait(driver,20);
-        WaitUtils.waitForPresence(driver,By.cssSelector("input[id='Bundefined']"));
+        //WebElement continueBtn=driver.findElement(By.xpath("//input[@id='Bundefined']"));
+        if(!WaitUtils.isElementVisible(driver,By.xpath("//input[@id='Bundefined']"),10)){
+            throw new NoSuchElementException("Element not visible");
+        }
         WaitUtils.waitAndClick(driver, By.xpath("//input[@id='Bundefined']"),10);
+
         //WaitUtils.waitForFrameAndSwitch(driver,"uiMap",5);
         String currentFrame1 = (String) ((JavascriptExecutor) driver).executeScript("return window.frameElement? window.frameElement.name : 'default';");
         System.out.println("Current frame switched to: " + currentFrame1);
@@ -105,7 +107,7 @@ public class PersonPage {
         WebElement addressInd = driver.findElement(By.xpath("//select[@oraselect='lookup:CM_BILLING_ADDR_SOURCE_FLG']"));
         Select s5 = new Select(addressInd);
         s5.selectByVisibleText("Person Override Address");
-
+        WaitUtils.getWait(driver,20);
        WaitUtils.clickAndSwitchIntoFrames(
                 driver, By.xpath("//input[@onclick='save();']"), 20, java.util.Arrays.asList("main", "tabPage"));
         String currentFrame2 = (String) ((JavascriptExecutor) driver)
@@ -122,10 +124,10 @@ public class PersonPage {
     private static String saveOppID;
 
     public String captureOppID(){
-        String id = driver.findElement(By.xpath("//input[@onclick='save();']")).getText().trim();
+        WaitUtils.sleep(2000);
+        String id = driver.findElement(By.xpath("(//span[@class='label'])[2]")).getText().trim();
         saveOppID = id;
         return id;
-
     }
     public void clickSave(){
         WaitUtils.waitAndClick(driver,By.xpath("//input[@onclick='save();']"),5);
@@ -187,23 +189,28 @@ public class PersonPage {
         driver.switchTo().defaultContent();
         WaitUtils.waitForFrameAndSwitch(driver,"main",3);
         WaitUtils.waitAndClick(driver, By.id("IM_menuButton"), 5);
-        WaitUtils.waitAndClick(driver, By.id("//li[@id='mainMenu']/child::div"), 5);
-        WaitUtils.waitAndClick(driver, By.id("//li[@id='CI_MAINMENU_topMenuItem0x28']"), 5);
+        WaitUtils.waitAndClick(driver, By.xpath("//li[@id='mainMenu']"), 5);
+        WaitUtils.waitAndClick(driver, By.xpath("//li[@id='CI_MAINMENU_topMenuItem0x28']"), 5);
         WaitUtils.waitAndClick(driver, By.xpath("//li[@id='ci_mainmenu_topmenuitem0x28Opportunity']"), 5);
-
         WaitUtils.waitForFrameAndSwitch(driver,"tabPage",5);
         WaitUtils.sleep(2000);
 
         driver.findElement(By.cssSelector("input[orafield='entityName']")).sendKeys(customername);
+        Select s1=new Select(driver.findElement(By.xpath("//select[@class='oraDefault']")));
+       // s1.selectByVisibleText("Identified");
         DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd-MM-yyyy");
         String starDateValue = LocalDate.now().format(formatter);
         String endDateValue = LocalDate.now().plusYears(1).format(formatter);
         driver.findElement(By.cssSelector("input[orafield='startDate']")).sendKeys(starDateValue);
         driver.findElement(By.cssSelector("input[orafield='endDate']")).sendKeys(endDateValue);
-        WaitUtils.waitAndClick(driver, By.xpath("//input[@value='Search']"),5);
-        WaitUtils.sleep(2000);
+       // WaitUtils.waitAndClick(driver, By.xpath("//input[@value='Search']"),5);
+//        JavascriptExecutor js = (JavascriptExecutor) driver;
+//        js.executeScript("window.scrollTo(0,document.body.scrollHeight);");
+        WebElement searchClick=driver.findElement(By.xpath("//input[@value='Search']"));
         JavascriptExecutor js = (JavascriptExecutor) driver;
-        js.executeScript("window.scrollTo(0,document.body.scrollHeight);");
+        js.executeScript("arguments[0].click();",searchClick);
+        WaitUtils.sleep(2000);
+
     }
 
 

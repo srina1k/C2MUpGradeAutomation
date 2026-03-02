@@ -81,14 +81,14 @@ public class BaseClass {
     }
     @AfterClass(alwaysRun = true)
     public void tearDown() {
-        WebDriver d = getDriver();
-        if (d != null) {
-            try {
-                d.quit();
-                System.out.println("WebDriver quit successfully");
-            } catch (Exception e) {
-                System.out.println("Error quitting WebDriver: " + e.getMessage());
-            }
-        }
+//        WebDriver d = getDriver();
+//        if (d != null) {
+//            try {
+//                d.quit();
+//                System.out.println("WebDriver quit successfully");
+//            } catch (Exception e) {
+//                System.out.println("Error quitting WebDriver: " + e.getMessage());
+//            }
+//        }
     }
 }

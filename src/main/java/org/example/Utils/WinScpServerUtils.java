@@ -25,7 +25,16 @@ public class WinScpServerUtils {
             channel.connect();
 
             channel.put(localFilePath,remoteFilePath);
-
+//            try {
+//                channel.put(localFilePath, remoteFilePath, ChannelSftp.OVERWRITE);
+//            } catch (com.jcraft.jsch.SftpException ex) {
+//                // Ignore permission/timestamp errors
+//                if (ex.id == ChannelSftp.SSH_FX_FAILURE || ex.id == ChannelSftp.SSH_FX_PERMISSION_DENIED) {
+//                    System.out.println("Upload succeeded but server refused to set permissions/timestamp. Ignoring...");
+//                } else {
+//                    throw ex; // rethrow real errors
+//                }
+//            }
         } catch (Exception e){
             throw new RuntimeException("File upload Failed", e);
         } finally {

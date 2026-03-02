@@ -20,7 +20,6 @@ public class AddPremisePage {
     private By customerHyperLink = By.xpath("//span[@title='Go To Opportunity for Person ']");
     public void NavigateToPremise(String premiseID)  {
         driver.switchTo().defaultContent();
-        driver.switchTo().parentFrame();
         WaitUtils.waitForFrameAndSwitch(driver,"main",20);
         WaitUtils.waitForFrameAndSwitch(driver,"tabPage",15);
         //driver.switchTo().frame("tabPage");
@@ -40,7 +39,7 @@ public class AddPremisePage {
         //WaitUtils.waitForVisible(driver,By.xpath("//input[@id='Bundefined']"));
         WaitUtils.getWait(driver,20);
         By[] menuSequence2 = {
-                By.id("IM_menuButton"), By.xpath("(//div)[18]"), By.xpath("(//div)[39]"), By.xpath("(//span[contains(text(),'Add')])[13]")};
+                By.id("IM_menuButton"), By.xpath("//li[@id='mainMenu']"), By.xpath("//li[@id='CI_MAINMENU_topMenuItem0x9']"), By.xpath("(//span[contains(text(),'Add')])[13]")};
         for (By menuItem2 : menuSequence2){
             WaitUtils.waitAndClick(driver, menuItem2, 2);
         }
@@ -50,7 +49,7 @@ public class AddPremisePage {
 //        WebElement element=driver.findElement(By.id("IM_PREM_ID"));
 //        Actions action = new Actions(driver);
 //        action.moveToElement(element).click().perform();
-        WaitUtils.waitAndClick(driver, By.id("IM_PREM_ID"), 10);
+        WaitUtils.waitAndClick(driver, By.id("IM_PREM_ID"), 30);
         System.out.println(mainWindow);
         String childwindow = null;
         new WebDriverWait(driver, Duration.ofSeconds(10)).until(d -> d.getWindowHandles().size() > 1);
@@ -318,38 +317,36 @@ public class AddPremisePage {
         WaitUtils.sleep(5000);
         driver.findElement(By.xpath("//ou-button[@id='IM_GOBACK']")).click();
 
-        WaitUtils.waitForFrameAndSwitch(driver,"tabPage",5);
+        WaitUtils.waitForFrameAndSwitch(driver,"tabPage",10);
         WaitUtils.waitForVisible(driver, By.xpath("//span[text()='Opportunity for Person Log']"));
         driver.findElement(By.xpath("//span[text()='Opportunity for Person Log']")).click();
         driver.switchTo().defaultContent();
         WaitUtils.waitForFrameAndSwitch(driver,"main",15);
     }
     public void siteDetails(){
-        //driver.switchTo().defaultContent();
-        //WaitUtils.waitForFrameAndSwitch(driver,"main",3);
-        //WaitUtils.waitForFrameAndSwitch(driver,"tabPage",3);
-        WaitUtils.waitAndClick(driver, By.xpath("//a[@navoptcd='cmoppptlTabMenu']"),5);
+//        WebElement personClick=driver.findElement(By.xpath("//a[@navoptcd='cmoppptlTabMenu']"));
+//        JavascriptExecutor js=(JavascriptExecutor)driver;
+//        js.executeScript("arguments[0].click();",personClick);
+        WaitUtils.waitAndClick(driver, By.xpath("//a[@navoptcd='cmoppptlTabMenu']"),15);
         WaitUtils.sleep(2000);
         WaitUtils.waitAndClick(driver, By.xpath("//span[@title='Go To Opportunity for Person ']"),5);
-
         driver.switchTo().defaultContent();
         WaitUtils.waitForFrameAndSwitch(driver,"main",3);
         WaitUtils.waitForFrameAndSwitch(driver,"tabPage",3);
         WaitUtils.waitAndClick(driver, By.xpath("(//span[@title='Opportunity for Person at SP - Maintenance'])[2]"),10);
         WaitUtils.sleep(5000);
-
         for(String premise_details : driver.getWindowHandles()){
             driver.switchTo().window(premise_details);
         }
-
         WebElement consu =  driver.findElement(By.xpath("//input[@id='annualConsumption']"));
         WebElement cap =  driver.findElement(By.xpath("//input[@id='agreedCapacity']"));
         consu.clear();
         consu.sendKeys("100");
+        WaitUtils.getWait(driver,10);
         cap.clear();
         cap.sendKeys("120");
-        //driver.findElement(By.xpath("//input[@value='Save']")).click();
-
+        WaitUtils.getWait(driver,10);
+        driver.findElement(By.xpath("//input[@value='Save']")).click();
         for(String premise : driver.getWindowHandles()) {
             driver.switchTo().window(premise);
             if(driver.getTitle().equals("Opportunity for Person")){
@@ -357,5 +354,4 @@ public class AddPremisePage {
             }
         }
     }
-
 }
