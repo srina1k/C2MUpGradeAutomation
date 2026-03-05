@@ -9,6 +9,7 @@ public class ConfigReader {
     private static final Properties properties = new Properties();
     private static String activeEnv;
     static Properties winproperties = new Properties();
+    static Properties DbProperties = new Properties();
     static {
         System.out.println("All loaded config keys:" + properties.keySet());
         System.out.println("base.url from ConfigReader:" + get("base.url"));
@@ -31,6 +32,7 @@ public class ConfigReader {
             System.out.println("base.url=" + get("base.url"));
             System.out.println("username=" + get("username"));
             loadWinscpProperties("config/winscp.properties");
+            //loadDBProperties("config/db.properties");
         } catch (Exception e) {
             System.err.println("!!! Config loading failed" + e.getMessage());
             throw new RuntimeException("Failed to Initialize ConfigReader", e);
@@ -55,6 +57,15 @@ public class ConfigReader {
         winproperties.load(is);
         is.close();
     }
+//    private static void loadDBProperties(String path) throws Exception{
+//        InputStream is = ConfigReader.class.getClassLoader().getResourceAsStream(path);
+//        if(is==null){
+//            System.out.println("DB Properties not found in classpath");
+//            return;
+//        }
+//        DbProperties.load(is);
+//        is.close();
+//    }
     public static String get(String key) {
         String envKey = "TEST_" + key.toUpperCase();
         String envValue = System.getenv(envKey);
@@ -68,13 +79,15 @@ public class ConfigReader {
         }
         return value != null ? value.trim() : null;
     }
-
     public static String getWinScpProperty(String key){
         return winproperties.getProperty(key);
     }
     public static String getEnv() {
         return activeEnv;
     }
+//    public static String getDBproperty(String key){
+//        return DbProperties.getProperty(key);
+//    }
     public static void overrideEnvFromTestNG(String envFromSuite) {
         if (envFromSuite == null || envFromSuite.trim().isEmpty()) {
             return;

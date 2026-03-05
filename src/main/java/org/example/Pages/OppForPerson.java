@@ -213,7 +213,6 @@ public class OppForPerson {
         WaitUtils.waitForFrameAndSwitch(driver,"main",2);
         WaitUtils.waitAndClick(driver, goBackBtn, 5);
     }
-
     public void goBack3times(){
         for (int i = 0; i<3; i++){
             driver.switchTo().defaultContent();

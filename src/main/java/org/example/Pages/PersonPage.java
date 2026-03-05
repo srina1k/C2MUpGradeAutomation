@@ -113,6 +113,7 @@ public class PersonPage {
         String currentFrame2 = (String) ((JavascriptExecutor) driver)
                 .executeScript("return window.frameElement ? window.frameElement.name : 'no frame';");
         System.out.println("Current frame switched to: " + currentFrame2);
+        WaitUtils.waitForVisible(driver, By.cssSelector("div[id='dataExplorerFilterText2'] span[class='label']"));
     }
 
     public String frameworkID(){
@@ -132,7 +133,7 @@ public class PersonPage {
     public void clickSave(){
         WaitUtils.waitAndClick(driver,By.xpath("//input[@onclick='save();']"),5);
     }
-    public static String getSaveOppID(){
+    public String getSaveOppID(){
         return saveOppID;
     }
     public void addOppIDToWord(String filePath, String stepName){

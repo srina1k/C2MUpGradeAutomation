@@ -9,7 +9,7 @@ import org.testng.annotations.Test;
 import java.io.File;
 import java.io.IOException;
 
-public class smallFixed extends BaseClass {
+public class smallFixedP1 extends BaseClass {
     @Test
     public void Logintest(){
         String fileName = "SmallFixed.docx";
