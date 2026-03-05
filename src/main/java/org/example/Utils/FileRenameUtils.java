@@ -13,52 +13,32 @@ import java.util.*;
 public class FileRenameUtils {
 
     public static void replaceOppID(String filePath, String oldOppID, String newOppID) {
-        Path path = Paths.get(filePath).toAbsolutePath();
-        System.out.println("Updating file: " + path);
-        List<String> inputLines;
-        try {
-            inputLines = Files.readAllLines(path, StandardCharsets.UTF_8);
-        } catch (IOException e) {
-            throw new RuntimeException("Failed to read file: " + path, e);
-        }
-        if (inputLines.isEmpty()) {
-            System.out.println("No content in file, nothing to update.");
-            return;
-        }
-        List<String> output = new ArrayList<>(inputLines.size());
-        String header = inputLines.get(0);
-        output.add(header); // keep header as-is
-        boolean modified = false;
-        for (int i = 1; i < inputLines.size(); i++) {
-            String line = inputLines.get(i);
-            if (line == null || line.trim().isEmpty()) {
-                output.add(line);
-                continue;
-            }
-            String[] cols = line.split(",", -1);
-            if (cols.length >= 1) {
-                String opp = cols[0].trim();
-                if (opp.equals(oldOppID)) {
-                    cols[0] = newOppID;
-                    modified = true;
+
+        StringBuilder fileContent = new StringBuilder();
+        boolean isModified = false;
+
+        try (BufferedReader reader = new BufferedReader(new FileReader(filePath))) {
+            String line;
+            while ((line = reader.readLine()) != null) {
+                if (line.contains(oldOppID)) {
+                    line = line.replace(oldOppID, newOppID); // replace ID
+                    isModified = true;
                 }
-                output.add(String.join(",", cols));
-            } else {
-                output.add(line);
+                fileContent.append(line).append(System.lineSeparator());
             }
-        }
-        try {
-            Files.write(path, output, StandardCharsets.UTF_8, StandardOpenOption.TRUNCATE_EXISTING);
+            try (BufferedWriter writer = new BufferedWriter(new FileWriter(filePath))) {
+                writer.write(fileContent.toString());
+            }
+            if (!isModified) {
+                System.out.println("Failed to edit file: Old Opp ID not found");
+            } else {
+                System.out.println("File edited successfully");
+            }
+
         } catch (IOException e) {
-            throw new RuntimeException("Failed to write file: " + path, e);
-        }
-        if (modified) {
-            System.out.println("OPP_ID updated from " + oldOppID + " to " + newOppID);
-        } else {
-            System.out.println("Old OPP_ID " + oldOppID + " not found. No changes made.");
+            throw new RuntimeException("CSV updation failed", e);
         }
     }
-
     public static void replaceDate(String filePath){
         DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd");
         LocalDate startDate = LocalDate.now();

@@ -10,7 +10,7 @@ import java.sql.SQLException;
 public class MediumFixedP1 extends BaseClass {
     @Test
     public void testLogin(){
-        String fileName = "MediumFixed.docx";
+        String fileName = "Medium Fixed-Renewal.docx";
         File file = new File(fileName);
         if (file.exists()) {
             file.delete();
@@ -48,7 +48,7 @@ public class MediumFixedP1 extends BaseClass {
         String storeOppID =perpage.getSaveOppID();
         String oldOppID = ExcelUtils.getCellData(5,7);
         FileRenameUtils.replaceOppID(FilePath,oldOppID,storeOppID);
-        String remotePath = "/ccbfsx/Central-Pricing/renewal_site_details_uploa/";
+        String remotePath = "/ccbfsx/Central-Pricing/renewal_site_details_upload/";
         WinScpServerUtils.uploadFile(FilePath, remotePath);
         String query = String.format(DBQueries.OppCreation,storeOppID);
         DBUtils.executeSelectQuery(query);
