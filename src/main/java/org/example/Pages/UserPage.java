@@ -16,7 +16,6 @@ import java.util.Set;
 public class UserPage {
     public WebDriver driver;
     private String personID;
-
     public UserPage() {
         this.driver = DriverManager.getDriver();
     }

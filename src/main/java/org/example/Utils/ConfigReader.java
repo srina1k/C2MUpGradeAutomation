@@ -9,7 +9,6 @@ public class ConfigReader {
     private static final Properties properties = new Properties();
     private static String activeEnv;
     static Properties winproperties = new Properties();
-    static Properties DbProperties = new Properties();
     static {
         System.out.println("All loaded config keys:" + properties.keySet());
         System.out.println("base.url from ConfigReader:" + get("base.url"));
