@@ -3,7 +3,7 @@
     <parameter name="env" value="qa"/>
     <test name="ConnectionNew tests" preserve-order="true" verbose="1">
         <classes>
-            <class name="org.example.Tests.COTP1"/>
+            <class name="org.example.Tests.MCTOpportunity"/>
         </classes>
     </test>
 </suite>

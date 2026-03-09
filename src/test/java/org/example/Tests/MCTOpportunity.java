@@ -7,6 +7,7 @@ import org.testng.annotations.Test;
 import java.io.File;
 import java.io.IOException;
 import java.nio.file.Path;
+import java.nio.file.Paths;
 import java.sql.SQLException;
 
 public class MCTOpportunity extends BaseClass {
@@ -23,7 +24,7 @@ public class MCTOpportunity extends BaseClass {
     }
     @Test(dependsOnMethods = "testLogin")
     public void opportunityCreation() throws InterruptedException, SQLException, IOException {
-        ExcelUtils.loadExcel("D:\\Users\\sunag1a\\IdeaProjects\\AM_Tasks\\src\\main\\resources\\RTScenarioTestDataReport.xlsx","Sheet1");
+        ExcelUtils.loadExcel("C:\\Users\\srina1k\\IdeaProjects\\C2MUpGradeAutomation\\src\\main\\java\\Resources\\RTScenarioTestDataReport.xlsx","Sheet1");
         String personID1 = ExcelUtils.getCellData(1,4);
 
         UserPage userpage = new UserPage();
@@ -52,16 +53,14 @@ public class MCTOpportunity extends BaseClass {
 
     @Test(dependsOnMethods = "opportunityCreation")
     public void OppFileCreation(){
-        ExcelUtils.loadExcel("D:\\Users\\sunag1a\\IdeaProjects\\AM_Tasks\\src\\main\\resources\\RTScenarioTestDataReport.xlsx","Sheet1");
+        ExcelUtils.loadExcel("C:\\Users\\srina1k\\IdeaProjects\\C2MUpGradeAutomation\\src\\main\\java\\Resources\\RTScenarioTestDataReport.xlsx","Sheet1");
         String FstCsvFilePath = ExcelUtils.getCellData(3,4);
         String SecCsvFilePath = ExcelUtils.getCellData(4,4);
         String ThrCsvFilePath = ExcelUtils.getCellData(5,4);
-
         FileRenameUtils.replaceDate(FstCsvFilePath);
         FileRenameUtils.replaceDate(SecCsvFilePath);
         FileRenameUtils.replaceDate(ThrCsvFilePath);
     }
-
     @Test(dependsOnMethods = "OppFileCreation")
     public void prospectFileUpoading() throws SQLException {
         String localPath1 = ExcelUtils.getCellData(3,4);
@@ -87,7 +86,7 @@ public class MCTOpportunity extends BaseClass {
 
     @Test(dependsOnMethods = "prospectFileUpoading")
     public void siteFileUpoading() throws IOException {
-        ExcelUtils.loadExcel("D:\\Users\\sunag1a\\IdeaProjects\\AM_Tasks\\src\\main\\resources\\RTScenarioTestDataReport.xlsx","Sheet1");
+        ExcelUtils.loadExcel("C:\\Users\\srina1k\\IdeaProjects\\C2MUpGradeAutomation\\src\\main\\java\\Resources\\RTScenarioTestDataReport.xlsx","Sheet1");
         PersonPage perpage = new PersonPage();
         perpage.SearchOpp("MCTS19-RT-2026");
 
@@ -95,31 +94,25 @@ public class MCTOpportunity extends BaseClass {
         String oppId2 = perpage.OpportunityId2();
         String oppId3 = perpage.OpportunityId3();
         String oppId4 = perpage.OpportunityId4();
-
         String cust2 = perpage.Customer2();
         String cust3 = perpage.Customer3();
         String cust4 = perpage.Customer4();
-
         String txt1 = ExcelUtils.getCellData(6,4);
         String txt2 = ExcelUtils.getCellData(7,4);
         String txt3 = ExcelUtils.getCellData(8,4);
         String txt4 = ExcelUtils.getCellData(9,4);
         String remotePathSite = "/ccbfsx/Common/site_upload/";
-
         String file1 = FileRenameUtils.getFileNameFromPath(txt1);
         String file2 = FileRenameUtils.getFileNameFromPath(txt2);
         String file3 = FileRenameUtils.getFileNameFromPath(txt3);
         String file4 = FileRenameUtils.getFileNameFromPath(txt4);
-
-        FileRenameUtils.replaceCustID(Path.of(txt2), cust2);
-        FileRenameUtils.replaceCustID(Path.of(txt3), cust3);
-        FileRenameUtils.replaceCustID(Path.of(txt4), cust4);
-
+        FileRenameUtils.replaceCustID(Paths.get(txt2), cust2);
+        FileRenameUtils.replaceCustID(Paths.get(txt3), cust3);
+        FileRenameUtils.replaceCustID(Paths.get(txt4), cust4);
         WinScpServerUtils.uploadFile(txt1,remotePathSite);
         WinScpServerUtils.uploadFile(txt2,remotePathSite);
         WinScpServerUtils.uploadFile(txt3,remotePathSite);
         WinScpServerUtils.uploadFile(txt4,remotePathSite);
-
         BatchJobSubmissionPage batchP = new BatchJobSubmissionPage();
         batchP.BatchPage();
         batchP.CMSPSU1ABatch("CMSPSU1A", file1, oppId1);
@@ -153,10 +146,9 @@ public class MCTOpportunity extends BaseClass {
         OppForPerson oppPer = new OppForPerson();
         oppPer.qualifiedQuoteInProgress();
         ScreenShotUtils.captureScreenshotToWord("MCTOpportunity.docx","Quote Generated for 4th Opportunity");
-        ExcelUtils.loadExcel("D:\\Users\\sunag1a\\IdeaProjects\\AM_Tasks\\src\\main\\resources\\RTScenarioTestDataReport.xlsx","Sheet1");
+        ExcelUtils.loadExcel("C:\\Users\\srina1k\\IdeaProjects\\C2MUpGradeAutomation\\src\\main\\java\\Resources\\RTScenarioTestDataReport.xlsx","Sheet1");
         String Caseid4 = oppPer.quote();
         System.out.println("Quote ID-4: " + Caseid4);
-
         oppPer.goBack();
         oppPer.holdPenNavigation3();
         oppPer.holdingPenOverride();
@@ -164,14 +156,12 @@ public class MCTOpportunity extends BaseClass {
         ScreenShotUtils.captureScreenshotToWord("MCTOpportunity.docx","Quote Generated for 3rd Opportunity");
         String Caseid3 = oppPer.quote();
         System.out.println("Quote ID-3: " + Caseid3);
-
         oppPer.goBack();
         oppPer.holdPenNavigation2();
         oppPer.qualifiedQuoteInProgress();
         ScreenShotUtils.captureScreenshotToWord("MCTOpportunity.docx","Quote Generated for 2nd Opportunity");
         String Caseid2 = oppPer.quote();
         System.out.println("Quote ID-2: " + Caseid2);
-
         oppPer.goBack();
         oppPer.holdPenNavigation1();
         oppPer.holdingPenOverride();
@@ -179,7 +169,6 @@ public class MCTOpportunity extends BaseClass {
         ScreenShotUtils.captureScreenshotToWord( "MCTOpportunity.docx","Quote Generated for1st Opportunity");
         String Caseid1 = oppPer.quote();
         System.out.println("Quote ID-1: " + Caseid1);
-
         //Take all 4 Quote ID's and mail to QM team to check P-C relationship
         //Ended.....
     }
