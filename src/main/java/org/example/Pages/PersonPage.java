@@ -173,9 +173,9 @@ public class PersonPage {
         driver.switchTo().defaultContent();
         WaitUtils.waitForFrameAndSwitch(driver,"main",3);
         WaitUtils.waitAndClick(driver, By.id("IM_menuButton"), 5);
-        WaitUtils.waitAndClick(driver, By.id("CI_MAINMENU_topMenuItem0x28"), 5);
-        WaitUtils.waitAndClick(driver, By.id("CI_ENROLLMENT_subMenuItem1x14"), 5);
-        WaitUtils.waitAndClick(driver, By.xpath("//li[@id='cmoppsrhTabMenu']"), 5);
+        WaitUtils.waitAndClick(driver, By.xpath("//li[@id='mainMenu']"), 10);
+        WaitUtils.waitAndClick(driver, By.xpath("//li[@id='CI_MAINMENU_topMenuItem0x28']"), 10);
+        WaitUtils.waitAndClick(driver, By.xpath("//span[normalize-space()='Opportunity']"), 10);
 
         WaitUtils.waitForFrameAndSwitch(driver,"tabPage",5);
         WaitUtils.sleep(2000);
@@ -219,61 +219,63 @@ public class PersonPage {
         driver.switchTo().defaultContent();
         WaitUtils.waitForFrameAndSwitch(driver,"main",3);
         WaitUtils.waitForFrameAndSwitch(driver,"tabPage",3);
-        WebElement opportunity_2 = driver.findElement(By.xpath("(//td[@class='gridAlt paddedCell explorerGrid nowrap cursorDefault'])[1]"));
+        WaitUtils.waitForVisible(driver,By.xpath("//tbody[@id='dataExplorerTableBody1']/tr[1]/td[2]/span"));
+        WebElement opportunity_2 = driver.findElement(By.xpath("//tbody[@id='dataExplorerTableBody1']/tr[1]/td[2]/span"));
         String OppId2 = opportunity_2.getText().trim();
         System.out.println("Opportunity ID2: " + OppId2);
         WaitUtils.sleep(5000);
         return OppId2;
-
     }
     public String OpportunityId3(){
-        WebElement opportunity_3 = driver.findElement(By.xpath("(//td[@class='grid paddedCell explorerGrid nowrap cursorDefault'])[12]"));
+        WaitUtils.waitForVisible(driver,By.xpath("//tbody[@id='dataExplorerTableBody1']/tr[2]/td[2]/span"));
+        WebElement opportunity_3 = driver.findElement(By.xpath("//tbody[@id='dataExplorerTableBody1']/tr[2]/td[2]/span"));
         String OppId3 = opportunity_3.getText().trim();
         System.out.println("Opportunity ID3: " + OppId3);
         return OppId3;
     }
     public String OpportunityId4(){
-        WebElement opportunity_4 = driver.findElement(By.xpath("(//td[@class='gridAlt paddedCell explorerGrid nowrap cursorDefault'])[12]"));
+        WaitUtils.waitForVisible(driver,By.xpath("//tbody[@id='dataExplorerTableBody1']/tr[3]/td[2]/span"));
+        WebElement opportunity_4 = driver.findElement(By.xpath("//tbody[@id='dataExplorerTableBody1']/tr[3]/td[2]/span"));
         String OppId4 = opportunity_4.getText().trim();
         System.out.println("Opportunity ID4: " + OppId4);
         return OppId4;
     }
 
     public String Customer2(){
-        WaitUtils.waitAndClick(driver, By.xpath("//span[text()='RT 12 Cust 1']"),8);
+        WaitUtils.waitAndClick(driver, By.xpath("//tbody/tr[1]/th[1]/a"),8);
         driver.switchTo().defaultContent();
-        WaitUtils.waitForFrameAndSwitch(driver,"main",3);
-        WaitUtils.waitForFrameAndSwitch(driver,"tabPage",3);
+        WaitUtils.waitForFrameAndSwitch(driver,"main",5);
+        WaitUtils.waitForFrameAndSwitch(driver,"tabPage",5);
         WebElement CUSTID2 = WaitUtils.waitForVisible(driver, By.xpath("//span[@title='Go To Opportunity for Person ']"));
         String C2 = CUSTID2.getText();
         System.out.println("Customer ID2: " + C2);
         driver.switchTo().defaultContent();
-        WaitUtils.waitForFrameAndSwitch(driver,"main",3);
+        WaitUtils.waitForFrameAndSwitch(driver,"main",5);
         WaitUtils.waitAndClick(driver, By.id("IM_GOBACK"), 5);
         WaitUtils.sleep(2000);
         return C2;
     }
     public String Customer3(){
-        WaitUtils.waitForFrameAndSwitch(driver,"tabPage",3);
-        WaitUtils.waitAndClick(driver, By.xpath("//span[text()='RT 12 Cust 2']"),10);
+        WaitUtils.waitForFrameAndSwitch(driver,"tabPage",5);
+        WaitUtils.waitAndClick(driver, By.xpath("//tbody/tr[2]/th[1]/a"),10);
         driver.switchTo().defaultContent();
-        WaitUtils.waitForFrameAndSwitch(driver,"main",3);
-        WaitUtils.waitForFrameAndSwitch(driver,"tabPage",3);
+        WaitUtils.waitForFrameAndSwitch(driver,"main",5);
+        WaitUtils.waitForFrameAndSwitch(driver,"tabPage",5);
         WebElement CUSTID3 = driver.findElement(By.xpath("//span[@title='Go To Opportunity for Person ']"));
         String C3 = CUSTID3.getText();
         System.out.println("Customer ID3: " + C3);
         driver.switchTo().defaultContent();
-        WaitUtils.waitForFrameAndSwitch(driver,"main",3);
+        WaitUtils.waitForFrameAndSwitch(driver,"main",5);
         WaitUtils.waitAndClick(driver, By.id("IM_GOBACK"), 5);
         WaitUtils.sleep(2000);
         return C3;
     }
     public String Customer4(){
         WaitUtils.waitForFrameAndSwitch(driver,"tabPage",5);
-        WaitUtils.waitAndClick(driver, By.xpath("(//a[@class='pseudoLink'])[7]"),8);
+        WaitUtils.waitAndClick(driver, By.xpath("//tbody/tr[3]/th[1]/a"),8);
         driver.switchTo().defaultContent();
-        WaitUtils.waitForFrameAndSwitch(driver,"main",3);
-        WaitUtils.waitForFrameAndSwitch(driver,"tabPage",3);
+        WaitUtils.waitForFrameAndSwitch(driver,"main",5);
+        WaitUtils.waitForFrameAndSwitch(driver,"tabPage",5);
         WebElement CUSTID4 = driver.findElement(By.xpath("//span[@title='Go To Opportunity for Person ']"));
         String C4 = CUSTID4.getText();
         System.out.println("Customer ID4: " + C4);
@@ -282,7 +284,7 @@ public class PersonPage {
     public  void goback(){
         driver.switchTo().defaultContent();
         WaitUtils.waitForFrameAndSwitch(driver, "main", 5);
-        WaitUtils.waitAndClick(driver, By.xpath("//span[@id='IM_GOBACK']"),15);
+        WaitUtils.waitAndClick(driver, By.xpath("//ou-button[@id='IM_GOBACK']"),15);
     }
 
     public  void gobackClickRefresh(){
