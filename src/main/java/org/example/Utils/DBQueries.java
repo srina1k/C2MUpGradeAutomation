@@ -40,4 +40,7 @@ public class DBQueries {
     public static final String SACheckQuery = "select * from CISADM.CI_SA WHERE acct_id in (select ACCT_ID from CISADM.CM_OUT_MKTMSG  "
             + "where CM_MKTMSG_ID in(select CM_MKTMSG_ID from CISADM.CM_OUT_MKTMSG_CHAR "
             + "where CHAR_VAL_FK1 in (select CM_CONTRACT_ID from CISADM.CM_CONTRACT where CM_OPPORTUNITY_ID in ('%s'))))";
+    public static final String billStop = "select * from ci_acct where acct_id in ('%s')";
+    public static final String billStop1 = "select * from CI_ACCT_CHAR where CHAR_TYPE_CD in ('CM-BSTOP') and ACCT_ID in ('%s')";
+
 }

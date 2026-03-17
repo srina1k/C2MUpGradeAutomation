@@ -92,12 +92,12 @@ public class BatchJobSubmissionPage {
             WaitUtils.ElementToBeClickable(driver,By.xpath("//span/input[@id='batchControlInp']"),10);
             WebElement batch_control=driver.findElement(By.xpath("//span/input[@id='batchControlInp']"));
             batch_control.click();
-            new Actions(driver).doubleClick(batch_control).sendKeys(Keys.BACK_SPACE).sendKeys(batchcode).sendKeys(Keys.ENTER).sendKeys(Keys.ENTER).perform();
+            new Actions(driver).doubleClick(batch_control).pause(Duration.ofSeconds(3)).sendKeys(Keys.BACK_SPACE).pause(Duration.ofSeconds(3)).sendKeys(batchcode).sendKeys(Keys.ENTER).sendKeys(Keys.ENTER).perform();
             //batch_control.sendKeys(batchcode).sendKeys(Keys.ENTER);
             //WaitUtils.waitForPVisible(driver,By.xpath("//input[@id='batchControlInp']"),10);
             WaitUtils.waitForVisible(driver,By.xpath("//span/input[@id='boGroup_user']"));
             WebElement double_click = driver.findElement(By.xpath("//span/input[@id='boGroup_user']"));
-            new Actions(driver).doubleClick(double_click).sendKeys(Keys.BACK_SPACE).sendKeys("BATCHUSR").sendKeys(Keys.ENTER).sendKeys(Keys.ENTER).perform();
+            new Actions(driver).doubleClick(double_click).sendKeys(Keys.BACK_SPACE).pause(Duration.ofSeconds(8)).sendKeys("BATCHUSR").pause(Duration.ofSeconds(5)).sendKeys(Keys.ENTER).sendKeys(Keys.ENTER).perform();
             // Actions act = new Actions(driver);
 //            act.doubleClick(double_click).build().perform();
 //            act.sendKeys(Keys.BACK_SPACE);
@@ -189,12 +189,12 @@ public class BatchJobSubmissionPage {
         WaitUtils.waitForFrameAndSwitch(driver,"uiMap",5);
         WaitUtils.ElementToBeClickable(driver,By.xpath("//span/input[@id='batchControlInp']"),10);
         WebElement batch_control=driver.findElement(By.xpath("//span/input[@id='batchControlInp']"));
-        batch_control.click();;
-        new Actions(driver).doubleClick(batch_control).sendKeys(Keys.BACK_SPACE).sendKeys(batchcode).sendKeys(Keys.ENTER).sendKeys(Keys.ENTER).perform();
+        batch_control.click();
+        new Actions(driver).doubleClick(batch_control).pause(Duration.ofSeconds(3)).sendKeys(Keys.BACK_SPACE).pause(Duration.ofSeconds(3)).sendKeys(batchcode).sendKeys(Keys.ENTER).sendKeys(Keys.ENTER).perform();
         //driver.findElement(By.xpath("//span/input[@id='batchControlInp']")).sendKeys(batchcode);
         WaitUtils.waitForVisible(driver,By.xpath("//span/input[@id='boGroup_user']"));
         WebElement double_click = driver.findElement(By.xpath("//span/input[@id='boGroup_user']"));
-        new Actions(driver).doubleClick(double_click).sendKeys(Keys.BACK_SPACE).sendKeys("BATCHUSR").sendKeys(Keys.ENTER).sendKeys(Keys.ENTER).perform();
+        new Actions(driver).doubleClick(double_click).pause(Duration.ofSeconds(3)).sendKeys(Keys.BACK_SPACE).pause(Duration.ofSeconds(3)).sendKeys("BATCHUSR").sendKeys(Keys.ENTER).sendKeys(Keys.ENTER).perform();
 //        Actions act = new Actions(driver);
 //        act.doubleClick(double_click).build().perform();
 //        act.sendKeys(Keys.BACK_SPACE);
@@ -247,10 +247,10 @@ public class BatchJobSubmissionPage {
         WaitUtils.ElementToBeClickable(driver,By.xpath("//span/input[@id='batchControlInp']"),10);
         WebElement batch_control= driver.findElement(By.xpath("//span/input[@id='batchControlInp']"));
         batch_control.click();
-        new Actions(driver).doubleClick(batch_control).sendKeys(Keys.BACK_SPACE).sendKeys(batchcode).sendKeys(Keys.ENTER).sendKeys(Keys.ENTER).perform();
+        new Actions(driver).doubleClick(batch_control).pause(Duration.ofSeconds(3)).sendKeys(Keys.BACK_SPACE).pause(Duration.ofSeconds(3)).sendKeys(batchcode).sendKeys(Keys.ENTER).sendKeys(Keys.ENTER).perform();
         WaitUtils.waitForVisible(driver,By.xpath("//span/input[@id='boGroup_user']"));
         WebElement double_click= driver.findElement(By.xpath("//span/input[@id='boGroup_user']"));
-        new Actions(driver).doubleClick(double_click).sendKeys(Keys.BACK_SPACE).sendKeys("BATCHUSR").sendKeys(Keys.ENTER).sendKeys(Keys.ENTER).perform();
+        new Actions(driver).doubleClick(double_click).pause(Duration.ofSeconds(3)).sendKeys(Keys.BACK_SPACE).pause(Duration.ofSeconds(3)).sendKeys("BATCHUSR").sendKeys(Keys.ENTER).sendKeys(Keys.ENTER).perform();
         WaitUtils.sleep(3000);
 //        driver.findElement(By.cssSelector("input[id='BATCH_CD']")).sendKeys(batchcode);
 //        WebElement double_click = driver.findElement(By.xpath("//input[@id='USER_ID']"));
@@ -296,7 +296,31 @@ public class BatchJobSubmissionPage {
         WaitUtils.waitAndClick(driver, By.xpath("//ou-button[@id='IM_GOBACK']"),10);
         WaitUtils.sleep(2000);
     }
+    public void CMACUPL4Batch(String batchcode, String fileName, String accountID) {
+        driver.switchTo().defaultContent();
+        WaitUtils.waitForFrameAndSwitch(driver, "main", 5);
+        WaitUtils.waitForFrameAndSwitch(driver, "tabPage", 5);
+        driver.findElement(By.cssSelector("input[id='BATCH_CD']")).sendKeys(batchcode);
 
+        WebElement double_click2 = driver.findElement(By.xpath("//input[@id='USER_ID']"));
+        Actions act2 = new Actions(driver);
+        act2.doubleClick(double_click2).build().perform();
+        act2.sendKeys(Keys.BACK_SPACE);
+        WaitUtils.sleep(1000);
+        driver.findElement(By.xpath("//input[@id='USER_ID']")).sendKeys("BATCHUSR");
+        WaitUtils.sleep(1000);
+
+        driver.switchTo().frame("BJP");
+        driver.findElement(By.id("BJP:1$BATCH_PARM_VAL")).sendKeys(fileName);
+        driver.findElement(By.id("BJP:2$BATCH_PARM_VAL")).sendKeys(accountID);
+
+        WebElement bulk = driver.findElement(By.id("BJP:28$BATCH_PARM_VAL"));
+        Actions act = new Actions(driver);
+        act.doubleClick(bulk).build().perform();
+        act.sendKeys(Keys.BACK_SPACE);
+        driver.findElement(By.id("BJP:28$BATCH_PARM_VAL")).sendKeys("Y");
+        driver.findElement(By.id("BJP:29$BATCH_PARM_VAL")).sendKeys("1");
+    }
     public void CMLTMPTBatch (String batchcode, String businessDate) {
 
         driver.switchTo().defaultContent();
@@ -470,6 +494,32 @@ public class BatchJobSubmissionPage {
         WaitUtils.waitForFrameAndSwitch(driver, "main", 5);
         WaitUtils.waitAndClick(driver, By.xpath("//span[@id='IM_GOBACK']"),10);
         WaitUtils.sleep(2000);*/
+    }
+    public void clickRefresh() {
+        driver.switchTo().defaultContent();
+        WaitUtils.waitForFrameAndSwitch(driver,"main",5);
+        WaitUtils.waitAndClick(driver, By.cssSelector("input[id='IM_SAVE']"),5);
+        WaitUtils.sleep(3000);
+        WebElement refresh = driver.findElement(By.cssSelector("input[id='IM_REFRESH']"));
+
+        while(true) {
+            WaitUtils.waitForFrameAndSwitch(driver, "tabPage", 5);
+            String status = driver.findElement(By.xpath("//span[@id='BATCH_JOB_STAT_FLG']")).getText().trim();
+            System.out.println("Current Batch status: " + status);
+            if ("Ended".equalsIgnoreCase(status)) {
+                System.out.println("Batch completed successfully");
+                break;
+            }
+            driver.switchTo().defaultContent();
+            WaitUtils.waitForFrameAndSwitch(driver, "main", 5);
+            refresh.click();
+            WaitUtils.sleep(8000);
+        }
+        driver.switchTo().defaultContent();
+        WaitUtils.waitForFrameAndSwitch(driver, "main", 5);
+        WaitUtils.waitAndClick(driver, By.xpath("//span[@id='IM_GOBACK']"),10);
+        WaitUtils.sleep(2000);driver.switchTo().defaultContent();
+
     }
 
 }

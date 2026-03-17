@@ -50,7 +50,7 @@ public class WaitUtils {
         WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(timeoutInSeconds));
         wait.until(ExpectedConditions.frameToBeAvailableAndSwitchToIt(frameNameOrId));
     }
-    public static void waitAndClick(WebDriver driver, By locator, long seconds){
+    public static void waitAndClick(WebDriver driver, By locator, int seconds){
         try{
             getWait(driver, seconds).until(ExpectedConditions.elementToBeClickable(locator)).click();
         } catch (TimeoutException te){

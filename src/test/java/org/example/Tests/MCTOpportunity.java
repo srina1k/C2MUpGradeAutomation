@@ -33,7 +33,6 @@ public class MCTOpportunity extends BaseClass {
         userpage.clickSearch();
         WaitUtils.sleep(3000);
         ScreenShotUtils.captureScreenshotToWord("MCTOpportunity.docx","Step2:Person Details");
-
         PersonPage perpage = new PersonPage();
         perpage.AddOpportunityDetails("MCT");
         perpage.opportunityType("Warm Prospect");
@@ -155,6 +154,14 @@ public class MCTOpportunity extends BaseClass {
     @Test(dependsOnMethods = "BatchRun")
     public void QuoteGeneration() throws IOException {
         OppForPerson oppPer = new OppForPerson();
+        oppPer.echoeStatuscheck1();
+        System.out.println("echoeStatuscheck1 is done");
+        oppPer.echoeStatuscheck2();
+        System.out.println("echoeStatuscheck2 is done");
+        oppPer.echoeStatuscheck3();
+        System.out.println("echoeStatuscheck3 is done");
+        oppPer.echoeStatuscheck4();
+        System.out.println("echoeStatuscheck4 is done");
         oppPer.qualifiedQuoteInProgress();
         ScreenShotUtils.captureScreenshotToWord("MCTOpportunity.docx","Quote Generated for 4th Opportunity");
         ExcelUtils.loadExcel("C:\\Users\\srina1k\\IdeaProjects\\C2MUpGradeAutomation\\src\\main\\java\\Resources\\RTScenarioTestDataReport.xlsx","Sheet1");

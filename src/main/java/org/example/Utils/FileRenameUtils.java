@@ -81,6 +81,19 @@ public class FileRenameUtils {
         }
         Files.write(filePath, lines);
     }
+    public static String renameFile(String filePath, String newName){
+        File oldFile = new File(filePath);
+        if (!oldFile.exists()){
+            System.out.println("File not found: " + filePath);
+        }
+
+        File newFile = new File(oldFile.getParent() + File.separator + newName);
+        boolean isRenamed = oldFile.renameTo(newFile);
+        if (!isRenamed){
+            System.out.println("Failed to rename file");
+        }
+        return newFile.getAbsolutePath();
+    }
 
     public static void replaceOPPID(String filePath, List<String> newOPPIDs) throws Exception {
         Iterator<String> idIterator = newOPPIDs.iterator();

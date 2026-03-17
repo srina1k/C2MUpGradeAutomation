@@ -240,12 +240,12 @@ public class PersonPage {
         System.out.println("Opportunity ID4: " + OppId4);
         return OppId4;
     }
-
     public String Customer2(){
         WaitUtils.waitAndClick(driver, By.xpath("//tbody/tr[1]/th[1]/a"),8);
         driver.switchTo().defaultContent();
         WaitUtils.waitForFrameAndSwitch(driver,"main",5);
         WaitUtils.waitForFrameAndSwitch(driver,"tabPage",5);
+        WaitUtils.sleep(2000);
         WebElement CUSTID2 = WaitUtils.waitForVisible(driver, By.xpath("//span[@title='Go To Opportunity for Person ']"));
         String C2 = CUSTID2.getText();
         System.out.println("Customer ID2: " + C2);
@@ -261,6 +261,7 @@ public class PersonPage {
         driver.switchTo().defaultContent();
         WaitUtils.waitForFrameAndSwitch(driver,"main",5);
         WaitUtils.waitForFrameAndSwitch(driver,"tabPage",5);
+        WaitUtils.sleep(2000);
         WebElement CUSTID3 = driver.findElement(By.xpath("//span[@title='Go To Opportunity for Person ']"));
         String C3 = CUSTID3.getText();
         System.out.println("Customer ID3: " + C3);
@@ -276,22 +277,22 @@ public class PersonPage {
         driver.switchTo().defaultContent();
         WaitUtils.waitForFrameAndSwitch(driver,"main",5);
         WaitUtils.waitForFrameAndSwitch(driver,"tabPage",5);
+        WaitUtils.sleep(2000);
         WebElement CUSTID4 = driver.findElement(By.xpath("//span[@title='Go To Opportunity for Person ']"));
         String C4 = CUSTID4.getText();
         System.out.println("Customer ID4: " + C4);
         return C4;
     }
-    public  void goback(){
+    public void goback(){
         driver.switchTo().defaultContent();
         WaitUtils.waitForFrameAndSwitch(driver, "main", 5);
         WaitUtils.waitAndClick(driver, By.xpath("//ou-button[@id='IM_GOBACK']"),15);
     }
 
-    public  void gobackClickRefresh(){
+    public void gobackClickRefresh(){
         driver.switchTo().defaultContent();
         WaitUtils.waitForFrameAndSwitch(driver, "main", 5);
         WaitUtils.waitAndClick(driver, By.xpath("//span[@id='IM_GOBACK']"),15);
         WaitUtils.waitAndClick(driver, By.id("IM_REFRESH"), 5);
     }
-
 }

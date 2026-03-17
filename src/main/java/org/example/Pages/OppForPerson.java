@@ -13,6 +13,7 @@ import org.example.Utils.DriverManager;
 import java.io.IOException;
 
 import java.time.Duration;
+import java.util.List;
 
 public class OppForPerson {
     private final WebDriver driver;
@@ -85,11 +86,11 @@ public class OppForPerson {
 
     public void QualifyingOpportunity(){
         driver.switchTo().defaultContent();
-        WaitUtils.waitForFrameAndSwitch(driver,"main",2);
-        WaitUtils.waitForFrameAndSwitch(driver,"tabPage",2);
-        WaitUtils.waitForPresence(driver,By.cssSelector("iframe[title='zoneMapFrame_1']"));
-        driver.switchTo().frame(driver.findElement(By.cssSelector("iframe[title='zoneMapFrame_1']")));
-
+        WaitUtils.waitForFrameAndSwitch(driver,"main",5);
+        WaitUtils.waitForFrameAndSwitch(driver,"tabPage",5);
+        WaitUtils.getWait(driver,15);
+        //WaitUtils.waitForPresence(driver,By.cssSelector("iframe[title='zoneMapFrame_1']"));
+        WaitUtils.waitForFrameAndSwitch(driver,"zoneMapFrame_1",10);
         driver.findElement(By.cssSelector("input[value='Contacted']")).click();
         WaitUtils.sleep(5000);
         driver.switchTo().defaultContent();
@@ -136,14 +137,13 @@ public class OppForPerson {
         WaitUtils.waitAndClick(driver, By.xpath("//span[@id='IM_GOBACK']"),5);
     }
 
-    //online Mode
     public void qualifiedQuoteInProgress() throws IOException {
+        WaitUtils.getWait(driver,10);
         driver.switchTo().defaultContent();
-        WaitUtils.waitForFrameAndSwitch(driver,"main",2);
-        WaitUtils.waitForFrameAndSwitch(driver,"tabPage",2);
+        WaitUtils.waitForFrameAndSwitch(driver, "main", 2);
+        WaitUtils.waitForFrameAndSwitch(driver, "tabPage", 2);
         driver.switchTo().frame(driver.findElement(By.cssSelector("iframe[title='zoneMapFrame_1']")));
-        WaitUtils.waitAndClick(driver,By.cssSelector("input[value='Qualified - Quote in Process']"), 5);
-
+        WaitUtils.waitAndClick(driver,By.cssSelector("input[value='Qualified - Quote in Process']"), 10);
         WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(15));
         wait.until(driver -> driver.getWindowHandles().size() > 1);
 
@@ -266,7 +266,6 @@ public class OppForPerson {
         driver.switchTo().defaultContent();
         WaitUtils.waitForFrameAndSwitch(driver,"main",3);
         WaitUtils.waitAndClick(driver, By.id("IM_REFRESH"), 5);
-
         WaitUtils.waitForFrameAndSwitch(driver, "tabPage", 3);
         WaitUtils.waitAndClick(driver, By.xpath("(//a[@navoptcd='cmoppptlTabMenu'])[1]"),15);
         WaitUtils.sleep(3000);
@@ -324,5 +323,126 @@ public class OppForPerson {
         WaitUtils.waitForFrameAndSwitch(driver, "tabPage", 3);
         WaitUtils.waitAndClick(driver, By.xpath("(//a[@navoptcd='cmoppptlTabMenu'])[1]"),10);
         WaitUtils.waitForVisible(driver, By.xpath("//span[@title='Go To Opportunity for Person ']"));
+    }
+    public void echoeStatuscheck1(){
+        WaitUtils.waitAndClick(driver, goBackBtn, 5);
+        WaitUtils.waitForFrameAndSwitch(driver, "tabPage", 3);
+        WaitUtils.waitAndClick(driver, By.xpath("(//a[@navoptcd='cmoppptlTabMenu'])[1]"),15);
+        WaitUtils.waitForVisible(driver, By.xpath("//span[@title='Go To Opportunity for Person ']"));
+        WaitUtils.waitAndClick(driver, By.xpath("//span[@title='Go To Opportunity for Person ']"), 5);
+        List<WebElement> validationYes=driver.findElements(By.xpath("(//td[contains(text(),'ECOES/XOSERVE Validation')])[2]"));
+        boolean isYes=true;
+        for(WebElement Yes:validationYes){
+            String text =Yes.getText().trim();
+            if(!text.equalsIgnoreCase("Yes")){
+                isYes=false;
+            }
+        }
+        if(isYes){
+            System.out.println("All ECOES Validation is YES");
+        }else{
+            WaitUtils.waitAndClick(driver,By.xpath("//input[@value='Override']"),10);
+            WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(15));
+            wait.until(driver -> driver.getWindowHandles().size() > 1);
+            for(String AcceptRemoveReason : driver.getWindowHandles()){
+                driver.switchTo().window(AcceptRemoveReason);
+            }
+            WebElement ReasonText= driver.findElement(By.xpath("//textarea[@orafield='removeReason']"));
+            ReasonText.sendKeys("Testing");
+            WaitUtils.waitAndClick(driver,By.xpath("//input[@value='Save']"),10);
+        }
+    }
+    public void echoeStatuscheck2(){
+        driver.switchTo().defaultContent();
+        WaitUtils.waitForFrameAndSwitch(driver,"main",5);
+        WaitUtils.waitAndClick(driver, goBackBtn, 5);
+        WaitUtils.waitAndClick(driver, goBackBtn, 5);
+        WaitUtils.waitForFrameAndSwitch(driver,"tabPage",5);
+        WaitUtils.waitAndClick(driver, By.xpath("(//a[@navoptcd='cmoppptlTabMenu'])[2]"),15);
+        WaitUtils.waitForVisible(driver, By.xpath("//span[@title='Go To Opportunity for Person ']"));
+        WaitUtils.waitAndClick(driver, By.xpath("//span[@title='Go To Opportunity for Person ']"), 5);
+        List<WebElement> validationYes=driver.findElements(By.xpath("(//td[contains(text(),'ECOES/XOSERVE Validation')])[2]"));
+        boolean isYes=true;
+        for(WebElement Yes:validationYes){
+            String text =Yes.getText().trim();
+            if(!text.equalsIgnoreCase("Yes")){
+                isYes=false;
+            }
+        }
+        if(isYes){
+            System.out.println("All ECOES Validation is YES");
+        }else{
+            WaitUtils.waitAndClick(driver,By.xpath("//input[@value='Override']"),10);
+            WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(15));
+            wait.until(driver -> driver.getWindowHandles().size() > 1);
+            for(String AcceptRemoveReason : driver.getWindowHandles()){
+                driver.switchTo().window(AcceptRemoveReason);
+            }
+            WebElement ReasonText= driver.findElement(By.xpath("//textarea[@orafield='removeReason']"));
+            ReasonText.sendKeys("Testing");
+            WaitUtils.waitAndClick(driver,By.xpath("//input[@value='Save']"),10);
+        }
+    }
+    public void echoeStatuscheck3(){
+        driver.switchTo().defaultContent();
+        WaitUtils.waitForFrameAndSwitch(driver,"main",5);
+        WaitUtils.waitAndClick(driver, goBackBtn, 5);
+        WaitUtils.waitAndClick(driver, goBackBtn, 5);
+        WaitUtils.waitForFrameAndSwitch(driver,"tabPage",5);
+        WaitUtils.waitAndClick(driver, By.xpath("(//a[@navoptcd='cmoppptlTabMenu'])[3]"),15);
+        WaitUtils.waitForVisible(driver, By.xpath("//span[@title='Go To Opportunity for Person ']"));
+        WaitUtils.waitAndClick(driver, By.xpath("//span[@title='Go To Opportunity for Person ']"), 5);
+        List<WebElement> validationYes=driver.findElements(By.xpath("(//td[contains(text(),'ECOES/XOSERVE Validation')])[2]"));
+        boolean isYes=true;
+        for(WebElement Yes:validationYes){
+            String text =Yes.getText().trim();
+            if(!text.equalsIgnoreCase("Yes")){
+                isYes=false;
+            }
+        }
+        if(isYes){
+            System.out.println("All ECOES Validation is YES");
+        }else{
+            WaitUtils.waitAndClick(driver,By.xpath("//input[@value='Override']"),10);
+            WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(15));
+            wait.until(driver -> driver.getWindowHandles().size() > 1);
+            for(String AcceptRemoveReason : driver.getWindowHandles()){
+                driver.switchTo().window(AcceptRemoveReason);
+            }
+            WebElement ReasonText= driver.findElement(By.xpath("//textarea[@orafield='removeReason']"));
+            ReasonText.sendKeys("Testing");
+            WaitUtils.waitAndClick(driver,By.xpath("//input[@value='Save']"),10);
+        }
+    }
+    public void echoeStatuscheck4(){
+        driver.switchTo().defaultContent();
+        WaitUtils.waitForFrameAndSwitch(driver,"main",5);
+        WaitUtils.waitAndClick(driver, goBackBtn, 5);
+        WaitUtils.waitAndClick(driver, goBackBtn, 5);
+        WaitUtils.waitForFrameAndSwitch(driver,"tabPage",5);
+        WaitUtils.waitAndClick(driver, By.xpath("(//a[@navoptcd='cmoppptlTabMenu'])[4]"),15);
+        WaitUtils.waitForVisible(driver, By.xpath("//span[@title='Go To Opportunity for Person ']"));
+        WaitUtils.waitAndClick(driver, By.xpath("//span[@title='Go To Opportunity for Person ']"), 5);
+        List<WebElement> validationYes=driver.findElements(By.xpath("(//td[contains(text(),'ECOES/XOSERVE Validation')])[2]"));
+        boolean isYes=true;
+        for(WebElement Yes:validationYes){
+            String text =Yes.getText().trim();
+            if(!text.equalsIgnoreCase("Yes")){
+                isYes=false;
+            }
+        }
+        if(isYes){
+            System.out.println("All ECOES Validation is YES");
+        }else{
+            WaitUtils.waitAndClick(driver,By.xpath("//input[@value='Override']"),10);
+            WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(15));
+            wait.until(driver -> driver.getWindowHandles().size() > 1);
+            for(String AcceptRemoveReason : driver.getWindowHandles()){
+                driver.switchTo().window(AcceptRemoveReason);
+            }
+            WebElement ReasonText= driver.findElement(By.xpath("//textarea[@orafield='removeReason']"));
+            ReasonText.sendKeys("Testing");
+            WaitUtils.waitAndClick(driver,By.xpath("//input[@value='Save']"),10);
+        }
     }
 }
