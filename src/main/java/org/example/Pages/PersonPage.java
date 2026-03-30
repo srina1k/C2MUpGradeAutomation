@@ -164,6 +164,7 @@ public class PersonPage {
         WaitUtils.sleep(5000);
         driver.switchTo().defaultContent();
         WaitUtils.waitForFrameAndSwitch(driver, "main", 3);
+        //WaitUtils.waitAndClick(driver,By.id("IM_GOBACK"),10);
         WaitUtils.waitForFrameAndSwitch(driver, "tabPage", 3);
         WaitUtils.waitAndClick(driver, By.xpath("(//span[@title='Go To Opportunity for Person '])[3]"), 2);
     }
@@ -171,17 +172,16 @@ public class PersonPage {
     //Check Opportunity from application
     public void SearchOpp(String MULTI_CUSTOMER_TENDER_ID) throws IOException {
         driver.switchTo().defaultContent();
-        WaitUtils.waitForFrameAndSwitch(driver,"main",3);
-        WaitUtils.waitAndClick(driver, By.id("IM_menuButton"), 5);
+        WaitUtils.waitForFrameAndSwitch(driver,"main",10);
+        WaitUtils.sleep(2000);
+        WaitUtils.waitAndClick(driver, By.id("IM_menuButton"), 10);
         WaitUtils.waitAndClick(driver, By.xpath("//li[@id='mainMenu']"), 10);
         WaitUtils.waitAndClick(driver, By.xpath("//li[@id='CI_MAINMENU_topMenuItem0x28']"), 10);
         WaitUtils.waitAndClick(driver, By.xpath("//span[normalize-space()='Opportunity']"), 10);
-
-        WaitUtils.waitForFrameAndSwitch(driver,"tabPage",5);
+        WaitUtils.waitForFrameAndSwitch(driver,"tabPage",10);
         WaitUtils.sleep(2000);
         Select s19 = new Select(driver.findElement(By.xpath("//select[@id='multiQueryZoneFilters1']")));
         s19.selectByIndex(3);
-
         WaitUtils.waitAndClick(driver, By.xpath("//input[@orafield='multiCustomerTenderId']"),5);
         driver.findElement(By.xpath("//input[@orafield='multiCustomerTenderId']")).sendKeys(MULTI_CUSTOMER_TENDER_ID);
         WaitUtils.waitAndClick(driver, By.xpath("//input[@value='Search']"),5);
@@ -234,8 +234,8 @@ public class PersonPage {
         return OppId3;
     }
     public String OpportunityId4(){
-        WaitUtils.waitForVisible(driver,By.xpath("//tbody[@id='dataExplorerTableBody1']/tr[3]/td[2]/span"));
-        WebElement opportunity_4 = driver.findElement(By.xpath("//tbody[@id='dataExplorerTableBody1']/tr[3]/td[2]/span"));
+        WaitUtils.waitForVisible(driver,By.xpath("//tbody[@id='dataExplorerTableBody1']/tr[4]/td[2]/span"));
+        WebElement opportunity_4 = driver.findElement(By.xpath("//tbody[@id='dataExplorerTableBody1']/tr[4]/td[2]/span"));
         String OppId4 = opportunity_4.getText().trim();
         System.out.println("Opportunity ID4: " + OppId4);
         return OppId4;

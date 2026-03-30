@@ -27,6 +27,7 @@ public class UserPage {
         System.out.println("Current frame switched to: " + currentFrame);
 
         WaitUtils.waitAndClick(driver, (By.id("IM_menuButton")), 30);
+        WaitUtils.getWait(driver,20);
         By[] menuSequence1 = {
                 By.xpath("//li[@id='mainMenu']"), By.xpath("//li[@id='CI_MAINMENU_topMenuItem0x28']"), By.xpath("(//span[contains(text(),'Add')])[9]")};
         for (By menuItem1 : menuSequence1) {

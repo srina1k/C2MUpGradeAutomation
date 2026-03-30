@@ -40,11 +40,13 @@ public class MediumFixedP1 extends BaseClass {
         perpage.addOppIDToWord("Medium Fixed-Renewal.docx", "Step5:Opportunity created in Identified status");
     }
     @Test(dependsOnMethods = "opportunityCreation")
-    public void FileUpoading() throws SQLException {
+    public void FileUpoading() throws SQLException, IOException {
         ExcelUtils.loadExcel("C:\\Users\\srina1k\\IdeaProjects\\C2MUpGradeAutomation\\src\\main\\java\\Resources\\RTScenarioTestDataReport.xlsx","Sheet1");
         String FilePath = ExcelUtils.getCellData(2,7);
         PersonPage perpage = new PersonPage();
         String newOppID = perpage.captureOppID();
+        System.out.println(newOppID);
+        ExcelUtils.setCellData(3,7,newOppID);
         String storeOppID =perpage.getSaveOppID();
         String oldOppID = ExcelUtils.getCellData(5,7);
         FileRenameUtils.replaceOppID(FilePath,oldOppID,storeOppID);

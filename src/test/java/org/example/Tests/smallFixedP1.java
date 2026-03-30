@@ -60,6 +60,6 @@ public class smallFixedP1 extends BaseClass {
 
         String Caseid = oppPer.quote();
         ExcelUtils.loadExcel("C:\\Users\\srina1k\\OneDrive - EDF\\Documents\\GitHub\\AM-Automation-Framework\\src\\main\\resources\\RTScenarioTestDataReport.xlsx","Sheet1");
-        ExcelUtils.setCellData(4,9, Caseid);
+        ExcelUtils.setCellData(4,10, Caseid);
     }
 }

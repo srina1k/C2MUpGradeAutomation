@@ -119,7 +119,6 @@ public class FileRenameUtils {
                 updatedLines.add(String.join(",", cols));
             }
         }
-
         Files.write(Paths.get(filePath), updatedLines);
     }
 }
