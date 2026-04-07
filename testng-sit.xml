@@ -2,8 +2,11 @@
 <suite name="All Test Suite">
     <parameter name="env" value="qa"/>
     <test name="ConnectionNew tests" preserve-order="true" verbose="1">
+        <listeners>
+            <listener class-name="org.example.Listener.ExtentScreenshotListener"/>
+        </listeners>
         <classes>
-            <class name="org.example.Tests.FlexBasketP1"/>
+            <class name="org.example.Tests.pdvProcess"/>
         </classes>
     </test>
 </suite>

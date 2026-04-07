@@ -2,18 +2,11 @@ package org.example.Tests;
 import org.example.Listener.RetryAnalyzer;
 import org.example.Utils.*;
 import org.example.Base.BaseClass;
-import org.openqa.selenium.support.ui.ExpectedConditions;
-import org.openqa.selenium.support.ui.Wait;
-import org.openqa.selenium.support.ui.WebDriverWait;
 import org.example.Pages.*;
-import org.testng.Assert;
-import org.testng.annotations.Listeners;
 import org.testng.annotations.Test;
 
 import java.io.File;
 import java.io.IOException;
-import java.time.Duration;
-import static org.example.Utils.DriverManager.getDriver;
 
 public class ConnectionNew extends BaseClass {
     @Test
@@ -28,7 +21,7 @@ public class ConnectionNew extends BaseClass {
         LoginPage loginPage=new LoginPage(DriverManager.getDriver());
         loginPage.Logincredentials();
     }
-    @Test(dependsOnMethods = "LoginTest",retryAnalyzer = RetryAnalyzer.class)
+    @Test(dependsOnMethods = "LoginTest")
     public void opportunityCreation1() throws InterruptedException, IOException {
         ExcelUtils.loadExcel("C:\\Users\\srina1k\\OneDrive - EDF\\Documents\\GitHub\\AM-Automation-Framework\\src\\main\\resources\\RTScenarioTestDataReport.xlsx", "Sheet1");
         String personID1 = ExcelUtils.getCellData(1,5);
@@ -51,7 +44,7 @@ public class ConnectionNew extends BaseClass {
         perpage.addOppIDToWord("New_Connection.docx", "Step5:Opportunity created in Identified status");
         ExcelUtils.setCellData(3,5, storeOppID);
     }
-    @Test (dependsOnMethods = "opportunityCreation1",retryAnalyzer = RetryAnalyzer.class)
+    @Test (dependsOnMethods = "opportunityCreation1")
     public void premiseCreation1() throws InterruptedException {
         ExcelUtils.loadExcel("C:\\Users\\srina1k\\OneDrive - EDF\\Documents\\GitHub\\AM-Automation-Framework\\src\\main\\resources\\RTScenarioTestDataReport.xlsx", "Sheet1");
         String premiseID = ExcelUtils.getCellData(2, 5);
@@ -68,7 +61,7 @@ public class ConnectionNew extends BaseClass {
         premise.clickSave();
         ScreenShotUtils.captureScreenshotToWord("New_Connection.docx","Site added succesfully.");
     }
-    @Test(dependsOnMethods = "premiseCreation1",retryAnalyzer = RetryAnalyzer.class)
+    @Test(dependsOnMethods = "premiseCreation1")
     public void CCTermSet1() throws InterruptedException{
         OppForPerson oppPer = new OppForPerson();
         oppPer.CreditCheck();
@@ -77,7 +70,7 @@ public class ConnectionNew extends BaseClass {
         oppPer.QualifyingOpportunity();
         ScreenShotUtils.captureScreenshotToWord("New_Connection.docx","Opportunity Qualified");
     }
-    @Test(dependsOnMethods = "CCTermSet1",retryAnalyzer = RetryAnalyzer.class)
+    @Test(dependsOnMethods = "CCTermSet1")
     public void OpportunityCreation2() throws InterruptedException, IOException {
         ExcelUtils.loadExcel("C:\\Users\\srina1k\\OneDrive - EDF\\Documents\\GitHub\\AM-Automation-Framework\\src\\main\\resources\\RTScenarioTestDataReport.xlsx", "Sheet1");
         String personID2 = ExcelUtils.getCellData(1,6);
@@ -100,7 +93,7 @@ public class ConnectionNew extends BaseClass {
         ExcelUtils.setCellData(3,6, storeOppID);
     }
 
-    @Test (dependsOnMethods = "OpportunityCreation2",retryAnalyzer = RetryAnalyzer.class)
+    @Test (dependsOnMethods = "OpportunityCreation2")
     public void premiseCreation2() throws InterruptedException {
         ExcelUtils.loadExcel("C:\\Users\\srina1k\\OneDrive - EDF\\Documents\\GitHub\\AM-Automation-Framework\\src\\main\\resources\\RTScenarioTestDataReport.xlsx", "Sheet1");
         String premiseID = ExcelUtils.getCellData(2, 6);
@@ -117,7 +110,7 @@ public class ConnectionNew extends BaseClass {
         premise.clickSave();
         ScreenShotUtils.captureScreenshotToWord("New_Connection.docx","Site added succesfully.");
     }
-    @Test(dependsOnMethods = "premiseCreation2", retryAnalyzer = RetryAnalyzer.class)
+    @Test(dependsOnMethods = "premiseCreation2")
     public void CCTermSet2() throws InterruptedException{
         OppForPerson oppPer = new OppForPerson();
         oppPer.CreditCheck();
@@ -126,13 +119,13 @@ public class ConnectionNew extends BaseClass {
         oppPer.QualifyingOpportunity();
         ScreenShotUtils.captureScreenshotToWord("New_Connection.docx","Opportunity Qualified");
     }
-    @Test(dependsOnMethods="CCTermSet2",retryAnalyzer  =RetryAnalyzer.class)
+    @Test(dependsOnMethods="CCTermSet2")
     public void BatchRun() {
         BatchJobSubmissionPage batchP = new BatchJobSubmissionPage();
         batchP.BatchPage();
         batchP.enterBatchCode("CM-ECCHK");
     }
-    @Test(dependsOnMethods = "BatchRun",retryAnalyzer = RetryAnalyzer.class)
+    @Test(dependsOnMethods = "BatchRun")
     public void won(){
         OppForPerson oppPer = new OppForPerson();
         oppPer.DeemedWon();

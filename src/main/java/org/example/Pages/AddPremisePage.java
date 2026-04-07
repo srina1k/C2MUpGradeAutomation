@@ -27,7 +27,6 @@ public class AddPremisePage {
         System.out.println("Current frame switched to: " + currentFrame);
         WaitUtils.sleep(3000);
         WaitUtils.waitAndClick(driver, customerHyperLink, 20);
-        //WaitUtils.waitForVisible(driver, By.xpath("//a[text()='Add Site']"));
         WaitUtils.sleep(3000);
         try {
             WaitUtils.waitForPresence(driver, By.xpath("//a[normalize-space()='Add Site']"));
@@ -36,7 +35,6 @@ public class AddPremisePage {
             System.out.println("Element not found"+e.getMessage());
         } driver.switchTo().defaultContent();
         WaitUtils.waitForFrameAndSwitch(driver, "main", 10);
-        //WaitUtils.waitForVisible(driver,By.xpath("//input[@id='Bundefined']"));
         WaitUtils.getWait(driver,20);
         By[] menuSequence2 = {
                 By.id("IM_menuButton"), By.xpath("//li[@id='mainMenu']"), By.xpath("//li[@id='CI_MAINMENU_topMenuItem0x9']"), By.xpath("(//span[contains(text(),'Add')])[13]")};
@@ -44,49 +42,25 @@ public class AddPremisePage {
             WaitUtils.waitAndClick(driver, menuItem2, 2);
         }
         String mainWindow = driver.getWindowHandle();
-        //WaitUtils.waitForVisible(driver,By.xpath("//input[@id='Bundefined']"));
+        driver.switchTo().defaultContent();
+        WaitUtils.waitForFrameAndSwitch(driver,"main",5);
         WaitUtils.waitForFrameAndSwitch(driver,"tabPage",15);
-//        WebElement element=driver.findElement(By.id("IM_PREM_ID"));
-//        Actions action = new Actions(driver);
-//        action.moveToElement(element).click().perform();
-        WaitUtils.waitAndClick(driver, By.id("IM_PREM_ID"), 30);
+        WaitUtils.waitAndClick(driver, By.xpath("//img[@id='IM_PREM_ID']"), 30);
         System.out.println(mainWindow);
-        String childwindow = null;
         new WebDriverWait(driver, Duration.ofSeconds(10)).until(d -> d.getWindowHandles().size() > 1);
-        Set<String> allWindows = driver.getWindowHandles();
-        System.out.println(allWindows);
-        for (String window : allWindows) {
+        for (String window : driver.getWindowHandles()) {
             if (!window.equals(mainWindow)) {
-                childwindow = window;
+                driver.switchTo().window(window);
                 break;
             }
         }
-        System.out.println(childwindow);
-        if(childwindow==null) {
-            System.out.println("No new window opened after clicking person search");
-        }
-        driver.switchTo().window(childwindow);
         new WebDriverWait(driver,Duration.ofSeconds(10)).until(ExpectedConditions.titleContains("Premise"));
-        WebElement premiseField = WaitUtils.waitForPVisible(driver, By.id("PREM_ID"), 10);
+        WebElement premiseField = WaitUtils.waitForPVisible(driver, By.xpath("//input[@id='PREM_ID']"), 10);
         premiseField.clear();
         premiseField.sendKeys(premiseID);
         WaitUtils.waitAndClick(driver, By.id("BU_premId_premSrch"), 10);
         System.out.println(driver.getWindowHandle());
         driver.switchTo().window(mainWindow);
-//        String mainWindow =  driver.getWindowHandle();
-//        new WebDriverWait(driver, Duration.ofSeconds(10)).until(d -> d.getWindowHandles().size() > 1);
-//        Set<String> allWindows = driver.getWindowHandles();
-//
-//        for (String win : allWindows) {
-//            if (!win.equals(mainWindow)) {
-//                driver.switchTo().window(win);
-//                break;
-//            }
-//        }
-//        System.out.println("Switched to new window: " + driver.getTitle());
-//        WaitUtils.waitForPageLoad(driver,10);
-//        WebElement premiseField = WaitUtils.waitForPVisible(driver, By.xpath("//input[@id='PREM_ID']"),5);
-//        premiseField.sendKeys(premiseID);
     }
     public void clickSearch() {
 //        WaitUtils.waitAndClick(driver, By.id("BU_premId_premSrch"), 2);
@@ -101,6 +75,7 @@ public class AddPremisePage {
             WaitUtils.ElementToBeClickable(driver, By.xpath("//input[@id='Bundefined']"), 20);
             WaitUtils.waitForVisible(driver, By.xpath("//input[@id='Bundefined']"));
             WaitUtils.waitAndClick(driver, By.xpath("//input[@id='Bundefined']"), 20);
+            WaitUtils.sleep(4000);
         } catch (NoSuchElementException e) {
             throw new NoSuchElementException(e.getMessage());
         } //driver.findElement(By.xpath("//input[@id='Bundefined']")).click();

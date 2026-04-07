@@ -42,5 +42,10 @@ public class DBQueries {
             + "where CHAR_VAL_FK1 in (select CM_CONTRACT_ID from CISADM.CM_CONTRACT where CM_OPPORTUNITY_ID in ('%s'))))";
     public static final String billStop = "select * from ci_acct where acct_id in ('%s')";
     public static final String billStop1 = "select * from CI_ACCT_CHAR where CHAR_TYPE_CD in ('CM-BSTOP') and ACCT_ID in ('%s')";
-
+    public static final String overDue = "select * from CI_OD_PROC_LOG where TRUNC(LOG_DTTM) > = '30-MAR-26' ORDER BY LOG_DTTM";
+    public static final String pdvCase = "SELECT c.CASE_ID,(select ch.log_dttm from ci_case_log ch where ch.case_id =C.CASE_ID and ch.CASE_LOG_TYPE_FLG='CASC') as PDV_CASE_CREAT_DTTM, "
+            + "c.CASE_STATUS_CD,c.PER_ID,c.ACCT_ID,c.CASE_TYPE_CD,c.CASE_COND_FLG "
+            + "FROM CI_CASE c WHERE c.CASE_TYPE_CD = 'CM-PDV' "
+            + "AND c.CASE_STATUS_CD IN ('COLL AGY REF','WTNG AGC RSP','RESP RECV','PERP FOR WRN','SENT FOR WRN')  "
+            + "AND c.CASE_COND_FLG ='OPEN'";
 }

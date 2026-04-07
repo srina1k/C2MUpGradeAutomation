@@ -1,6 +1,7 @@
 package org.example.Utils;
 
 import org.openqa.selenium.*;
+import org.openqa.selenium.support.ui.ExpectedCondition;
 import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.WebDriverWait;
 
@@ -76,5 +77,15 @@ public class WaitUtils {
         } catch (Exception e) {
             return false;
         }
+    }
+    public static void waitForTextToChange(WebDriver driver, WebElement element, String oldText){
+        WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(10));
+        wait.until((ExpectedCondition<Boolean>) d ->{
+            try {
+                return ! element.getText().trim().equals(oldText);
+            } catch (Exception e){
+                return false;
+            }
+        });
     }
 }

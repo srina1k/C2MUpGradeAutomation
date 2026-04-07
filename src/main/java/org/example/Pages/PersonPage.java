@@ -151,7 +151,13 @@ public class PersonPage {
         WaitUtils.waitForVisible(driver, By.xpath("//span[text()='Opportunity for Person Log']"));
         driver.findElement(By.xpath("//span[text()='Opportunity for Person Log']")).click();
     }
-
+    public void firstPerson(){
+        WaitUtils.sleep(5000);
+        driver.switchTo().defaultContent();
+        WaitUtils.waitForFrameAndSwitch(driver, "main", 3);
+        WaitUtils.waitForFrameAndSwitch(driver, "tabPage", 3);
+        WaitUtils.waitAndClick(driver, By.xpath("(//span[@title='Go To Opportunity for Person '])[1]"), 2);
+    }
     public void secondPerson(){
         WaitUtils.sleep(5000);
         driver.switchTo().defaultContent();

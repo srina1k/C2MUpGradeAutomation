@@ -60,12 +60,14 @@ public class OppForPerson {
         } else if (driver.findElements(notForQuote).size() > 0) {
             System.out.println("Term set already added. No action needed.");
         }
-        for (int i = 0; i<2; i++){
+        for (int i = 0; i<2; i++) {
             driver.switchTo().defaultContent();
-            WaitUtils.waitForFrameAndSwitch(driver,"main",2);
+            WaitUtils.waitForFrameAndSwitch(driver, "main", 2);
+            WaitUtils.sleep(4000);
             WaitUtils.waitAndClick(driver, goBackBtn, 8);
-            WaitUtils.sleep(3000);
+            WaitUtils.sleep(7000);
         }
+        WaitUtils.getWait(driver,10);
     }
     public void createdCreditCheck(){
         driver.switchTo().defaultContent();
@@ -337,8 +339,8 @@ public class OppForPerson {
         WaitUtils.waitForFrameAndSwitch(driver,"main",3);
         WaitUtils.waitAndClick(driver, By.id("IM_REFRESH"), 5);
         WaitUtils.waitForFrameAndSwitch(driver, "tabPage", 3);
-        WaitUtils.waitAndClick(driver, By.xpath("(//a[@navoptcd='cmoppptlTabMenu'])[1]"),15);
         WaitUtils.sleep(3000);
+        WaitUtils.waitAndClick(driver, By.xpath("(//a[@navoptcd='cmoppptlTabMenu'])[1]"),15);
         WaitUtils.waitForVisible(driver, By.xpath("//span[@title='Go To Opportunity for Person ']"));
         WaitUtils.waitAndClick(driver, By.xpath("//span[@title='Go To Opportunity for Person ']"), 5);
         WaitUtils.waitForVisible(driver, creditCheckBtn);

@@ -170,7 +170,8 @@ public class FlexBasketP1 extends BaseClass {
         perpage.thirdPerson();
         oppPer.createdCreditCheck();
         oppPer.TermSet();
-        oppPer.QualifyingFlexBasketOpportunity();
+        oppPer.QualifyingOpportunity();
+        //oppPer.QualifyingFlexBasketOpportunity();
         ScreenShotUtils.captureScreenshotToWord("FlexBasket-P1.docx", "Opportunity Qualified");
         oppPer.qualifiedQuoteInProgressBatchMode();
         ScreenShotUtils.captureScreenshotToWord("FlexBasket-P1.docx", "3rd Opportunity Moved to QRBATCH mode..");
@@ -183,13 +184,13 @@ public class FlexBasketP1 extends BaseClass {
         PersonPage perpage = new PersonPage();
         OppForPerson oppPer = new OppForPerson();
         oppPer.goBack3times();
+        perpage.firstPerson();
+        oppPer.createdCreditCheck();
+        oppPer.TermSet();
         perpage.thirdPerson();
         oppPer.CreditCheck();
         oppPer.TermSet();
-        perpage.secondPerson();
-        oppPer.CreditCheck();
-        oppPer.TermSet();
-        oppPer.QualifyingOpportunity1();
+        oppPer.QualifyingOpportunity();
         oppPer.qualifiedQuoteInProgressBatchMode();
         ScreenShotUtils.captureScreenshotToWord("FlexBasket-P1.docx", "Here, I am adding evidence for only one Opportunity details, 2nd Opportunity Moved to QRBATCH mode..");
 ////        caseid2=oppPer.quote();
@@ -200,13 +201,13 @@ public class FlexBasketP1 extends BaseClass {
         PersonPage perpage = new PersonPage();
         OppForPerson oppPer = new OppForPerson();
         oppPer.goBack3times();
+        perpage.firstPerson();
+        oppPer.createdCreditCheck();
+        oppPer.TermSet();
         perpage.secondPerson();
         oppPer.CreditCheck();
         oppPer.TermSet();
-        perpage.thirdPerson();
-        oppPer.CreditCheck();
-        oppPer.TermSet();
-        oppPer.QualifyingOpportunity1();
+        oppPer.QualifyingOpportunity();
         oppPer.qualifiedQuoteInProgressBatchMode();
         ScreenShotUtils.captureScreenshotToWord("FlexBasket-P1.docx", "1st Opportunity Moved to QRBATCH mode..");
 //////        caseid1=oppPer.quote();
@@ -220,7 +221,6 @@ public class FlexBasketP1 extends BaseClass {
         batchP.enterBatchCode("CM-MOPPB");
         ScreenShotUtils.captureScreenshotToWord("FlexBasket-P1.docx", "Running CM-MOPPB batch to generate Quote ID's for all 3 Opportunities");
         WindowHandlesUtils.switchToFirstWindow();
-
         ExcelUtils.openWorkBook("C:\\Users\\srina1k\\IdeaProjects\\C2MUpGradeAutomation\\src\\main\\java\\Resources\\RTScenarioTestDataReport.xlsx","Sheet1");
         ExcelUtils.setCellData(16,7, storeOppID1);
         ExcelUtils.setCellData(17,7, storeOppID2);
