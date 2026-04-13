@@ -145,7 +145,6 @@ public class PersonPage {
 
         driver.switchTo().defaultContent();
         WaitUtils.waitForFrameAndSwitch(driver, "main", 3);
-        WebElement savePerson=
         WaitUtils.waitAndClick(driver, By.xpath("//input[@name='Save']"),15);
 
         driver.switchTo().defaultContent();

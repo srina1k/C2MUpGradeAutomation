@@ -1,16 +1,23 @@
 package org.example.Tests;
 
-import Base.BaseTest;
+
+import org.example.Base.BaseClass;
+import org.example.Pages.BatchJobSubmissionPage;
+import org.example.Pages.BillPage;
+import org.example.Pages.LoginPage;
+import org.example.Pages.OverdueProcessPage;
+import org.example.Utils.DBQueries;
+import org.example.Utils.DBUtils;
+import org.example.Utils.DriverManager;
+import org.example.Utils.ScreenShotUtils;
 import org.testng.annotations.Test;
-import pages.*;
-import utils.*;
+
 
 import java.io.File;
-import java.sql.DriverManager;
 import java.sql.SQLException;
 import java.util.Map;
 
-public class LatePayment extends BaseTest {
+public class LatePayment extends BaseClass {
     @Test
     public void testLogin(){
 
@@ -21,7 +28,7 @@ public class LatePayment extends BaseTest {
             System.out.println("Old word file deleted: " + fileName);
         }
         LoginPage lp = new LoginPage(DriverManager.getDriver());
-        lp.Login();
+        lp.Logincredentials();
     }
     @Test (dependsOnMethods = "testLogin")
     public void latePaymentInterestAdjCreation() throws SQLException {
