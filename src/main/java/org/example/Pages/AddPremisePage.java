@@ -58,15 +58,15 @@ public class AddPremisePage {
         WebElement premiseField = WaitUtils.waitForPVisible(driver, By.xpath("//input[@id='PREM_ID']"), 10);
         premiseField.clear();
         premiseField.sendKeys(premiseID);
-        WaitUtils.waitAndClick(driver, By.id("BU_premId_premSrch"), 10);
-        System.out.println(driver.getWindowHandle());
-        driver.switchTo().window(mainWindow);
+//        WaitUtils.waitAndClick(driver, By.id("BU_premId_premSrch"), 10);
+//        System.out.println(driver.getWindowHandle());
+//        driver.switchTo().window(mainWindow);
     }
     public void clickSearch() {
-//        WaitUtils.waitAndClick(driver, By.id("BU_premId_premSrch"), 2);
-//        WaitUtils.sleep(5000);
-//        String mainHandle = driver.getWindowHandles().iterator().next();
-//        driver.switchTo().window(mainHandle);
+        WaitUtils.waitAndClick(driver, By.id("BU_premId_premSrch"), 2);
+        WaitUtils.sleep(5000);
+        String mainHandle = driver.getWindowHandles().iterator().next();
+        driver.switchTo().window(mainHandle);
         driver.switchTo().defaultContent();
         WaitUtils.getWait(driver,20);
         WaitUtils.waitForFrameAndSwitch(driver,"main",20);
@@ -91,6 +91,39 @@ public class AddPremisePage {
         dropdown_service_point.selectByIndex(1);
         driver.findElement(By.xpath("//input[@id='annualConsumption']")).sendKeys("100");
         driver.findElement(By.xpath("//input[@id='agreedCapacity']")).sendKeys("120");
+    }
+    public void premiseNavigation(){
+        driver.switchTo().defaultContent();
+        WaitUtils.waitForFrameAndSwitch(driver, "main", 3);
+        By[] menuSequence2 = {
+                By.id("IM_menuButton"), By.xpath("//li[@id='mainMenu']"), By.xpath("//li[@id='CI_MAINMENU_topMenuItem0x9']"), By.xpath("(//span[contains(text(),'Add')])[13]")};
+        for (By menuItem2 : menuSequence2){
+            WaitUtils.waitAndClick(driver, menuItem2, 2);
+        }
+    }
+    public void premiseDetails(){
+
+        WaitUtils.waitForFrameAndSwitch(driver, "tabPage", 3);
+        WaitUtils.waitForVisible(driver,By.xpath("//select[@id='PREM_TYPE_CD']"));
+        WebElement premise_type = driver.findElement(By.xpath("//select[@id='PREM_TYPE_CD']"));
+        Select dropdown_premise_type = new Select(premise_type);
+        dropdown_premise_type.selectByVisibleText("Commercial - Electric");
+
+        WebElement addresLine1 = driver.findElement(By.xpath("//input[@id='ADDRESS1']"));
+        addresLine1.clear();
+        addresLine1.sendKeys("uk");
+
+        driver.switchTo().defaultContent();
+        driver.switchTo().frame("main");
+        driver.findElement(By.xpath("//input[@id='IM_SAVE']")).click();
+    }
+    public String premiseID(){
+        driver.switchTo().defaultContent();
+        WaitUtils.waitForFrameAndSwitch(driver, "main", 3);
+        WaitUtils.waitForFrameAndSwitch(driver, "tabPage", 3);
+        WebElement premisetxtField = driver.findElement(By.xpath("//input[@name='PREM_ID']"));;
+        WaitUtils.waitForTextToBePresentInValue(driver,premisetxtField);
+        return premisetxtField.getAttribute("value");
     }
     public void newMeasurementClassCOMC15(){
         WebElement New_Msmt_Class = driver.findElement(By.xpath("//select[@id='measurementClassDropDown']"));

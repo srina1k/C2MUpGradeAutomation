@@ -48,4 +48,7 @@ public class DBQueries {
             + "FROM CI_CASE c WHERE c.CASE_TYPE_CD = 'CM-PDV' "
             + "AND c.CASE_STATUS_CD IN ('COLL AGY REF','WTNG AGC RSP','RESP RECV','PERP FOR WRN','SENT FOR WRN')  "
             + "AND c.CASE_COND_FLG ='OPEN'";
+    public static final String HocxFile = "select * from CISADM.CI_PEVT_DTL_ST where EXT_SOURCE_ID ='HOCX' and PEVT_STG_ST_FLG = '10' ";
+    public static final String REMPFile = "select * from CISADM.CI_PEVT_DTL_ST where EXT_SOURCE_ID ='REMP' and PEVT_STG_ST_FLG = '10' ";
+    public static final String paymentEvent = "SELECT * from CI_PAY_EVENT";
 }

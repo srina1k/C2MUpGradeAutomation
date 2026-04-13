@@ -43,7 +43,6 @@ public class FlexBasketP1 extends BaseClass {
         UserPage userpage = new UserPage();
         userpage.NavigateToOpportunity(personID1);
         ScreenShotUtils.captureScreenshotToWord("FlexBasket-P1.docx", "Step1:Entering Person ID");
-
         userpage.clickSearch();
         ScreenShotUtils.captureScreenshotToWord("FlexBasket-P1.docx", "Step2:Person Details");
         PersonPage perpage = new PersonPage();

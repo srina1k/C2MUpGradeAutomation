@@ -547,19 +547,37 @@ public class BatchJobSubmissionPage {
         WaitUtils.waitForVisible(driver,By.xpath("//span/input[@id='boGroup_user']"));
         WebElement double_click = driver.findElement(By.xpath("//span/input[@id='boGroup_user']"));
         new Actions(driver).doubleClick(double_click).pause(Duration.ofSeconds(8)).sendKeys(Keys.BACK_SPACE).pause(Duration.ofSeconds(13)).sendKeys("BATCHUSR").pause(Duration.ofSeconds(10)).sendKeys(Keys.ENTER).sendKeys(Keys.ENTER).perform();
-        //driver.findElement(By.cssSelector("input[id='BATCH_CD']")).sendKeys(batchcode);
-        //WebElement double_click2 = driver.findElement(By.xpath("//input[@id='USER_ID']"));
-//        Actions act2 = new Actions(driver);
-//        act2.doubleClick(double_click2).build().perform();
-//        act2.sendKeys(Keys.BACK_SPACE);
-//        WaitUtils.sleep(1000);
-//        driver.findElement(By.xpath("//input[@id='USER_ID']")).sendKeys("BATCHUSR");
-
         WebElement double_click1 = driver.findElement(By.cssSelector("input[id='boGroup_threadCount']"));
         Actions act1 = new Actions(driver);
         act1.doubleClick(double_click1).build().perform();
         act1.sendKeys(Keys.BACK_SPACE).sendKeys("30");
         WaitUtils.sleep(1000);
         //driver.findElement(By.cssSelector("#BATCH_THREAD_CNT")).sendKeys("30");
+    }
+    public void CMHOCPAYBatch(String batchcode, String filename) {
+        driver.switchTo().defaultContent();
+        WaitUtils.waitForFrameAndSwitch(driver, "main", 5);
+        WaitUtils.waitForFrameAndSwitch(driver, "uiMap", 5);
+        WaitUtils.ElementToBeClickable(driver,By.xpath("//span/input[@id='batchControlInp']"),10);
+        WebElement batch_control=driver.findElement(By.xpath("//span/input[@id='batchControlInp']"));
+        batch_control.click();
+        new Actions(driver).doubleClick(batch_control).pause(Duration.ofSeconds(8)).sendKeys(Keys.BACK_SPACE).pause(Duration.ofSeconds(8)).sendKeys(batchcode).sendKeys(Keys.ENTER).sendKeys(Keys.ENTER).perform();
+        WaitUtils.waitForVisible(driver,By.xpath("//span/input[@id='boGroup_user']"));
+        WebElement double_click = driver.findElement(By.xpath("//span/input[@id='boGroup_user']"));
+        new Actions(driver).doubleClick(double_click).pause(Duration.ofSeconds(8)).sendKeys(Keys.BACK_SPACE).pause(Duration.ofSeconds(13)).sendKeys("BATCHUSR").pause(Duration.ofSeconds(10)).sendKeys(Keys.ENTER).sendKeys(Keys.ENTER).perform();
+        WebElement double_click1 = driver.findElement(By.cssSelector("input[id='boGroup_threadCount']"));
+
+//        WebElement double_click2 = driver.findElement(By.xpath("//input[@id='USER_ID']"));
+//        Actions act2 = new Actions(driver);
+//        act2.doubleClick(double_click2).build().perform();
+//        act2.sendKeys(Keys.BACK_SPACE);
+//        WaitUtils.sleep(1000);
+ //       driver.findElement(By.xpath("//input[@id='USER_ID']")).sendKeys("BATCHUSR");
+        WebElement file = driver.findElement(By.id("batchParameterValue_1"));
+        WaitUtils.sleep(3000);
+        file.clear();
+        WaitUtils.getWait(driver,10);
+        file.sendKeys(filename);
+
     }
 }

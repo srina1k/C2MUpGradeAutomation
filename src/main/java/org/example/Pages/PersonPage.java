@@ -59,11 +59,111 @@ public class PersonPage {
 //        s4.selectByVisibleText("New Connection");
 
     }
+    public void personNavigation(){
+        driver.switchTo().defaultContent();
+        WaitUtils.waitForFrameAndSwitch(driver, "main", 3);
+
+        By[] menuSequence2 = {
+                By.id("IM_menuButton"), By.xpath("//li[@id='mainMenu']"), By.id("CI_MAINMENU_topMenuItem0x9"), By.xpath("(//span[contains(text(),'Add')])[12]")};
+        for (By menuItem2 : menuSequence2) {
+            WaitUtils.waitAndClick(driver, menuItem2, 10);
+            WaitUtils.sleep(1500);
+        }
+    }
+    public void personDetails(String personName, String contactNumber) {
+        WaitUtils.waitForFrameAndSwitch(driver, "tabPage", 3);
+        WaitUtils.waitForFrameAndSwitch(driver, "PER_NAME", 3);
+        WaitUtils.waitForPVisible(driver, By.xpath("//input[@name='PER_NAME:0$ENTITY_NAME']"), 5);
+        WebElement pernameTestBox = driver.findElement(By.xpath("//input[@name='PER_NAME:0$ENTITY_NAME']"));
+        pernameTestBox.sendKeys(personName);
+
+//        driver.switchTo().defaultContent();
+//        WaitUtils.waitForFrameAndSwitch(driver, "main", 3);
+//        WaitUtils.waitForFrameAndSwitch(driver, "tabPage", 3);
+        driver.switchTo().defaultContent();
+        WaitUtils.waitForFrameAndSwitch(driver,"main",10);
+        WaitUtils.waitForFrameAndSwitch(driver,"tabPage",10);
+        WaitUtils.waitForFrameAndSwitch(driver, "PER_CONT_DETL", 3);
+        WebElement perContactType = driver.findElement(By.xpath("//select[@name='PER_CONT_DETL:0$COMM_RTE_TYPE_CD']"));
+        Select s1 = new Select(perContactType);
+        s1.selectByIndex(1);
+        WebElement perContactNumber = driver.findElement(By.xpath("//input[@id='PER_CONT_DETL:0$CONTACT_VALUE']"));
+        WaitUtils.sleep(2000);
+        perContactNumber.sendKeys(contactNumber);
+        driver.findElement(By.id("PER_CONT_DETL|0|9")).click();
+        WaitUtils.waitAndClick(driver, By.xpath("//input[@name='PER_CONT_DETL:0$CND_PRIMARY_SW']"), 5);
+
+        driver.switchTo().defaultContent();
+        WaitUtils.waitForFrameAndSwitch(driver, "main", 3);
+        WaitUtils.waitForFrameAndSwitch(driver, "tabPage", 3);
+        WebElement customer_class = driver.findElement(By.xpath("//select[@id='CUST_CL_CD']"));
+        Select dropdown_customer_class = new Select(customer_class);
+        dropdown_customer_class.selectByVisibleText("Electric Commercial");
+    }
     public void basketInd(){
         WebElement basInd = driver.findElement(By.xpath("//input[@name='basketIndicator']"));
         if (!basInd.isSelected()){
             basInd.click();
         }
+    }
+    public void correspondenceTab() {
+        driver.switchTo().defaultContent();
+        WaitUtils.waitForFrameAndSwitch(driver, "main", 3);
+        WaitUtils.waitForFrameAndSwitch(driver, "tabMenu", 3);
+        driver.findElement(By.xpath("//td[@title='Correspondence Info']")).click();
+
+        driver.switchTo().defaultContent();
+        WaitUtils.waitForFrameAndSwitch(driver, "main", 3);
+        WaitUtils.waitForFrameAndSwitch(driver, "tabPage", 3);
+        driver.findElement(By.xpath("//input[@id='POSTAL']")).sendKeys("CM20 3BW");
+
+        WebElement addresLine1 = driver.findElement(By.xpath("//input[@id='ADDRESS1']"));
+        addresLine1.click();
+        WaitUtils.sleep(4000);
+        addresLine1.sendKeys("Boston");
+
+        driver.findElement(By.xpath("//input[@id='SEAS_ADDR$SEASON_START_MMDD']")).sendKeys("12-12");
+        driver.findElement(By.xpath("//input[@id='SEAS_ADDR$SEASON_END_MMDD']")).sendKeys("04-12");
+        driver.findElement(By.xpath("//input[@id='SEAS_ADDR$ADDRESS1']")).sendKeys("UK");
+    }
+    public void charTab(){
+        driver.switchTo().defaultContent();
+        WaitUtils.waitForFrameAndSwitch(driver, "main", 3);
+        WaitUtils.waitForFrameAndSwitch(driver, "tabMenu", 3);
+        driver.findElement(By.xpath("//td[@title='Characteristics']")).click();
+
+        driver.switchTo().defaultContent();
+        WaitUtils.waitForFrameAndSwitch(driver, "main", 3);
+        WaitUtils.waitForFrameAndSwitch(driver, "tabPage", 3);
+        WaitUtils.waitForFrameAndSwitch(driver, "Char2_charGrid", 3);
+        WebElement characteristics = driver.findElement(By.xpath("//select[@id=\"PER_CHAR:0$CHAR_TYPE_CD\"]"));
+        Select dropdown_characteristics = new Select(characteristics);
+        dropdown_characteristics.selectByVisibleText("Job Title");
+        WaitUtils.sleep(1000);
+        driver.findElement(By.xpath("//input[@id='PER_CHAR:0$ADHOC_CHAR_VAL']")).sendKeys("site");
+        WaitUtils.sleep(3000);
+
+        driver.switchTo().defaultContent();
+        WaitUtils.waitForFrameAndSwitch(driver, "main", 3);
+        WebElement savePerson=
+        WaitUtils.waitAndClick(driver, By.xpath("//input[@name='Save']"),15);
+
+        driver.switchTo().defaultContent();
+        WaitUtils.waitForFrameAndSwitch(driver, "main", 3);
+        WaitUtils.waitForVisible(driver, By.xpath("//div[text()='Start/Stop']"));
+        driver.findElement(By.xpath("//span[@id='IM_GOBACK']")).click();
+        driver.switchTo().defaultContent();
+        WaitUtils.waitForFrameAndSwitch(driver, "main", 3);
+        WaitUtils.waitForFrameAndSwitch(driver, "tabPage", 3);
+        WaitUtils.waitForVisible(driver,By.xpath("//input[@name='PER_ID']"));
+    }
+    public String personID(){
+        driver.switchTo().defaultContent();
+        WaitUtils.waitForFrameAndSwitch(driver, "main", 3);
+        WaitUtils.waitForFrameAndSwitch(driver, "tabPage", 3);
+        WebElement persontxtField = driver.findElement(By.xpath("//input[@name='PER_ID']"));
+        WaitUtils.waitForTextToBePresentInValue(driver,persontxtField);
+        return persontxtField.getAttribute("value");
     }
     public void MCTId(){
         driver.findElement(By.xpath("//input[@id='multiCustId']")).sendKeys("MCTS19-RT-2026");

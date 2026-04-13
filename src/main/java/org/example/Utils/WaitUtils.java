@@ -88,4 +88,7 @@ public class WaitUtils {
             }
         });
     }
+    public static void waitForTextToBePresentInValue(WebDriver driver, WebElement element){
+        getWait(driver, DEFAULT_TIMEOUT).until(ExpectedConditions.attributeToBeNotEmpty(element, "value"));
+    }
 }
