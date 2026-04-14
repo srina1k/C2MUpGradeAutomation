@@ -20,7 +20,6 @@ import java.util.Map;
 public class LatePayment extends BaseClass {
     @Test
     public void testLogin(){
-
         String fileName = "LatePayment.docx";
         File file = new File(fileName);
         if (file.exists()) {
@@ -69,7 +68,6 @@ public class LatePayment extends BaseClass {
 
     @Test (dependsOnMethods = "latePaymentInterestAdjCreation")
     public void latePaymentAdminFeeAdjCreation() {
-
         BatchJobSubmissionPage batchP = new BatchJobSubmissionPage();
         batchP.BatchPage();
         ScreenShotUtils.captureScreenshotToWord("LatePayment.docx","Run Batch ");

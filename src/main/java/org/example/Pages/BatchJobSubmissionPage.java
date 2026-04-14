@@ -39,21 +39,22 @@ public class BatchJobSubmissionPage {
             driver.switchTo().defaultContent();
             WaitUtils.waitForFrameAndSwitch(driver,"main",5);
 
-            By[] menuSequence2 = {By.id("IM_adminButton"), By.id("CI_ADMINMENU_topMenuItem0x1"), By.id("CI_SG_ADMIN_B_subMenuItem1x1"), By.xpath("//span[text()='Search']")};
+            By[] menuSequence2 = {By.id("IM_menuButton"), By.id("adminMenu"), By.xpath("//li[@id='CI_ADMINMENU_topMenuItem0x1']"), By.id("ci_adminmenu_topmenuitem0x1BatchControl")};
             for (By menuItem2 : menuSequence2){
                 WaitUtils.waitAndClick(driver, menuItem2, 3);
             }
             WaitUtils.sleep(3000);
 
-            new WebDriverWait(driver, Duration.ofSeconds(10)).until(d -> d.getWindowHandles().size() > 1);
-            for (String window : driver.getWindowHandles()){
-                driver.switchTo().window(window);
-                if (driver.getTitle().contains("Batch Control Search")){
-                    break;
-                }
-            }
+//            new WebDriverWait(driver, Duration.ofSeconds(10)).until(d -> d.getWindowHandles().size() > 1);
+//            for (String window : driver.getWindowHandles()){
+//                driver.switchTo().window(window);
+//                if (driver.getTitle().contains("Batch Control Search")){
+//                    break;
+//                }
+//            }
+            WaitUtils.waitForFrameAndSwitch(driver,"tabPage",10);
             System.out.println("Switched to new window: " + driver.getTitle());
-            WebElement batchCodeField = WaitUtils.waitForPVisible(driver, By.id("BATCH_CD"), 20);
+            WebElement batchCodeField = WaitUtils.waitForPVisible(driver, By.xpath("//input[@id='filter1.F1']"), 20);
             batchCodeField.sendKeys(BatchCode);
         }
 
@@ -82,7 +83,7 @@ public class BatchJobSubmissionPage {
 
         }
         public void clickSearch() {
-            WaitUtils.waitAndClick(driver, By.id("BU_criteria_batchSrch"), 2);
+            WaitUtils.waitAndClick(driver, By.id("anTLZ1Refresh"), 2);
             String mainHandle = driver.getWindowHandles().iterator().next();
             driver.switchTo().window(mainHandle);
             WaitUtils.sleep(5000);
