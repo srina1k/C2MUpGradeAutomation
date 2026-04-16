@@ -51,4 +51,8 @@ public class DBQueries {
     public static final String HocxFile = "select * from CISADM.CI_PEVT_DTL_ST where EXT_SOURCE_ID ='HOCX' and PEVT_STG_ST_FLG = '10' ";
     public static final String REMPFile = "select * from CISADM.CI_PEVT_DTL_ST where EXT_SOURCE_ID ='REMP' and PEVT_STG_ST_FLG = '10' ";
     public static final String paymentEvent = "SELECT * from CI_PAY_EVENT";
+    public static final String ommIsolate = "UPDATE CM_OUT_MKTMSG SET BO_STATUS_CD='PENDINGX' where BO_STATUS_CD='PENDING' and BUS_OBJ_CD='CM-D0055Registration' "
+            + "and CM_MKTMSG_ID not in (select CM_MKTMSG_ID from CISADM.CM_OUT_MKTMSG_CHAR "
+            + "where CHAR_VAL_FK1 in (select CM_CONTRACT_ID from CISADM.CM_CONTRACT where CM_OPPORTUNITY_ID in ('%s'))) "
+            + "and BUS_OBJ_CD='CM-D0055Registration' ";
 }

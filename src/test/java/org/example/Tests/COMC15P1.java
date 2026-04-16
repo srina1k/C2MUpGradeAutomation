@@ -101,7 +101,7 @@ public class COMC15P1 extends BaseClass {
         BatchJobSubmissionPage batchP = new BatchJobSubmissionPage();
         batchP.BatchPage();
         batchP.enterBatchCode("CM-ECCHK");
-        batchP.clickRefresh();
+        //batchP.clickRefresh();
 
         //String query1 = String.format(DBQueries.DeisolateOpportunity,oppId);
         //DBUtils.UpdateQuery(query1);

@@ -2,6 +2,7 @@ package org.example.Tests;
 
 
 import org.example.Base.BaseClass;
+import org.example.Listener.RetryAnalyzer;
 import org.example.Pages.*;
 import org.example.Utils.DriverManager;
 import org.example.Utils.ExcelUtils;
@@ -49,7 +50,7 @@ public class COMC16P1 extends BaseClass {
         perpage.addOppIDToWord( "COMC16P1.docx", "Step5:Opportunity created in Identified status");
         ExcelUtils.setCellData(3,1, storeOppID);
     }
-    @Test(dependsOnMethods = "opportunityCreation")
+    @Test(dependsOnMethods = "opportunityCreation", retryAnalyzer = RetryAnalyzer.class)
     public void premiseCreation() {
         ExcelUtils.loadExcel("C:\\Users\\srina1k\\IdeaProjects\\C2MUpGradeAutomation\\src\\main\\java\\Resources\\RTScenarioTestDataReport.xlsx","Sheet1");
         String premiseID = ExcelUtils.getCellData(2,2);
@@ -85,7 +86,7 @@ public class COMC16P1 extends BaseClass {
         BatchJobSubmissionPage batchP = new BatchJobSubmissionPage();
         batchP.BatchPage();
         batchP.enterBatchCode("CM-ECCHK");
-        batchP.clickRefresh();
+        //batchP.clickRefresh();
     }
 
     @Test(dependsOnMethods = "CCTermSet")

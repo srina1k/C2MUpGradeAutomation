@@ -23,6 +23,17 @@ public class marketMessageSearch {
         WaitUtils.waitAndClick(driver, By.xpath("//span[text()='Market Message Search']"), 5);
         WaitUtils.sleep(2000);
     }
+    public void mmSearchContractID(String contractID){
+        WaitUtils.waitForFrameAndSwitch(driver,"tabPage",8);
+        Select searchByMktMsg = new Select(driver.findElement(By.cssSelector("select[id='multiQueryZoneFilters1']")));
+        searchByMktMsg.selectByIndex(5);
+        WaitUtils.sleep(2000);
+
+        driver.findElement(By.xpath("//input[@orafield='contractId']")).sendKeys(contractID);
+        //Select messageFlow = new Select(driver.findElement(By.cssSelector("select[onkeydown='dataExplorerDropDownKeyPress(event)']")));
+        //messageFlow.selectByIndex(1);
+        WaitUtils.waitAndClick(driver, By.xpath("//input[@value='Search']"),5);
+    }
 
     public void OdropdownoMarketMessageId(String marketMessagID){
         WaitUtils.waitForFrameAndSwitch(driver,"tabPage",8);
@@ -36,6 +47,11 @@ public class marketMessageSearch {
         WaitUtils.waitAndClick(driver, By.xpath("//input[@value='Search']"),5);
 
         WaitUtils.waitAndClick(driver, By.cssSelector("span[title='Go To Outbound Market Message Maintenance ']"),5);
+    }
+    public void mmclickRefresh(){
+        driver.switchTo().defaultContent();
+        WaitUtils.waitForFrameAndSwitch(driver,"main",8);
+        WaitUtils.waitAndClick(driver, By.cssSelector("input[id='IM_REFRESH']"),5);
     }
 
     public void IdropdownoMarketMessageId(String marketMessagID){

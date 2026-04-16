@@ -1,17 +1,13 @@
 package org.example.Tests;
 
-import Base.BaseTest;
+import org.example.Base.BaseClass;
+import org.example.Pages.*;
+import org.example.Utils.*;
 import org.testng.annotations.Test;
-import pages.*;
-import utils.DBQueries;
-import utils.DBUtils;
-import utils.ExcelUtils;
-import utils.ScreenShotUtils;
-
 import java.io.File;
 import java.sql.SQLException;
 
-public class smallFixedP2 extends BaseTest {
+public class smallFixedP2 extends BaseClass {
 
     String oppID;
     String contractID;
@@ -25,8 +21,8 @@ public class smallFixedP2 extends BaseTest {
             file.delete();
             System.out.println("Old word file deleted: " + fileName);
         }
-        LoginPage lp = new LoginPage();
-        lp.loginFromConfig();
+        LoginPage lp = new LoginPage(DriverManager.getDriver());
+        lp.Logincredentials();
     }
 
     @Test (dependsOnMethods = "testLogin")

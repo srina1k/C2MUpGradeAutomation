@@ -18,7 +18,7 @@ public class AddPremisePage {
         this.driver = DriverManager.getDriver();
     }
     private By customerHyperLink = By.xpath("//span[@title='Go To Opportunity for Person ']");
-    public void NavigateToPremise(String premiseID)  {
+    public void NavigateToPremise(String premiseID) throws ElementClickInterceptedException,NoSuchElementException {
         driver.switchTo().defaultContent();
         WaitUtils.waitForFrameAndSwitch(driver,"main",20);
         WaitUtils.waitForFrameAndSwitch(driver,"tabPage",15);
@@ -31,6 +31,7 @@ public class AddPremisePage {
         try {
             WaitUtils.waitForPresence(driver, By.xpath("//a[normalize-space()='Add Site']"));
             WaitUtils.waitAndClick(driver, By.xpath("//a[normalize-space()='Add Site']"), 20);
+            WaitUtils.sleep(3000);
         } catch (NoSuchElementException e) {
             System.out.println("Element not found"+e.getMessage());
         } driver.switchTo().defaultContent();
@@ -361,5 +362,49 @@ public class AddPremisePage {
                 break;
             }
         }
+    }
+    public void customerHyperlink(){
+        WaitUtils.waitAndClick(driver, customerHyperLink, 2);
+    }
+    public void addSiteMpan(String mpan){
+        WaitUtils.waitAndClick(driver, By.xpath("//a[normalize-space()='Add Site']"), 5);
+
+        driver.switchTo().defaultContent();
+        WaitUtils.waitForFrameAndSwitch(driver, "main", 3);
+        WaitUtils.waitForVisible(driver,By.xpath("//input[@id='Bundefined']"));
+
+        driver.switchTo().defaultContent();
+        WaitUtils.waitForFrameAndSwitch(driver, "main", 3);
+        WaitUtils.waitForFrameAndSwitch(driver, "tabPage", 3);
+        WebElement dropdown = driver.findElement(By.id("multiQueryZoneFilters1"));
+        Select s = new Select(dropdown);
+        s.selectByIndex(4);
+        WaitUtils.sleep(2000);
+
+        WebElement geoType = driver.findElement(By.id("geographicType1"));
+        Select s1 = new Select(geoType);
+        s1.selectByIndex(1);
+
+        WebElement mpanText = driver.findElement(By.xpath("//input[@id='geographicValue1']"));
+        mpanText.sendKeys(mpan);
+        WaitUtils.waitAndClick(driver, By.xpath("//input[@value='Search']"),5);
+    }
+    public void siteDetailsForLiveBilling(){
+        driver.switchTo().defaultContent();
+        WaitUtils.waitForFrameAndSwitch(driver, "main", 3);
+        WaitUtils.waitAndClick(driver,By.cssSelector("input[id='Bundefined']"),5);
+        WaitUtils.sleep(5000);
+
+        for(String premise_details : driver.getWindowHandles()){
+            driver.switchTo().window(premise_details);
+        }
+    }
+    public void servicePointSelectLiveBilling(){
+        WebElement service_point = WaitUtils.waitForPVisible(driver, By.xpath("//select[@id='servicePointIdDisplay']"),10 );
+        Select dropdown_service_point = new Select(service_point);
+        dropdown_service_point.selectByIndex(1);
+        driver.findElement(By.xpath("//input[@orafield='boGroup/customerOwnReference']")).sendKeys("DD");
+        driver.findElement(By.xpath("//input[@id='annualConsumption']")).sendKeys("100");
+        driver.findElement(By.xpath("//input[@id='agreedCapacity']")).sendKeys("120");
     }
 }

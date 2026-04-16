@@ -45,7 +45,7 @@ public class PersonPage {
 
         WebElement managerDropdown = driver.findElement(By.xpath("//select[@id='user']"));
         Select s1 = new Select(managerDropdown);
-        s1.selectByVisibleText("Elliott, David");
+        s1.selectByVisibleText("Burnett, Richard");
 
         WebElement priorityDropdown = driver.findElement(By.xpath("//select[@id='prio']"));
         Select s2 = new Select(priorityDropdown);

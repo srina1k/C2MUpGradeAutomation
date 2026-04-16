@@ -6,7 +6,7 @@
 <!--            <listener class-name="org.example.Listener.ExtentScreenshotListener"/>-->
 <!--        </listeners>-->
         <classes>
-            <class name="org.example.Tests.COMC16P1"/>
+            <class name="org.example.Tests.liveBillingP1"/>
         </classes>
     </test>
 </suite>

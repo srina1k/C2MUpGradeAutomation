@@ -287,6 +287,23 @@ public class BatchJobSubmissionPage {
         ((JavascriptExecutor)driver).executeScript("arguments[0].click();", saveButton);
         WaitUtils.sleep(3000);
     }
+    public void CMOBMMDBatch(String batchcode){
+        driver.switchTo().defaultContent();
+        WaitUtils.waitForFrameAndSwitch(driver, "main", 5);
+        WaitUtils.waitForFrameAndSwitch(driver, "tabPage", 5);
+        driver.findElement(By.cssSelector("input[id='BATCH_CD']")).sendKeys(batchcode);
+
+        WebElement double_click2 = driver.findElement(By.xpath("//input[@id='USER_ID']"));
+        Actions act2 = new Actions(driver);
+        act2.doubleClick(double_click2).build().perform();
+        act2.sendKeys(Keys.BACK_SPACE);
+        WaitUtils.sleep(1000);
+        driver.findElement(By.xpath("//input[@id='USER_ID']")).sendKeys("BATCHUSR");
+
+        driver.switchTo().frame("BJP");
+        driver.findElement(By.id("BJP:3$BATCH_PARM_VAL")).sendKeys("CM-D0055Registration");
+        driver.findElement(By.id("BJP:4$BATCH_PARM_VAL")).sendKeys("PENDING");
+    }
     public void CMLTMPTBatch (String batchcode, String businessDate) {
         driver.switchTo().defaultContent();
         WaitUtils.waitForFrameAndSwitch(driver, "main", 5);
