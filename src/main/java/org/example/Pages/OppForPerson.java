@@ -405,17 +405,16 @@ public class OppForPerson {
         WaitUtils.waitAndClick(driver, By.xpath("(//a[@navoptcd='cmoppptlTabMenu'])[1]"),10);
         WaitUtils.waitForVisible(driver, By.xpath("//span[@title='Go To Opportunity for Person ']"));
     }
-    public void echoeStatuscheck4(){
+    public void echoeStatuscheck4LiveBilling(){
         WaitUtils.getWait(driver,15);
-        //WaitUtils.waitAndClick(driver, goBackBtn,5);
         WaitUtils.waitForVisible(driver,By.xpath("//div[@id='pageTitleArea']/h1/div"));
-       // WaitUtils.waitAndClick(driver, goBackBtn,5);
         WaitUtils.waitForFrameAndSwitch(driver, "tabPage", 10);
         System.out.println("Switching frame");
-        //WaitUtils.waitAndClick(driver, By.xpath("(//a[@navoptcd='cmoppptlTabMenu'])[4]"),15);
         WaitUtils.waitForVisible(driver, By.xpath("//span[@title='Go To Opportunity for Person ']"));
-        WaitUtils.waitAndClick(driver, By.xpath("//span[@title='Go To Opportunity for Person ']"), 10);
-        WaitUtils.getWait(driver,15);
+        WebElement OppForPerson= driver.findElement(By.xpath("//span[@title='Go To Opportunity for Person ']"));
+        WaitUtils.clickElementByJS(driver,OppForPerson);
+        WaitUtils.sleep(5000);
+        WaitUtils.waitForPresence(driver,By.xpath("//span[normalize-space()='Yes' or normalize-space()='No']"));
         List<WebElement> validationYes=driver.findElements(By.xpath("//span[normalize-space()='Yes' or normalize-space()='No']"));
         System.out.println("Number of elements found: " + validationYes.size());
         boolean isYes=true;
@@ -431,16 +430,18 @@ public class OppForPerson {
             System.out.println("All ECOES Validation is YES");
         }else{
             String parentwindow= driver.getWindowHandle();
-            WaitUtils.waitAndClick(driver,By.xpath("//input[@value='Override']"),10);
+            WaitUtils.waitAndClick(driver,By.xpath("//input[@value='Accept']"),10);
             WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(15));
             wait.until(driver -> driver.getWindowHandles().size() > 1);
             for(String AcceptRemoveReason : driver.getWindowHandles()){
-                driver.switchTo().window(AcceptRemoveReason);
-                break;
+                if(!AcceptRemoveReason.equals(parentwindow)) {
+                    driver.switchTo().window(AcceptRemoveReason);
+                    break;
+                }
             }
             WaitUtils.sleep(3000);
             //WaitUtils.waitForFrameAndSwitch(driver,"uiMap",10);
-            driver.findElement(By.xpath("//textarea[@orafield='removeReason']")).sendKeys("Testing");
+            driver.findElement(By.xpath("//textarea[@orafield='acceptReason']")).sendKeys("Testing");
             WaitUtils.waitAndClick(driver,By.xpath("//input[@value='Save']"),10);
             driver.switchTo().window(parentwindow);
             driver.switchTo().defaultContent();

@@ -8,6 +8,8 @@ import org.openqa.selenium.support.ui.WebDriverWait;
 import java.time.Duration;
 import java.util.List;
 
+import static org.example.Utils.DriverManager.driver;
+
 public class WaitUtils {
     private static final long DEFAULT_TIMEOUT = 50;
 
@@ -91,4 +93,12 @@ public class WaitUtils {
     public static void waitForTextToBePresentInValue(WebDriver driver, WebElement element){
         getWait(driver, DEFAULT_TIMEOUT).until(ExpectedConditions.attributeToBeNotEmpty(element, "value"));
     }
+    public static void waitImplicitly(WebDriver driver, int timeOutSeconds) {
+            driver.manage().timeouts().implicitlyWait(Duration.ofSeconds(timeOutSeconds));
+    }
+    public static void clickElementByJS(WebDriver driver, WebElement element) {
+        JavascriptExecutor js = (JavascriptExecutor) driver;
+        js.executeScript("arguments[0].click();", element);
+    }
+
 }
