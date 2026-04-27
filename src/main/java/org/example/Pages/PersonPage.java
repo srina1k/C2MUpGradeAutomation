@@ -164,8 +164,8 @@ public class PersonPage {
         WaitUtils.waitForTextToBePresentInValue(driver,persontxtField);
         return persontxtField.getAttribute("value");
     }
-    public void MCTId(){
-        driver.findElement(By.xpath("//input[@id='multiCustId']")).sendKeys("MCTS19-RT-2026");
+    public void MCTId(String mctid){
+        driver.findElement(By.xpath("//input[@id='multiCustId']")).sendKeys(mctid);
     }
     public void opportunityType(String OppType){
         WebElement opptype = driver.findElement(By.id("oppTypeFlag"));

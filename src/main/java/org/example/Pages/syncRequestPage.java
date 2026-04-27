@@ -5,6 +5,7 @@ import org.example.Utils.WaitUtils;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.support.ui.Select;
+import org.openqa.selenium.support.ui.Wait;
 
 public class syncRequestPage {
     private WebDriver driver;
@@ -16,15 +17,16 @@ public class syncRequestPage {
     public void NavigateTosyncRequestQuery()  {
         driver.switchTo().defaultContent();
         WaitUtils.waitForFrameAndSwitch(driver,"main",2);
-
         WaitUtils.waitAndClick(driver, By.id("IM_menuButton"), 5);
+        WaitUtils.waitAndClick(driver, By.xpath("//li[@id='mainMenu']"), 5);
         WaitUtils.waitAndClick(driver, By.id("CI_MAINMENU_topMenuItem0x11"), 5);
-        WaitUtils.waitAndClick(driver, By.xpath("//span[text()='Sync Request Outbound']"), 5);
-        WaitUtils.waitForFrameAndSwitch(driver,"tabPage",2);
+        WaitUtils.waitAndClick(driver,By.id("ci_mainmenu_topmenuitem0x11SyncRequestOutbound"),10);
+        //WaitUtils.waitForFrameAndSwitch(driver,"tabPage",2);
         WaitUtils.waitForPVisible(driver,By.xpath("//span[text()='Sync Request Search']"),10);
     }
 
     public void dropdownSyncRequestID(String SyncReqID){
+        WaitUtils.waitForFrameAndSwitch(driver,"tabPage",10);
         Select search_by = new Select(driver.findElement(By.xpath("//select[@id='multiQueryZoneFilters1']")));
         search_by.selectByIndex(3);
         WaitUtils.sleep(1000);

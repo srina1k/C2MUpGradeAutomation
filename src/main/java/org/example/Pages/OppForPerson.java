@@ -29,7 +29,7 @@ public class OppForPerson {
     private final By goBackBtn = By.id("IM_GOBACK");
 
     public void CreditCheck() {
-        WaitUtils.sleep(8000);
+        WaitUtils.sleep(5000);
         driver.switchTo().defaultContent();
         WaitUtils.waitForFrameAndSwitch(driver, "main", 10);
         WaitUtils.waitForFrameAndSwitch(driver, "tabPage", 10);
@@ -39,10 +39,11 @@ public class OppForPerson {
         //js.executeScript("arguments[0].click",creditCheckBtn);
         WaitUtils.waitAndClick(driver,By.xpath("//a[text()='Initiate Credit Check']"), 15);
         WaitUtils.getWait(driver,15);
+        WaitUtils.sleep(4000);
         WaitUtils.waitForVisible(driver, By.xpath("//span[text()='Credit Check Log']"));
         WaitUtils.waitAndClick(driver,By.xpath("//span[text()='Credit Check Log']"),20);
         //driver.findElement(By.xpath("//span[text()='Credit Check Log']")).click();
-        WaitUtils.sleep(4000);
+        //WaitUtils.sleep(4000);
     }
     public void TermSet(){
 
@@ -176,15 +177,12 @@ public class OppForPerson {
         WaitUtils.waitForFrameAndSwitch(driver,"main",2);
         WaitUtils.waitForFrameAndSwitch(driver,"tabPage",2);
         WaitUtils.waitAndClick(driver, By.cssSelector("span[title='Go To Opportunity for Person ']"), 2);
-
+        String parentWindow = driver.getWindowHandle();
         WaitUtils.waitForVisible(driver, By.xpath("//input[@value='Override']"));
         ScreenShotUtils.captureScreenshotToWord("COMC15P1.docx","Step13:Click on Override Button");
         driver.findElement(By.xpath("//input[@value='Override']")).click();
-
         WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(10));
         wait.until(driver -> driver.getWindowHandles().size() > 1);
-
-        String parentWindow = driver.getWindowHandle();
         for(String InputAcceptOrRemoveReason : driver.getWindowHandles()){
             if(!InputAcceptOrRemoveReason.equals(parentWindow)){
                 driver.switchTo().window(InputAcceptOrRemoveReason);
@@ -192,17 +190,14 @@ public class OppForPerson {
             }
         }
         System.out.println("Window count: " + driver.getWindowHandles().size());
-
         WaitUtils.sleep(3000);
         driver.findElement(By.xpath("//textarea[@oraerrorelement='removeReason']")).sendKeys("Test");
-       // WaitUtils.waitAndClick(driver, By.xpath("//input[@value='Save']"), 8);
-        WaitUtils.sleep(15000);
-
+        WaitUtils.waitAndClick(driver, By.xpath("//input[@value='Save']"), 8);
+        WaitUtils.sleep(10000);
         driver.switchTo().window(parentWindow);
-
         driver.switchTo().defaultContent();
         WaitUtils.waitForFrameAndSwitch(driver,"main",2);
-        WaitUtils.waitAndClick(driver, By.xpath("//span[@id='IM_GOBACK']"),5);
+        WaitUtils.waitAndClick(driver, By.xpath("//ou-button[@id='IM_GOBACK']"),5);
     }
 
     public void qualifiedQuoteInProgress() throws IOException {
@@ -583,5 +578,32 @@ public class OppForPerson {
 //            WaitUtils.waitForFrameAndSwitch(driver,"main",2);
 //            WaitUtils.waitAndClick(driver, goBackBtn,5);
         }
+    }
+    public void AgreedSupplyCapacity(){
+        WaitUtils.sleep(1500);
+        driver.switchTo().defaultContent();
+        WaitUtils.waitForFrameAndSwitch(driver,"main",10);
+        WaitUtils.waitForFrameAndSwitch(driver,"tabPage",10);
+        WaitUtils.waitForVisible(driver,By.xpath("//span[@title='Go To Opportunity for Person ']"));
+        WaitUtils.waitAndClick(driver,By.xpath("//span[@title='Go To Opportunity for Person ']"),10);
+        String parentWindow=driver.getWindowHandle();
+        WaitUtils.waitForPresence(driver,By.xpath("(//span[@title='Opportunity for Person at SP - Maintenance'])[2]"));
+        WaitUtils.waitAndClick(driver,By.xpath("(//span[@title='Opportunity for Person at SP - Maintenance'])[2]"),10);
+        WaitUtils.sleep(1000);
+        WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(30));
+        wait.until(driver -> driver.getWindowHandles().size() > 1);
+        for(String supplyWindow:driver.getWindowHandles()){
+            if(!supplyWindow.equals(parentWindow)){
+                driver.switchTo().window(supplyWindow);
+                break;
+            }
+        }
+        WaitUtils.sleep(3000);
+        WebElement sendCapacity=driver.findElement(By.xpath("//input[@id='agreedCapacity']"));
+        sendCapacity.sendKeys("100");
+        WaitUtils.waitAndClick(driver,By.xpath("//input[@oramdlabel='SAVE_BTN_LBL']"),10);
+        driver.switchTo().window(parentWindow);
+        WaitUtils.waitForFrameAndSwitch(driver,"main",5);
+        WaitUtils.waitAndClick(driver,By.xpath("//ou-button[@id='IM_GOBACK']"),10);
     }
 }

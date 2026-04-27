@@ -55,4 +55,37 @@ public class DBQueries {
             + "and CM_MKTMSG_ID not in (select CM_MKTMSG_ID from CISADM.CM_OUT_MKTMSG_CHAR "
             + "where CHAR_VAL_FK1 in (select CM_CONTRACT_ID from CISADM.CM_CONTRACT where CM_OPPORTUNITY_ID in ('%s'))) "
             + "and BUS_OBJ_CD='CM-D0055Registration' ";
+    //COT P2
+    public static final String marketMessage1 = "SELECT * FROM CISADM.CM_OUT_MKTMSG WHERE CM_MKTMSG_ID IN ( SELECT CM_MKTMSG_ID FROM CISADM.CM_OUT_MKTMSG_CHAR WHERE CHAR_VAL_FK1= '%s')";
+    public static final String ServiceAgreement = "select * from CI_SA WHERE ACCT_ID IN ( SELECT ACCT_ID FROM CM_OUT_MKTMSG WHERE CM_MKTMSG_ID IN (SELECT CM_MKTMSG_ID FROM CM_OUT_MKTMSG_CHAR WHERE CHAR_VAL_FK1 IN ('%s'))) AND  SA_STATUS_FLG= '10'";
+    public static final String ommDeIsolate = "UPDATE CM_OUT_MKTMSG SET BO_STATUS_CD='PENDING' where BO_STATUS_CD='PENDINGX' and BUS_OBJ_CD='CM-D0055Registration' "
+            + "and CM_MKTMSG_ID not in (select CM_MKTMSG_ID from CISADM.CM_OUT_MKTMSG_CHAR "
+            + "where CHAR_VAL_FK1 in (select CM_CONTRACT_ID from CISADM.CM_CONTRACT where CM_OPPORTUNITY_ID in ('%s'))) "
+            + "and BUS_OBJ_CD='CM-D0055Registration' ";
+
+
+    public static final String newSACheckQuery = "select * from CISADM.CI_SA WHERE acct_id in (select ACCT_ID from CISADM.CM_OUT_MKTMSG  "
+            + "where CM_MKTMSG_ID in(select CM_MKTMSG_ID from CISADM.CM_OUT_MKTMSG_CHAR "
+            + "where CHAR_VAL_FK1 in (select CM_CONTRACT_ID from CISADM.CM_CONTRACT where CM_OPPORTUNITY_ID in ('%s'))) "
+            + "and BUS_OBJ_CD='CM-D0055Registration') and SA_STATUS_FLG='10' ";
+
+    public static final String saIsolatePendingStart = "update CISADM.CI_SA set sa_status_flg ='11' where sa_status_flg='10' "
+            + "and SA_ID not in (select SA_ID from CISADM.CI_SA WHERE acct_id in (select ACCT_ID from CISADM.CM_OUT_MKTMSG "
+            + "where CM_MKTMSG_ID in(select CM_MKTMSG_ID from CISADM.CM_OUT_MKTMSG_CHAR "
+            + "where CHAR_VAL_FK1 in (select CM_CONTRACT_ID from CISADM.CM_CONTRACT where CM_OPPORTUNITY_ID in ('%s'))))) " ;
+
+    public static final String saIsolatePendingStop = "update CISADM.CI_SA set sa_status_flg ='31' where sa_status_flg='30' "
+            + "and SA_ID not in (select SA_ID from CISADM.CI_SA WHERE acct_id in (select ACCT_ID from CISADM.CM_OUT_MKTMSG "
+            + "where CM_MKTMSG_ID in(select CM_MKTMSG_ID from CISADM.CM_OUT_MKTMSG_CHAR "
+            + "where CHAR_VAL_FK1 in (select CM_CONTRACT_ID from CISADM.CM_CONTRACT where CM_OPPORTUNITY_ID in ('%s'))))) " ;
+
+    public static final String saDeIsolatePendingStart = "update CISADM.CI_SA set sa_status_flg ='10' where sa_status_flg='11' "
+            + "and SA_ID not in (select SA_ID from CISADM.CI_SA WHERE acct_id in (select ACCT_ID from CISADM.CM_OUT_MKTMSG "
+            + "where CM_MKTMSG_ID in(select CM_MKTMSG_ID from CISADM.CM_OUT_MKTMSG_CHAR "
+            + "where CHAR_VAL_FK1 in (select CM_CONTRACT_ID from CISADM.CM_CONTRACT where CM_OPPORTUNITY_ID in ('%s'))))) " ;
+
+    public static final String saDeIsolatePendingStop = "update CISADM.CI_SA set sa_status_flg ='30' where sa_status_flg='31' "
+            + "and SA_ID not in (select SA_ID from CISADM.CI_SA WHERE acct_id in (select ACCT_ID from CISADM.CM_OUT_MKTMSG "
+            + "where CM_MKTMSG_ID in(select CM_MKTMSG_ID from CISADM.CM_OUT_MKTMSG_CHAR "
+            + "where CHAR_VAL_FK1 in (select CM_CONTRACT_ID from CISADM.CM_CONTRACT where CM_OPPORTUNITY_ID in ('%s'))))) " ;
 }

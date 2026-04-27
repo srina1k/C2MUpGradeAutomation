@@ -97,6 +97,12 @@ public class ServiceAgreementPage {
         WebElement spIDxtField = driver.findElement(By.xpath("//input[@name='SA_SP$SP_ID']"));
         spIDxtField.sendKeys(spID);
     }
+    public void VerifysaSp() {
+        driver.switchTo().defaultContent();
+        WaitUtils.waitForFrameAndSwitch(driver, "main", 5);
+        WaitUtils.waitForFrameAndSwitch(driver, "tabMenu", 5);
+        driver.findElement(By.cssSelector("td[title='SA/SP']")).click();
+    }
     public void chargesQtyTab() {
         driver.switchTo().defaultContent();
         WaitUtils.waitForFrameAndSwitch(driver,"main",5);
@@ -152,6 +158,11 @@ public class ServiceAgreementPage {
         WaitUtils.waitForFrameAndSwitch(driver,"main",8);
         driver.findElement(By.xpath("//span[text()='Go To Adjustment']")).click();
         driver.findElement(By.xpath("//span[text()='Add']")).click();
+    }
+    public void clickRefresh(){
+        driver.switchTo().defaultContent();
+        WaitUtils.waitForFrameAndSwitch(driver,"main",8);
+        WaitUtils.waitAndClick(driver, By.cssSelector("input[id='IM_REFRESH']"),5);
     }
 
 }

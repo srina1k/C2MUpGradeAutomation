@@ -116,7 +116,6 @@ public class COMC15P1 extends BaseClass {
         String Caseid = oppPer.quote();
         ExcelUtils.loadExcel("C:\\Users\\srina1k\\IdeaProjects\\C2MUpGradeAutomation\\src\\main\\java\\Resources\\RTScenarioTestDataReport.xlsx","Sheet1");
         ExcelUtils.setCellData(4,1, Caseid);
-        ExcelUtils.saveAndClose();
     }
 
 

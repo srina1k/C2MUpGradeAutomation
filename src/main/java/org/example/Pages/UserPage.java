@@ -44,6 +44,7 @@ public class UserPage {
                 By.xpath("//li[@id='mainMenu']"), By.xpath("//li[@id='CI_MAINMENU_topMenuItem0x9']"), By.xpath("(//span[contains(text(),'Add')])[12]")};// By.xpath("//input[@id=\"PER_ID\"]")};
         for (By menuItem2 : menuSequence2) {
             WaitUtils.waitAndClick(driver, menuItem2, 20);
+            WaitUtils.sleep(2000);
         }
         WaitUtils.waitForPageLoad(driver, 20);
         driver.switchTo().defaultContent();

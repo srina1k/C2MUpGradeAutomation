@@ -80,6 +80,19 @@ public class marketMessageSearch {
         driver.switchTo().frame(driver.findElement(By.cssSelector("iframe[id='zoneMapFrame_3']")));
         //WaitUtils.waitForTextTiBePresent(driver, By.cssSelector("//td[text()='Message Requested']"),"Message Requested",20);
     }
+    public void OmarketMsgValidation1(){
+        driver.switchTo().defaultContent();
+        WaitUtils.waitForFrameAndSwitch(driver,"main",8);
+        WaitUtils.waitForFrameAndSwitch(driver,"tabPage",8);
+        driver.switchTo().frame(driver.findElement(By.cssSelector("iframe[id='zoneMapFrame_2']")));
+        WaitUtils.waitAndClick(driver, By.cssSelector("input[value='Validate']"),5);
+
+        driver.switchTo().defaultContent();
+        WaitUtils.waitForFrameAndSwitch(driver,"main",8);
+        WaitUtils.waitForFrameAndSwitch(driver,"tabPage",8);
+        driver.switchTo().frame(driver.findElement(By.cssSelector("iframe[id='zoneMapFrame_3']")));
+        WaitUtils.waitForTextTiBePresent(driver, By.cssSelector("//td[text()='Completed']"),"Completed",20);
+    }
     public void ImarketMsgValidation(){
         /*driver.switchTo().defaultContent();
         WaitUtils.waitForFrameAndSwitch(driver,"main",8);

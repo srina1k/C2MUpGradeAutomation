@@ -64,6 +64,9 @@ public class AddPremisePage {
 //        driver.switchTo().window(mainWindow);
     }
     public void clickSearch() {
+//        WebElement clickSerch=driver.findElement(By.id("BU_premId_premSrch"));
+//        JavascriptExecutor js=(JavascriptExecutor) driver;
+//        js.executeScript("arguments[0].click()",clickSerch);
         WaitUtils.waitAndClick(driver, By.id("BU_premId_premSrch"), 2);
         WaitUtils.sleep(5000);
         String mainHandle = driver.getWindowHandles().iterator().next();
@@ -74,7 +77,6 @@ public class AddPremisePage {
         WaitUtils.getWait(driver,30);
         try {
             WaitUtils.ElementToBeClickable(driver, By.xpath("//input[@id='Bundefined']"), 20);
-            WaitUtils.waitForVisible(driver, By.xpath("//input[@id='Bundefined']"));
             WaitUtils.waitAndClick(driver, By.xpath("//input[@id='Bundefined']"), 20);
             WaitUtils.sleep(4000);
         } catch (NoSuchElementException e) {
@@ -369,7 +371,8 @@ public class AddPremisePage {
     public void addSiteMpan(String mpan){
         try {
             WaitUtils.sleep(2000);
-            WaitUtils.waitAndClick(driver, By.xpath("//a[normalize-space()='Add Site']"), 10);
+            WaitUtils.waitForClickable(driver,By.xpath("//a[normalize-space()='Add Site']"));
+            WaitUtils.waitAndClick(driver, By.xpath("//a[normalize-space()='Add Site']"), 20);
             driver.switchTo().defaultContent();
             WaitUtils.waitForFrameAndSwitch(driver, "main", 3);
             WaitUtils.sleep(4000);

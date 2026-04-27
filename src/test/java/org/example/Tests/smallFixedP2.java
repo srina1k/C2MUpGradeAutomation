@@ -24,10 +24,9 @@ public class smallFixedP2 extends BaseClass {
         LoginPage lp = new LoginPage(DriverManager.getDriver());
         lp.Logincredentials();
     }
-
     @Test (dependsOnMethods = "testLogin")
     public void contractValidation() throws SQLException {
-        ExcelUtils.loadExcel("D:\\Users\\sunag1a\\IdeaProjects\\AM_Tasks\\src\\main\\resources\\RTScenarioTestDataReport.xlsx", "Sheet1");
+        ExcelUtils.loadExcel("C:\\Users\\srina1k\\IdeaProjects\\C2MUpGradeAutomation\\src\\main\\java\\Resources\\RTScenarioTestDataReport.xlsx", "Sheet1");
         oppID = ExcelUtils.getCellData(3, 1);
 
         String query = String.format(DBQueries.syncReq, oppID);
