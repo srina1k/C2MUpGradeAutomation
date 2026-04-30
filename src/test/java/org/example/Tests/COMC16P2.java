@@ -5,11 +5,11 @@ import org.example.Base.BaseClass;
 import org.example.Pages.*;
 import org.example.Utils.*;
 import org.testng.annotations.Test;
+
 import java.io.File;
 import java.sql.SQLException;
 
-
-public class COMC15P2 extends BaseClass {
+public class COMC16P2 extends BaseClass {
 
     String oppID;
     String mpan;
@@ -20,7 +20,7 @@ public class COMC15P2 extends BaseClass {
 
     @Test
     public void testLogin(){
-        String fileName  = "COMC15P2.docx";
+        String fileName  = "COMC16P2.docx";
         File file = new File(fileName);
         if(file.exists()){
             file.delete();
@@ -31,9 +31,9 @@ public class COMC15P2 extends BaseClass {
     }
 
     @Test (dependsOnMethods = "testLogin")
-    public void marketMessageValidation() throws SQLException {
-        ExcelUtils.loadExcel("C:\\Users\\srina1k\\IdeaProjects\\C2MUpGradeAutomation\\src\\main\\java\\Resources\\RTScenarioTestDataReport.xlsx", "Sheet1");
-        oppID = ExcelUtils.getCellData(3, 1);
+    public void marketMessageValidation() throws SQLException, SQLException {
+        ExcelUtils.loadExcel("D:\\Users\\sunag1a\\IdeaProjects\\AM_Tasks\\src\\main\\resources\\RTScenarioTestDataReport.xlsx", "Sheet1");
+        oppID = ExcelUtils.getCellData(3, 2);
 
         String query = String.format(DBQueries.syncReq, oppID);
         String syncRequestID = DBUtils.getSingleDate(query, "F1_SYNC_REQ_ID");
@@ -42,9 +42,9 @@ public class COMC15P2 extends BaseClass {
         syncRequestPage syncReq = new syncRequestPage();
         syncReq.NavigateTosyncRequestQuery();
         syncReq.dropdownSyncRequestID(syncRequestID);
-        ScreenShotUtils.captureScreenshotToWord("COMC15P2.docx","Quote Accepted and Sync Request Created in system");
+        ScreenShotUtils.captureScreenshotToWord("COMC16P2.docx","Quote Accepted and Sync Request Created in system");
         syncReq.validation();
-        ScreenShotUtils.captureScreenshotToWord("COMC15P2.docx","Sync Request Validation completed");
+        ScreenShotUtils.captureScreenshotToWord("COMC16P2.docx","Sync Request Validation completed");
 
         String quoteQuery1 = String.format(DBQueries.IsolateQuote, oppID);
         DBUtils.UpdateQuery(quoteQuery1);
@@ -53,20 +53,20 @@ public class COMC15P2 extends BaseClass {
         batchP.BatchPage();
         batchP.CMMONOPBatch("CM-MONOP");
         batchP.clickRefresh();
-        ScreenShotUtils.captureScreenshotToWord("COMC15P2.docx","Batch Completed");
+        ScreenShotUtils.captureScreenshotToWord("COMC16P2.docx","Batch Completed");
 
         String quoteQuery2 = String.format(DBQueries.DeIsolateQuote, oppID);
         DBUtils.UpdateQuery(quoteQuery2);
 
         String contractQuery = String.format(DBQueries.fetchContract, oppID);
-        contractID = DBUtils.getSingleDate(contractQuery, "CM_CONTRACT_ID");
+        String contractID = DBUtils.getSingleDate(contractQuery, "CM_CONTRACT_ID");
         System.out.println("Contract_ID: " + contractID);
 
         contractSearch contract = new contractSearch();
         contract.navigateToContract(contractID);
-        ScreenShotUtils.captureScreenshotToWord("COMC15P2.docx","Contract is created in Set-Up Inprogress status");
+        ScreenShotUtils.captureScreenshotToWord("COMC16P2.docx","Contract is created in Set-Up Inprogress status");
         contract.ContractValidation();
-        ScreenShotUtils.captureScreenshotToWord("COMC15P2.docx","Contract is validated and Accepted");
+        ScreenShotUtils.captureScreenshotToWord("COMC16P2.docx","Contract is validated and Accepted");
 
         String marketMsgQuery = String.format(DBQueries.marketMessage, oppID);
         String MarketMsgID = DBUtils.getSingleDate(marketMsgQuery, "CM_MKTMSG_ID");
@@ -75,17 +75,16 @@ public class COMC15P2 extends BaseClass {
         marketMessageSearch mktmsg = new marketMessageSearch();
         mktmsg.navigateToMarketMessage();
         mktmsg.OdropdownoMarketMessageId(MarketMsgID);
-        ScreenShotUtils.captureScreenshotToWord("COMC15P2.docx","Market Message is created in Pending status");
+        ScreenShotUtils.captureScreenshotToWord("COMC16P2.docx","Market Message is created in Pending status");
 
         mktmsg.OmarketMsgValidation();
-        ScreenShotUtils.captureScreenshotToWord("COMC15P2.docx","Market Message Validated and moved to message requested status");
-
+        ScreenShotUtils.captureScreenshotToWord("COMC16P2.docx","Market Message Validated and moved to message requested status");
         mpan = mktmsg.fetchMpan();
         System.out.println("MPAN: " + mpan);
-
     }
+
     @Test (dependsOnMethods = "marketMessageValidation")
-    public void xaiSubmission(){
+    public void xaiSubmission() {
         XAISubmissionPage xai = new XAISubmissionPage();
         xai.navigateToXAISubmission();
         String xaiRequest1 = xaiUtils.SComcFlow(flow1, mpan);
@@ -99,10 +98,10 @@ public class COMC15P2 extends BaseClass {
         marketMessageSearch mktmsg = new marketMessageSearch();
         mktmsg.navigateToMarketMessage();
         mktmsg.IdropdownoMarketMessageId(InMarketMsgID1);
-        ScreenShotUtils.captureScreenshotToWord("COMC15P2.docx","Inbound Market Message is created in Pending status");
+        ScreenShotUtils.captureScreenshotToWord("COMC16P2.docx", "Inbound Market Message is created in Pending status");
 
         mktmsg.ImarketMsgValidation();
-        ScreenShotUtils.captureScreenshotToWord("COMC15P2.docx","Inbound Market Message is processed");
+        ScreenShotUtils.captureScreenshotToWord("COMC16P2.docx", "Inbound Market Message is processed");
 
         xai.clearXai();
         xai.navigateToXAISubmission();
@@ -136,7 +135,7 @@ public class COMC15P2 extends BaseClass {
         WindowHandlesUtils.switchToFirstWindow();
         PersonPage perpage = new PersonPage();
         perpage.gobackClickRefresh();
-        ScreenShotUtils.captureScreenshotToWord("COMC15P2.docx","Outbound Market Message is moved to  MTD Received status");
+        ScreenShotUtils.captureScreenshotToWord("COMC16P2.docx","Outbound Market Message is moved to  MTD Received status");
 
         String SAquery = String.format(DBQueries.SACheckQuery, oppID);
         String SA = DBUtils.getSingleDate(SAquery, "SA_ID");
@@ -145,6 +144,7 @@ public class COMC15P2 extends BaseClass {
         ServiceAgreementPage sapage = new ServiceAgreementPage();
         sapage.navigateToSA(SA);
         sapage.clickSearch();
-        ScreenShotUtils.captureScreenshotToWord("COMC15P2.docx","SA is created in pending Start");
+        ScreenShotUtils.captureScreenshotToWord("COMC16P2.docx","SA is created in pending Start");
+
     }
 }

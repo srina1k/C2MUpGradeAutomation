@@ -2,10 +2,7 @@ package org.example.Pages;
 
 import org.example.Utils.ScreenShotUtils;
 import org.example.Utils.WaitUtils;
-import org.openqa.selenium.By;
-import org.openqa.selenium.JavascriptExecutor;
-import org.openqa.selenium.WebDriver;
-import org.openqa.selenium.WebElement;
+import org.openqa.selenium.*;
 import org.openqa.selenium.support.ui.Select;
 import org.openqa.selenium.support.ui.Wait;
 import org.openqa.selenium.support.ui.WebDriverWait;
@@ -294,28 +291,31 @@ public class OppForPerson {
         return Caseid;
     }
     public void DeemedWon(){
+        WaitUtils.getWait(driver,20);
         driver.switchTo().defaultContent();
         WaitUtils.waitForFrameAndSwitch(driver,"main",10);
         WaitUtils.waitForFrameAndSwitch(driver,"tabPage",10);
-        // driver.switchTo().frame(driver.findElement(By.cssSelector("iframe[title='zoneMapFrame_1']")));
         WaitUtils.waitForFrameAndSwitch(driver,"zoneMapFrame_1",15);
-//        WaitUtils.getWait(driver,20);
-        WebElement PendingAnalysis=driver.findElement(By.xpath("//input[@value='Deemed Won - Pending Analysis']"));
-        WaitUtils.getWait(driver,20);
-        JavascriptExecutor js=(JavascriptExecutor)driver;
-        js.executeScript("arguments[0].click()",PendingAnalysis);
-        WaitUtils.getWait(driver,20);
+        try {
+            WebElement PendingAnalysis = driver.findElement(By.xpath("//input[@value='Deemed Won - Pending Analysis']"));
+            WaitUtils.getWait(driver, 20);
+            JavascriptExecutor js = (JavascriptExecutor) driver;
+            js.executeScript("arguments[0].click()", PendingAnalysis);
+            WaitUtils.getWait(driver, 20);
+        }catch (StaleElementReferenceException e) {
+            throw new StaleElementReferenceException(e.getMessage());
+        }
 //        //WaitUtils.waitAndClick(driver, By.xpath("//input[@value='Deemed Won - Pending Analysis']"), 15);
 //        WaitUtils.waitForVisible(driver, By.xpath("//input[@value='Won']"));
-        driver.switchTo().defaultContent();
-        WaitUtils.waitForFrameAndSwitch(driver,"main",2);
-        WaitUtils.waitAndClick(driver, By.id("IM_REFRESH"), 5);
-        driver.switchTo().defaultContent();
-        WaitUtils.waitForFrameAndSwitch(driver,"main",2);
-        WaitUtils.waitForFrameAndSwitch(driver,"tabPage",2);
-        WaitUtils.waitForFrameAndSwitch(driver,"zoneMapFrame_1",15);
-        //driver.switchTo().frame(driver.findElement(By.cssSelector("iframe[title='zoneMapFrame_1']")));
-        WaitUtils.waitForVisible(driver, By.xpath("//input[@value='Won']"));
+            driver.switchTo().defaultContent();
+            WaitUtils.waitForFrameAndSwitch(driver, "main", 2);
+            WaitUtils.waitAndClick(driver, By.id("IM_REFRESH"), 5);
+            driver.switchTo().defaultContent();
+            WaitUtils.waitForFrameAndSwitch(driver, "main", 2);
+            WaitUtils.waitForFrameAndSwitch(driver, "tabPage", 2);
+            WaitUtils.waitForFrameAndSwitch(driver, "zoneMapFrame_1", 15);
+            //driver.switchTo().frame(driver.findElement(By.cssSelector("iframe[title='zoneMapFrame_1']")));
+            WaitUtils.waitForVisible(driver, By.xpath("//input[@value='Won']"));
         driver.switchTo().defaultContent();
         WaitUtils.waitForFrameAndSwitch(driver,"main",10);
         for (int i = 0; i < 3; i++) {
@@ -327,7 +327,7 @@ public class OppForPerson {
         WaitUtils.waitForFrameAndSwitch(driver,"tabPage",2);
         driver.switchTo().frame(driver.findElement(By.cssSelector("iframe[title='zoneMapFrame_1']")));
         driver.findElement(By.xpath("//input[@value='Deemed Won - Pending Analysis']")).click();
-        //WaitUtils.waitForVisible(driver, By.xpath("//input[@value='Won']"));
+        WaitUtils.waitForVisible(driver, By.xpath("//input[@value='Won']"));
     }
     public void CustomerhyperLink1(){
         driver.switchTo().defaultContent();

@@ -59,22 +59,32 @@ public class AddPremisePage {
         WebElement premiseField = WaitUtils.waitForPVisible(driver, By.xpath("//input[@id='PREM_ID']"), 10);
         premiseField.clear();
         premiseField.sendKeys(premiseID);
-//        WaitUtils.waitAndClick(driver, By.id("BU_premId_premSrch"), 10);
-//        System.out.println(driver.getWindowHandle());
-//        driver.switchTo().window(mainWindow);
+        WaitUtils.waitAndClick(driver, By.id("BU_premId_premSrch"), 10);
+        System.out.println(driver.getWindowHandle());
+        driver.switchTo().window(mainWindow);
     }
     public void clickSearch() {
+//        WaitUtils.sleep(2500);
 //        WebElement clickSerch=driver.findElement(By.id("BU_premId_premSrch"));
 //        JavascriptExecutor js=(JavascriptExecutor) driver;
 //        js.executeScript("arguments[0].click()",clickSerch);
-        WaitUtils.waitAndClick(driver, By.id("BU_premId_premSrch"), 2);
-        WaitUtils.sleep(5000);
-        String mainHandle = driver.getWindowHandles().iterator().next();
-        driver.switchTo().window(mainHandle);
+//        //WaitUtils.waitAndClick(driver, By.id("BU_premId_premSrch"), 2);
+//        WaitUtils.sleep(5000);
+//        try {
+//            if (WaitUtils.isAlertPresent(driver, 10)) {
+//                driver.switchTo().alert().accept();
+//                WaitUtils.waitForVisible(driver, By.id("BU_premId_premSrch"));
+//                js.executeScript("arguments[0].click()", clickSerch);
+//            }
+//        } catch (RuntimeException e) {
+//            throw new RuntimeException(e.getMessage());
+//        }
+        //String mainHandle = driver.getWindowHandles().iterator().next();
+       // driver.switchTo().window(mainHandle);
+        String ParentWindow=driver.getWindowHandle();
         driver.switchTo().defaultContent();
-        WaitUtils.getWait(driver,20);
         WaitUtils.waitForFrameAndSwitch(driver,"main",20);
-        WaitUtils.getWait(driver,30);
+        WaitUtils.sleep(5000);
         try {
             WaitUtils.ElementToBeClickable(driver, By.xpath("//input[@id='Bundefined']"), 20);
             WaitUtils.waitAndClick(driver, By.xpath("//input[@id='Bundefined']"), 20);
@@ -82,10 +92,11 @@ public class AddPremisePage {
         } catch (NoSuchElementException e) {
             throw new NoSuchElementException(e.getMessage());
         } //driver.findElement(By.xpath("//input[@id='Bundefined']")).click();
-        WaitUtils.sleep(10000);
 
         for(String premise_details : driver.getWindowHandles()){
-            driver.switchTo().window(premise_details);
+            if(!premise_details.equals(ParentWindow)) {
+                driver.switchTo().window(premise_details);
+            }
         }
     }
     public void servicePointSelect(){

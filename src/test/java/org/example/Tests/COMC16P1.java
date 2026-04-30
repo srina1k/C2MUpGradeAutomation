@@ -48,7 +48,7 @@ public class COMC16P1 extends BaseClass {
         perpage.addressIndicator();
         String storeOppID = perpage.captureOppID();
         perpage.addOppIDToWord( "COMC16P1.docx", "Step5:Opportunity created in Identified status");
-        ExcelUtils.setCellData(3,1, storeOppID);
+        ExcelUtils.setCellData(3,2, storeOppID);
     }
     @Test(dependsOnMethods = "opportunityCreation", retryAnalyzer = RetryAnalyzer.class)
     public void premiseCreation() {

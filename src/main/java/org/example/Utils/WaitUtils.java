@@ -101,4 +101,15 @@ public class WaitUtils {
         js.executeScript("arguments[0].click();", element);
     }
 
+    public static boolean isAlertPresent(WebDriver driver, int timeoutSeconds) {
+        try {
+            WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(timeoutSeconds));
+            wait.until(ExpectedConditions.alertIsPresent());
+            return true;
+        } catch (TimeoutException e) {
+            return false;
+        }
+    }
+
+
 }

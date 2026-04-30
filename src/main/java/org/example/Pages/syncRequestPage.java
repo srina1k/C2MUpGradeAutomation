@@ -39,10 +39,14 @@ public class syncRequestPage {
         driver.switchTo().defaultContent();
         WaitUtils.waitForFrameAndSwitch(driver,"main",2);
         WaitUtils.waitForFrameAndSwitch(driver,"tabPage",2);
+        WaitUtils.waitForFrameAndSwitch(driver,"zoneMapFrame_1",5);
         //driver.switchTo().frame(driver.findElement(By.cssSelector("iframe[title='zoneMapFrame_1']")));
-        //WaitUtils.waitAndClick(driver, By.xpath("//input[@value='Validate']"),5);
+        WaitUtils.waitAndClick(driver, By.xpath("//input[@value='Validate']"),5);
 
-        driver.switchTo().frame(driver.findElement(By.cssSelector("iframe[title='zoneMapFrame_3']")));
+        //driver.switchTo().frame(driver.findElement(By.cssSelector("iframe[title='zoneMapFrame_3']")));
+        WaitUtils.waitForFrameAndSwitch(driver,"main",2);
+        WaitUtils.waitForFrameAndSwitch(driver,"tabPage",2);
+        WaitUtils.waitForFrameAndSwitch(driver,"zoneMapFrame_3",5);
         WaitUtils.waitForTextTiBePresent(driver, By.xpath("//td[text()='Completed']"), "Completed", 20);
 
     }

@@ -3,6 +3,7 @@ import org.example.Listener.RetryAnalyzer;
 import org.example.Utils.*;
 import org.example.Base.BaseClass;
 import org.example.Pages.*;
+import org.testng.IRetryAnalyzer;
 import org.testng.annotations.Test;
 
 import java.io.File;
@@ -23,7 +24,7 @@ public class ConnectionNew extends BaseClass {
     }
     @Test(dependsOnMethods = "LoginTest")
     public void opportunityCreation1() throws InterruptedException, IOException {
-        ExcelUtils.loadExcel("C:\\Users\\srina1k\\OneDrive - EDF\\Documents\\GitHub\\AM-Automation-Framework\\src\\main\\resources\\RTScenarioTestDataReport.xlsx", "Sheet1");
+        ExcelUtils.loadExcel("C:\\Users\\srina1k\\IdeaProjects\\C2MUpGradeAutomation\\src\\main\\java\\Resources\\RTScenarioTestDataReport.xlsx", "Sheet1");
         String personID1 = ExcelUtils.getCellData(1,5);
         UserPage userpage = new UserPage();
         userpage.NavigateToOpportunity(personID1);
@@ -44,9 +45,9 @@ public class ConnectionNew extends BaseClass {
         perpage.addOppIDToWord("New_Connection.docx", "Step5:Opportunity created in Identified status");
         ExcelUtils.setCellData(3,5, storeOppID);
     }
-    @Test (dependsOnMethods = "opportunityCreation1")
+    @Test (dependsOnMethods = "opportunityCreation1",retryAnalyzer = RetryAnalyzer.class)
     public void premiseCreation1() throws InterruptedException {
-        ExcelUtils.loadExcel("C:\\Users\\srina1k\\OneDrive - EDF\\Documents\\GitHub\\AM-Automation-Framework\\src\\main\\resources\\RTScenarioTestDataReport.xlsx", "Sheet1");
+        ExcelUtils.loadExcel("C:\\Users\\srina1k\\IdeaProjects\\C2MUpGradeAutomation\\src\\main\\java\\Resources\\RTScenarioTestDataReport.xlsx", "Sheet1");
         String premiseID = ExcelUtils.getCellData(2, 5);
         AddPremisePage premise = new AddPremisePage();
         premise.NavigateToPremise(premiseID);
@@ -72,7 +73,7 @@ public class ConnectionNew extends BaseClass {
     }
     @Test(dependsOnMethods = "CCTermSet1")
     public void OpportunityCreation2() throws InterruptedException, IOException {
-        ExcelUtils.loadExcel("C:\\Users\\srina1k\\OneDrive - EDF\\Documents\\GitHub\\AM-Automation-Framework\\src\\main\\resources\\RTScenarioTestDataReport.xlsx", "Sheet1");
+        ExcelUtils.loadExcel("C:\\Users\\srina1k\\IdeaProjects\\C2MUpGradeAutomation\\src\\main\\java\\Resources\\RTScenarioTestDataReport.xlsx", "Sheet1");
         String personID2 = ExcelUtils.getCellData(1,6);
         UserPage userpage = new UserPage();
         userpage.NavigateToOpportunity(personID2);
@@ -95,7 +96,7 @@ public class ConnectionNew extends BaseClass {
 
     @Test (dependsOnMethods = "OpportunityCreation2")
     public void premiseCreation2() throws InterruptedException {
-        ExcelUtils.loadExcel("C:\\Users\\srina1k\\OneDrive - EDF\\Documents\\GitHub\\AM-Automation-Framework\\src\\main\\resources\\RTScenarioTestDataReport.xlsx", "Sheet1");
+        ExcelUtils.loadExcel("C:\\Users\\srina1k\\IdeaProjects\\C2MUpGradeAutomation\\src\\main\\java\\Resources\\RTScenarioTestDataReport.xlsx", "Sheet1");
         String premiseID = ExcelUtils.getCellData(2, 6);
         AddPremisePage premise = new AddPremisePage();
         premise.NavigateToPremise(premiseID);

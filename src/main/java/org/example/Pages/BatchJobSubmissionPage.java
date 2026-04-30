@@ -32,8 +32,9 @@ public class BatchJobSubmissionPage {
             By[] menuSequence2 = {By.id("IM_menuButton"), By.xpath("//li[@id='mainMenu']/child::div"), By.id("CI_MAINMENU_topMenuItem0x32"), By.xpath("(//span[contains(text(),'Add')])[1]")};
             for (By menuItem2 : menuSequence2){
                 WaitUtils.waitAndClick(driver, menuItem2, 20);
+                WaitUtils.sleep(1000);
             }
-            WaitUtils.sleep(3000);
+            WaitUtils.sleep(2000);
         }
         public void batchControl(String BatchCode){
             driver.switchTo().defaultContent();
