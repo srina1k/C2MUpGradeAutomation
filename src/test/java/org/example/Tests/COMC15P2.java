@@ -71,7 +71,6 @@ public class COMC15P2 extends BaseClass {
         String marketMsgQuery = String.format(DBQueries.marketMessage, oppID);
         String MarketMsgID = DBUtils.getSingleDate(marketMsgQuery, "CM_MKTMSG_ID");
         System.out.println("MKTMSG_ID: " + MarketMsgID);
-
         marketMessageSearch mktmsg = new marketMessageSearch();
         mktmsg.navigateToMarketMessage();
         mktmsg.OdropdownoMarketMessageId(MarketMsgID);

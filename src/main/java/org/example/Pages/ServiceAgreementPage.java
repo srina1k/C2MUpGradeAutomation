@@ -19,18 +19,20 @@ public class ServiceAgreementPage {
 
         driver.switchTo().defaultContent();
         WaitUtils.waitForFrameAndSwitch(driver,"main",8);
-
+        String parentWindow= driver.getWindowHandle();
         WaitUtils.waitAndClick(driver, By.id("IM_menuButton"), 5);
+        WaitUtils.waitAndClick(driver, By.xpath("//li[@id='mainMenu']"), 5);
         WaitUtils.waitAndClick(driver, By.id("CI_MAINMENU_topMenuItem0x9"), 5);
-        WaitUtils.waitAndClick(driver, By.id("CI_CUSTOMERINFORMATION_subMenuItem1x35"), 5);
-        WaitUtils.waitAndClick(driver, By.xpath("//span[text()='Search']"), 5);
+        WaitUtils.waitAndClick(driver, By.id("ci_mainmenu_topmenuitem0x9ServiceAgreement"), 5);
         WaitUtils.sleep(2000);
 
         new WebDriverWait(driver, Duration.ofSeconds(20)).until(d -> d.getWindowHandles().size() > 1);
         for (String window : driver.getWindowHandles()){
-            driver.switchTo().window(window);
-            if (driver.getTitle().contains("Service Agreement Search")){
-                break;
+            if(!window.equals(parentWindow)) {
+                driver.switchTo().window(window);
+                if (driver.getTitle().contains("Service Agreement Search")) {
+                    break;
+                }
             }
         }
         WaitUtils.sleep(5000);
@@ -41,9 +43,9 @@ public class ServiceAgreementPage {
 
     public void clickSearch() {
         WaitUtils.waitAndClick(driver, By.id("BU_Main_search"), 5);
-        String mainHandle = driver.getWindowHandles().iterator().next();
-        driver.switchTo().window(mainHandle);
-        WaitUtils.sleep(5000);
+//        String mainHandle = driver.getWindowHandles().iterator().next();
+//        driver.switchTo().window(mainHandle);
+        WaitUtils.sleep(2000);
     }
     public void navigatToSAFromAccountDropdown(){
         driver.switchTo().defaultContent();

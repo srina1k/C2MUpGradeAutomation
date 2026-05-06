@@ -70,22 +70,17 @@ public class smallFixedP2 extends BaseClass {
         mktmsg.navigateToMarketMessage();
         mktmsg.mmSearchContractID(contractID);
         ScreenShotUtils.captureScreenshotToWord("SmallFixed-P2.docx","Market Message is created in Pending status");
-
         //Isolate all OMMs in PENDING to PENDINGX
         String OmmIsolate = String.format(DBQueries.ommIsolate, oppID);
         DBUtils.UpdateQuery(OmmIsolate);
-
         BatchJobSubmissionPage batchP = new BatchJobSubmissionPage();
         batchP.BatchPage();
         batchP.CMOBMMDBatch("CM-OBMMD");
         ScreenShotUtils.captureScreenshotToWord("SmallFixed-P2.docx","Batch Completed. Market message Moved to Completed Status ");
         batchP.clickRefresh();
-
         mktmsg.mmclickRefresh();
         ScreenShotUtils.captureScreenshotToWord("SmallFixed-P2.docx","Batch Completed. Market message Moved to Completed Status ");
-
         //Next mail to AFMS for required flow..
         //Continue manual process by validating all flow droped from AFMS
-
     }
 }

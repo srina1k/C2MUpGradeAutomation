@@ -32,7 +32,7 @@ public class COMC16P2 extends BaseClass {
 
     @Test (dependsOnMethods = "testLogin")
     public void marketMessageValidation() throws SQLException, SQLException {
-        ExcelUtils.loadExcel("D:\\Users\\sunag1a\\IdeaProjects\\AM_Tasks\\src\\main\\resources\\RTScenarioTestDataReport.xlsx", "Sheet1");
+        ExcelUtils.loadExcel("C:\\Users\\srina1k\\IdeaProjects\\C2MUpGradeAutomation\\src\\main\\java\\Resources\\RTScenarioTestDataReport.xlsx", "Sheet1");
         oppID = ExcelUtils.getCellData(3, 2);
 
         String query = String.format(DBQueries.syncReq, oppID);

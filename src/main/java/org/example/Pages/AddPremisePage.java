@@ -445,4 +445,7 @@ public class AddPremisePage {
         driver.findElement(By.xpath("//input[@id='annualConsumption']")).sendKeys("100");
         driver.findElement(By.xpath("//input[@id='agreedCapacity']")).sendKeys("120");
     }
+    public void gitTest(){
+
+    }
 }

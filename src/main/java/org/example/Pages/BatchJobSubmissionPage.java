@@ -292,18 +292,17 @@ public class BatchJobSubmissionPage {
         driver.switchTo().defaultContent();
         WaitUtils.waitForFrameAndSwitch(driver, "main", 5);
         WaitUtils.waitForFrameAndSwitch(driver, "tabPage", 5);
-        driver.findElement(By.cssSelector("input[id='BATCH_CD']")).sendKeys(batchcode);
-
-        WebElement double_click2 = driver.findElement(By.xpath("//input[@id='USER_ID']"));
-        Actions act2 = new Actions(driver);
-        act2.doubleClick(double_click2).build().perform();
-        act2.sendKeys(Keys.BACK_SPACE);
-        WaitUtils.sleep(1000);
-        driver.findElement(By.xpath("//input[@id='USER_ID']")).sendKeys("BATCHUSR");
-
-        driver.switchTo().frame("BJP");
-        driver.findElement(By.id("BJP:3$BATCH_PARM_VAL")).sendKeys("CM-D0055Registration");
-        driver.findElement(By.id("BJP:4$BATCH_PARM_VAL")).sendKeys("PENDING");
+        WaitUtils.waitForFrameAndSwitch(driver, "uiMap", 5);
+        WaitUtils.ElementToBeClickable(driver,By.xpath("//span/input[@id='batchControlInp']"),5);
+        WebElement batch_control= driver.findElement(By.xpath("//span/input[@id='batchControlInp']"));
+        batch_control.click();
+        new Actions(driver).doubleClick(batch_control).pause(Duration.ofSeconds(10)).sendKeys(Keys.BACK_SPACE).pause(Duration.ofSeconds(10)).sendKeys(batchcode).sendKeys(Keys.ENTER).sendKeys(Keys.ENTER).perform();
+        WaitUtils.waitForVisible(driver,By.xpath("//span/input[@id='boGroup_user']"));
+        WebElement double_click= driver.findElement(By.xpath("//span/input[@id='boGroup_user']"));
+        new Actions(driver).pause(Duration.ofSeconds(10)).doubleClick(double_click).sendKeys(Keys.BACK_SPACE).pause(Duration.ofSeconds(10)).sendKeys("BATCHUSR").sendKeys(Keys.ENTER).sendKeys(Keys.ENTER).perform();
+        WaitUtils.getWait(driver,10);
+        driver.findElement(By.id("batchParameterValue_3")).sendKeys("CM-D0055Registration");
+        driver.findElement(By.id("batchParameterValue_4")).sendKeys("PENDING");
     }
     public void CMLTMPTBatch (String batchcode, String businessDate) {
         driver.switchTo().defaultContent();
@@ -401,8 +400,8 @@ public class BatchJobSubmissionPage {
         WebElement double_click= driver.findElement(By.xpath("//span/input[@id='boGroup_user']"));
         new Actions(driver).pause(Duration.ofSeconds(10)).doubleClick(double_click).sendKeys(Keys.BACK_SPACE).pause(Duration.ofSeconds(10)).sendKeys("BATCHUSR").sendKeys(Keys.ENTER).sendKeys(Keys.ENTER).perform();
         WaitUtils.getWait(driver,10);
-        driver.findElement(By.id("batchParameterValue_3")).sendKeys("CM-Opportunity");
-        driver.findElement(By.id("batchParameterValue_4")).sendKeys("QUOTE");
+        driver.findElement(By.id("batchParameterValue_3")).sendKeys("CM-Contract");
+        driver.findElement(By.id("batchParameterValue_4")).sendKeys("INPROGRESS");
     }
 
     public void CMCUUB2Batch (String batchcode, String filename) {
@@ -465,20 +464,8 @@ public class BatchJobSubmissionPage {
         WebElement double_click= driver.findElement(By.xpath("//span/input[@id='boGroup_user']"));
         new Actions(driver).pause(Duration.ofSeconds(10)).doubleClick(double_click).sendKeys(Keys.BACK_SPACE).pause(Duration.ofSeconds(10)).sendKeys("BATCHUSR").sendKeys(Keys.ENTER).sendKeys(Keys.ENTER).perform();
         WaitUtils.getWait(driver,10);
-//        driver.findElement(By.cssSelector("input[id='BATCH_CD']")).sendKeys(batchcode);
-//
-//        WebElement double_click2 = driver.findElement(By.xpath("//input[@id='USER_ID']"));
-//        Actions act2 = new Actions(driver);
-//        act2.doubleClick(double_click2).build().perform();
-//        act2.sendKeys(Keys.BACK_SPACE);
-//        WaitUtils.sleep(1000);
-//        driver.findElement(By.xpath("//input[@id='USER_ID']")).sendKeys("BATCHUSR");
-//        WaitUtils.sleep(1000);
         driver.findElement(By.id("batchParameterValue_3")).sendKeys("CM-Opportunity");
         driver.findElement(By.id("batchParameterValue_4")).sendKeys("QUOTE");
-//        driver.findElement(By.id("BJP:3$BATCH_PARM_VAL")).sendKeys("CM-Opportunity");
-//        driver.findElement(By.id("BJP:4$BATCH_PARM_VAL")).sendKeys("QUOTE");
-
     }
     public void clickRefresh() {
 //        driver.switchTo().defaultContent();

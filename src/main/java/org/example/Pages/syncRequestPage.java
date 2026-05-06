@@ -3,6 +3,7 @@ package org.example.Pages;
 import org.example.Utils.DriverManager;
 import org.example.Utils.WaitUtils;
 import org.openqa.selenium.By;
+import org.openqa.selenium.StaleElementReferenceException;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.support.ui.Select;
 import org.openqa.selenium.support.ui.Wait;
@@ -22,11 +23,12 @@ public class syncRequestPage {
         WaitUtils.waitAndClick(driver, By.id("CI_MAINMENU_topMenuItem0x11"), 5);
         WaitUtils.waitAndClick(driver,By.id("ci_mainmenu_topmenuitem0x11SyncRequestOutbound"),10);
         //WaitUtils.waitForFrameAndSwitch(driver,"tabPage",2);
+        WaitUtils.waitForFrameAndSwitch(driver,"tabPage",10);
         WaitUtils.waitForPVisible(driver,By.xpath("//span[text()='Sync Request Search']"),10);
     }
 
     public void dropdownSyncRequestID(String SyncReqID){
-        WaitUtils.waitForFrameAndSwitch(driver,"tabPage",10);
+        //WaitUtils.waitForFrameAndSwitch(driver,"tabPage",10);
         Select search_by = new Select(driver.findElement(By.xpath("//select[@id='multiQueryZoneFilters1']")));
         search_by.selectByIndex(3);
         WaitUtils.sleep(1000);
@@ -39,14 +41,20 @@ public class syncRequestPage {
         driver.switchTo().defaultContent();
         WaitUtils.waitForFrameAndSwitch(driver,"main",2);
         WaitUtils.waitForFrameAndSwitch(driver,"tabPage",2);
-        WaitUtils.waitForFrameAndSwitch(driver,"zoneMapFrame_1",5);
-        //driver.switchTo().frame(driver.findElement(By.cssSelector("iframe[title='zoneMapFrame_1']")));
-        WaitUtils.waitAndClick(driver, By.xpath("//input[@value='Validate']"),5);
-
+        //WaitUtils.waitForFrameAndSwitch(driver,"zoneMapFrame_1",5);
+        driver.switchTo().frame(driver.findElement(By.cssSelector("iframe[title='zoneMapFrame_1']")));
+        try {
+            WaitUtils.waitForVisible(driver,By.xpath("//input[@value='Validate']"));
+            WaitUtils.waitAndClick(driver, By.xpath("//input[@value='Validate']"), 5);
+        } catch (StaleElementReferenceException e) {
+            throw new StaleElementReferenceException(e.getMessage());
+        }
         //driver.switchTo().frame(driver.findElement(By.cssSelector("iframe[title='zoneMapFrame_3']")));
+        driver.switchTo().defaultContent();
         WaitUtils.waitForFrameAndSwitch(driver,"main",2);
         WaitUtils.waitForFrameAndSwitch(driver,"tabPage",2);
-        WaitUtils.waitForFrameAndSwitch(driver,"zoneMapFrame_3",5);
+        driver.switchTo().frame(driver.findElement(By.cssSelector("iframe[title='zoneMapFrame_3']")));
+       // WaitUtils.waitForFrameAndSwitch(driver,"zoneMapFrame_3",5);
         WaitUtils.waitForTextTiBePresent(driver, By.xpath("//td[text()='Completed']"), "Completed", 20);
 
     }
