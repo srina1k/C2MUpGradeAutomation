@@ -25,7 +25,6 @@ public class ServiceAgreementPage {
         WaitUtils.waitAndClick(driver, By.id("CI_MAINMENU_topMenuItem0x9"), 5);
         WaitUtils.waitAndClick(driver, By.id("ci_mainmenu_topmenuitem0x9ServiceAgreement"), 5);
         WaitUtils.sleep(2000);
-
         new WebDriverWait(driver, Duration.ofSeconds(20)).until(d -> d.getWindowHandles().size() > 1);
         for (String window : driver.getWindowHandles()){
             if(!window.equals(parentWindow)) {
@@ -40,11 +39,10 @@ public class ServiceAgreementPage {
         WebElement saField = WaitUtils.waitForPVisible(driver, By.xpath("//input[@name='SA_ID']"), 10);
         saField.sendKeys(SAID);
     }
-
     public void clickSearch() {
         WaitUtils.waitAndClick(driver, By.id("BU_Main_search"), 5);
-//        String mainHandle = driver.getWindowHandles().iterator().next();
-//        driver.switchTo().window(mainHandle);
+        String mainHandle = driver.getWindowHandles().iterator().next();
+        driver.switchTo().window(mainHandle);
         WaitUtils.sleep(2000);
     }
     public void navigatToSAFromAccountDropdown(){
@@ -104,6 +102,7 @@ public class ServiceAgreementPage {
         WaitUtils.waitForFrameAndSwitch(driver, "main", 5);
         WaitUtils.waitForFrameAndSwitch(driver, "tabMenu", 5);
         driver.findElement(By.cssSelector("td[title='SA/SP']")).click();
+        WaitUtils.sleep(2500);
     }
     public void chargesQtyTab() {
         driver.switchTo().defaultContent();
@@ -139,6 +138,14 @@ public class ServiceAgreementPage {
         WaitUtils.waitForFrameAndSwitch(driver, "main", 5);
         WaitUtils.waitForFrameAndSwitch(driver, "tabMenu", 5);
         driver.findElement(By.cssSelector("td[title='Chars, Qty & Rec. Charges']")).click();
+        WaitUtils.sleep(2500);
+    }
+    public void VerifyRateInfo(){
+        driver.switchTo().defaultContent();
+        WaitUtils.waitForFrameAndSwitch(driver,"main",5);
+        WaitUtils.waitForFrameAndSwitch(driver,"tabMenu",5);
+        driver.findElement(By.cssSelector("td[title='Rate Info']"));
+        WaitUtils.sleep(1000);
     }
     public String SaID(){
         driver.switchTo().defaultContent();

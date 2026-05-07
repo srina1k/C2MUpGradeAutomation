@@ -291,23 +291,24 @@ public class OppForPerson {
         return Caseid;
     }
     public void DeemedWon() throws NoSuchElementException,StaleElementReferenceException{
-        WaitUtils.getWait(driver,20);
+        WaitUtils.sleep(8000);
         driver.switchTo().defaultContent();
         WaitUtils.waitForFrameAndSwitch(driver,"main",10);
         WaitUtils.waitForFrameAndSwitch(driver,"tabPage",10);
+        //WaitUtils.waitForFrameAndSwitch(driver,"zoneMapFrame_1",10);
         driver.switchTo().frame(driver.findElement(By.cssSelector("iframe[title='zoneMapFrame_1']")));
         try {
-//            WebElement PendingAnalysis = driver.findElement(By.xpath("//input[@value='Deemed Won - Pending Analysis']"));
-//            JavascriptExecutor js = (JavascriptExecutor) driver;
-//            js.executeScript("arguments[0].click()", PendingAnalysis);
-            WaitUtils.getWait(driver,20);
+            WaitUtils.sleep(3000);
             WaitUtils.waitForVisible(driver,By.cssSelector("input[value='Deemed Won - Pending Analysis']"));
-            driver.findElement(By.cssSelector("input[value='Deemed Won - Pending Analysis']")).click();
-            WaitUtils.getWait(driver, 20);
+            WebElement PendingAnalysis = driver.findElement(By.xpath("//input[@value='Deemed Won - Pending Analysis']"));
+            JavascriptExecutor js = (JavascriptExecutor) driver;
+            js.executeScript("arguments[0].click()", PendingAnalysis);
+            WaitUtils.sleep(5000);
+            //WaitUtils.waitForPresence(driver, By.xpath("//input[@value='Won']"));
+            //WaitUtils.waitForVisible(driver, By.xpath("//input[@value='Won']"));
         }catch (StaleElementReferenceException e) {
             throw new StaleElementReferenceException(e.getMessage());
         }
-        WaitUtils.waitForVisible(driver, By.xpath("//input[@value='Won']"));
         driver.switchTo().defaultContent();
         WaitUtils.waitForFrameAndSwitch(driver,"main",10);
         for (int i = 0; i < 3; i++) {
@@ -319,9 +320,11 @@ public class OppForPerson {
         WaitUtils.waitForFrameAndSwitch(driver,"tabPage",2);
         driver.switchTo().frame(driver.findElement(By.cssSelector("iframe[title='zoneMapFrame_1']")));
         WaitUtils.getWait(driver,10);
+        WaitUtils.sleep(5000);
         WaitUtils.waitForVisible(driver,By.cssSelector("input[value='Deemed Won - Pending Analysis']"));
-        driver.findElement(By.cssSelector("input[value='Deemed Won - Pending Analysis']")).click();
-        WaitUtils.waitForVisible(driver, By.xpath("//input[@value='Won']"));
+        WaitUtils.waitAndClick2(driver,By.cssSelector("input[value='Deemed Won - Pending Analysis']"),10);
+        WaitUtils.sleep(2000);
+       // WaitUtils.waitForPresence(driver, By.xpath("//input[@value='Won']"));
     }
     public void CustomerhyperLink1(){
         driver.switchTo().defaultContent();

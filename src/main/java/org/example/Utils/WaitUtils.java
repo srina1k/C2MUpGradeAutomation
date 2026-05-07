@@ -60,6 +60,20 @@ public class WaitUtils {
             throw new NoSuchElementException("Element not clickable after " + seconds + "s: " + locator, te);
         }
     }
+    public static void waitAndClick2(WebDriver driver, By locator, int seconds) {
+        WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(seconds));
+
+        for (int i = 0; i < 2; i++) {
+            try {
+                wait.until(ExpectedConditions.elementToBeClickable(locator)).click();
+                return;
+            } catch (StaleElementReferenceException e) {
+                // element refreshed, retry
+            }
+        }
+
+        throw new StaleElementReferenceException("Element stayed stale after retries: " + locator);
+    }
     public static void sleep(long millis){
         try{
             Thread.sleep(millis);
