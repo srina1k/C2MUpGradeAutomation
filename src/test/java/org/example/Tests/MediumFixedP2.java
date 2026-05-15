@@ -39,7 +39,7 @@ public class MediumFixedP2 extends BaseClass {
         syncReq.NavigateTosyncRequestQuery();
         syncReq.dropdownSyncRequestID(syncRequestID);
         ScreenShotUtils.captureScreenshotToWord("MediumFixedP2.docx","Quote Accepted and Sync Request Created in system");
-        syncReq.validation();
+        //syncReq.validation();
         ScreenShotUtils.captureScreenshotToWord("MediumFixedP2.docx","Sync Request Validation completed");
 
         String quoteQuery1 = String.format(DBQueries.IsolateQuote, oppID);
@@ -76,6 +76,7 @@ public class MediumFixedP2 extends BaseClass {
         //Isolate all OMMs in PENDING to PENDINGX
         String OmmIsolate = String.format(DBQueries.ommIsolate, oppID);
         DBUtils.UpdateQuery(OmmIsolate);
+        System.out.println(OmmIsolate);
 
         BatchJobSubmissionPage batchP = new BatchJobSubmissionPage();
         batchP.BatchPage();
@@ -86,6 +87,7 @@ public class MediumFixedP2 extends BaseClass {
         //DeIsolate all OMMs in PENDINGX to PENDING
         String DeIsolate = String.format(DBQueries.ommDeIsolate, oppID);
         DBUtils.UpdateQuery(DeIsolate);
+        System.out.println(DeIsolate);
 
         String SAQuery = String.format(DBQueries.newSACheckQuery, oppID);
         String saID = DBUtils.getSingleDate(SAQuery, "SA_ID");

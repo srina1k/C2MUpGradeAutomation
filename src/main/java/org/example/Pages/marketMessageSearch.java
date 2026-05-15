@@ -90,8 +90,10 @@ public class marketMessageSearch {
         driver.switchTo().defaultContent();
         WaitUtils.waitForFrameAndSwitch(driver,"main",8);
         WaitUtils.waitForFrameAndSwitch(driver,"tabPage",8);
+        WaitUtils.getWait(driver,20);
         driver.switchTo().frame(driver.findElement(By.cssSelector("iframe[id='zoneMapFrame_3']")));
-        WaitUtils.waitForTextTiBePresent(driver, By.xpath("//td[text()='Completed']"),"Completed",20);
+        WaitUtils.waitForVisible(driver,By.xpath("//td[text()='Completed']"));
+        //WaitUtils.waitForTextTiBePresent(driver, By.xpath("//td[text()='Completed']"),"Completed",20);
     }
     public void ImarketMsgValidation(){
         /*driver.switchTo().defaultContent();
@@ -109,5 +111,17 @@ public class marketMessageSearch {
     public String fetchMpan(){
         String mpan = driver.findElement(By.xpath("//td[@orafield='marketIdentifier']")).getText().trim();
         return mpan;
+    }
+    public void OMMScreenshot(){
+        driver.switchTo().defaultContent();
+        WaitUtils.waitForFrameAndSwitch(driver,"main",8);
+        WaitUtils.waitForVisible(driver, By.xpath("//div[text()='Outbound Market Message Maintenance']"));
+
+        WaitUtils.waitForFrameAndSwitch(driver,"tabPage",8);
+        WaitUtils.waitAndClick(driver, By.xpath("//span[@title='Go To Service Agreement ']"),5);
+
+        driver.switchTo().defaultContent();
+        WaitUtils.waitForFrameAndSwitch(driver,"main",8);
+        WaitUtils.waitForPVisible(driver, By.xpath("//div[text()='Service Agreement']"),5);
     }
 }

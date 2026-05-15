@@ -4,14 +4,12 @@ import org.example.Utils.ScreenShotUtils;
 import org.example.Utils.WaitUtils;
 import org.openqa.selenium.*;
 import org.openqa.selenium.support.ui.Select;
-import org.openqa.selenium.support.ui.Wait;
 import org.openqa.selenium.support.ui.WebDriverWait;
 import org.example.Utils.DriverManager;
 import java.io.IOException;
 
 import java.time.Duration;
 import java.util.List;
-import java.util.stream.Collectors;
 
 public class OppForPerson {
     private final WebDriver driver;
@@ -290,6 +288,14 @@ public class OppForPerson {
         System.out.println("Case ID:" + Caseid);
         return Caseid;
     }
+    public String Opportunity(){
+        driver.switchTo().defaultContent();
+        WaitUtils.waitForFrameAndSwitch(driver,"main",5);
+        WaitUtils.waitForFrameAndSwitch(driver,"tabPage",10);
+        String OppId=driver.findElement(By.xpath("//span[@class='label']")).getText().trim();
+        System.out.println("Opporunity id:"+OppId);
+        return OppId;
+    }
     public void DeemedWon() throws NoSuchElementException,StaleElementReferenceException{
         WaitUtils.sleep(8000);
         driver.switchTo().defaultContent();
@@ -297,15 +303,12 @@ public class OppForPerson {
         WaitUtils.waitForFrameAndSwitch(driver,"tabPage",10);
         //WaitUtils.waitForFrameAndSwitch(driver,"zoneMapFrame_1",10);
         driver.switchTo().frame(driver.findElement(By.cssSelector("iframe[title='zoneMapFrame_1']")));
+        WaitUtils.waitForVisible(driver,By.cssSelector("input[value='Deemed Won - Pending Analysis']"));
+        WebElement PendingAnalysis = driver.findElement(By.xpath("//input[@value='Deemed Won - Pending Analysis']"));
         try {
-            WaitUtils.sleep(3000);
-            WaitUtils.waitForVisible(driver,By.cssSelector("input[value='Deemed Won - Pending Analysis']"));
-            WebElement PendingAnalysis = driver.findElement(By.xpath("//input[@value='Deemed Won - Pending Analysis']"));
             JavascriptExecutor js = (JavascriptExecutor) driver;
             js.executeScript("arguments[0].click()", PendingAnalysis);
-            WaitUtils.sleep(5000);
-            //WaitUtils.waitForPresence(driver, By.xpath("//input[@value='Won']"));
-            //WaitUtils.waitForVisible(driver, By.xpath("//input[@value='Won']"));
+                WaitUtils.sleep(3000);
         }catch (StaleElementReferenceException e) {
             throw new StaleElementReferenceException(e.getMessage());
         }
@@ -313,10 +316,9 @@ public class OppForPerson {
         WaitUtils.waitForFrameAndSwitch(driver,"main",10);
         for (int i = 0; i < 3; i++) {
             WaitUtils.waitAndClick(driver, By.xpath("//ou-button[@id='IM_GOBACK']"), 15);
-            WaitUtils.sleep(2000); // ~2–3 secs
+            WaitUtils.waitForPageLoad(driver,20);
+            WaitUtils.sleep(5000); // ~2–3 secs
         }
-//        driver.switchTo().defaultContent();
-//        WaitUtils.waitForFrameAndSwitch(driver,"main",10);
         WaitUtils.waitForFrameAndSwitch(driver,"tabPage",2);
         driver.switchTo().frame(driver.findElement(By.cssSelector("iframe[title='zoneMapFrame_1']")));
         WaitUtils.getWait(driver,10);
@@ -324,7 +326,6 @@ public class OppForPerson {
         WaitUtils.waitForVisible(driver,By.cssSelector("input[value='Deemed Won - Pending Analysis']"));
         WaitUtils.waitAndClick2(driver,By.cssSelector("input[value='Deemed Won - Pending Analysis']"),10);
         WaitUtils.sleep(2000);
-       // WaitUtils.waitForPresence(driver, By.xpath("//input[@value='Won']"));
     }
     public void CustomerhyperLink1(){
         driver.switchTo().defaultContent();

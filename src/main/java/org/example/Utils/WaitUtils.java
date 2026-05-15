@@ -28,6 +28,10 @@ public class WaitUtils {
     public static WebElement waitForPVisible(WebDriver driver, By locator, int seconds){
         return getWait(driver, seconds).until(ExpectedConditions.visibilityOfElementLocated(locator));
     }
+    public static boolean waitForStaleness(WebDriver driver,WebElement element, int timeout) {
+        return new WebDriverWait(driver, Duration.ofSeconds(timeout)).until(ExpectedConditions.stalenessOf(element));
+    }
+
 
     public static void waitForTextTiBePresent(WebDriver driver, By locator, String expectedText, int timeoutSeconds){
         WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(timeoutSeconds));
@@ -41,6 +45,12 @@ public class WaitUtils {
                         .executeScript("return document.readyState").equals("complete")
         );
     }
+
+    public static WebElement waitUntilClickable(WebDriver driver, By locator, int timeoutInSeconds) {
+        WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(timeoutInSeconds));
+        return wait.until(ExpectedConditions.elementToBeClickable(locator));
+    }
+
     public static void clickAndSwitchIntoFrames(WebDriver driver, By clickLocator, int timeoutSec, List<String> framesChain) {
         waitAndClick(driver, clickLocator, timeoutSec);
         driver.switchTo().defaultContent();

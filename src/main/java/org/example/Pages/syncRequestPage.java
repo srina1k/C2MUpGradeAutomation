@@ -41,12 +41,11 @@ public class syncRequestPage {
         driver.switchTo().defaultContent();
         WaitUtils.waitForFrameAndSwitch(driver,"main",2);
         WaitUtils.waitForFrameAndSwitch(driver,"tabPage",2);
-        //WaitUtils.waitForFrameAndSwitch(driver,"zoneMapFrame_1",5);
         driver.switchTo().frame(driver.findElement(By.cssSelector("iframe[title='zoneMapFrame_1']")));
 
             WaitUtils.waitForVisible(driver,By.xpath("//input[@value='Validate']"));
             WaitUtils.waitAndClick2(driver, By.xpath("//input[@value='Validate']"), 5);
-        //driver.switchTo().frame(driver.findElement(By.cssSelector("iframe[title='zoneMapFrame_3']")));
+        WaitUtils.sleep(5000);
         driver.switchTo().defaultContent();
         WaitUtils.waitForFrameAndSwitch(driver,"main",2);
         WaitUtils.waitForFrameAndSwitch(driver,"tabPage",2);

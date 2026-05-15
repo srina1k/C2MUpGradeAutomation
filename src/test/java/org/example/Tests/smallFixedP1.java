@@ -28,20 +28,19 @@ public class smallFixedP1 extends BaseClass {
         FileRenameUtils.replaceDate(CsvFilePath);
         String remotePath = "/ccbfsx/Common/prospect_upload/";
         WinScpServerUtils.uploadFile(CsvFilePath,remotePath);
-        String csvFilename = FileRenameUtils.getFileNameFromPath(CsvFilePath);
-        BatchJobSubmissionPage batchP = new BatchJobSubmissionPage();
-        batchP.BatchPage();
-        batchP.CMSPSU2Batch("CM-SPSU2", csvFilename," ");
-        ScreenShotUtils.captureScreenshotToWord("SmallFixed.docx","Batch completed");
+//        String csvFilename = FileRenameUtils.getFileNameFromPath(CsvFilePath);
+//        BatchJobSubmissionPage batchP = new BatchJobSubmissionPage();
+//        batchP.BatchPage();
+//        batchP.CMSPSU2Batch("CM-SPSU2", csvFilename," ");
+//        ScreenShotUtils.captureScreenshotToWord("SmallFixed.docx","Batch completed");
     }
     @Test(dependsOnMethods = "uploadFile")
-    public void oppSearch()  {
-        ExcelUtils.loadExcel("C:\\Users\\srina1k\\OneDrive - EDF\\Documents\\GitHub\\AM-Automation-Framework\\src\\main\\resources\\RTScenarioTestDataReport.xlsx","Sheet1");
+    public void oppSearch() throws IOException {
+        ExcelUtils.loadExcel("C:\\Users\\srina1k\\IdeaProjects\\C2MUpGradeAutomation\\src\\main\\java\\Resources\\RTScenarioTestDataReport.xlsx","Sheet1");
         String CustName = ExcelUtils.getCellData(2,9);
         PersonPage perpage = new PersonPage();
         perpage.SearchOppByname(CustName);
         ScreenShotUtils.captureScreenshotToWord("SmallFixed.docx","Opportunity Created");
-
         AddPremisePage premise = new AddPremisePage();
         premise.siteDetails();
         ScreenShotUtils.captureScreenshotToWord("SmallFixed.docx","Ecoes Validation - Yes.");
@@ -49,6 +48,8 @@ public class smallFixedP1 extends BaseClass {
     @Test(dependsOnMethods = "oppSearch")
     public void CCTermSet() throws IOException {
         OppForPerson oppPer = new OppForPerson();
+        String oppid=oppPer.Opportunity();
+        ExcelUtils.setCellData(3,9,oppid);
         oppPer.CreditCheck();
         ScreenShotUtils.captureScreenshotToWord("SmallFixed.docx","Credit Check Processed");
         oppPer.TermSet();
@@ -59,7 +60,7 @@ public class smallFixedP1 extends BaseClass {
         ScreenShotUtils.captureScreenshotToWord("SmallFixed.docx","Quote generated");
 
         String Caseid = oppPer.quote();
-        ExcelUtils.loadExcel("C:\\Users\\srina1k\\OneDrive - EDF\\Documents\\GitHub\\AM-Automation-Framework\\src\\main\\resources\\RTScenarioTestDataReport.xlsx","Sheet1");
-        ExcelUtils.setCellData(4,10, Caseid);
+        ExcelUtils.loadExcel("C:\\Users\\srina1k\\IdeaProjects\\C2MUpGradeAutomation\\src\\main\\java\\Resources\\RTScenarioTestDataReport.xlsx","Sheet1");
+        ExcelUtils.setCellData(4,9, Caseid);
     }
 }

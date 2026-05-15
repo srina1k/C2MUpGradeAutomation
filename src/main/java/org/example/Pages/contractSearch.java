@@ -38,7 +38,7 @@ public class contractSearch {
         WaitUtils.waitForFrameAndSwitch(driver,"tabPage",8);
         driver.switchTo().frame(driver.findElement(By.xpath("//iframe[@id='zoneMapFrame_1']")));
         WaitUtils.waitAndClick(driver, By.xpath("//input[@value='Validate']"), 5);
-
+        WaitUtils.getWait(driver,20);
         driver.switchTo().defaultContent();
         WaitUtils.waitForFrameAndSwitch(driver,"main",8);
         WaitUtils.waitForFrameAndSwitch(driver,"tabPage",8);

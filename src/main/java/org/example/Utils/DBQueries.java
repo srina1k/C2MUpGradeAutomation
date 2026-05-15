@@ -88,4 +88,6 @@ public class DBQueries {
             + "and SA_ID not in (select SA_ID from CISADM.CI_SA WHERE acct_id in (select ACCT_ID from CISADM.CM_OUT_MKTMSG "
             + "where CM_MKTMSG_ID in(select CM_MKTMSG_ID from CISADM.CM_OUT_MKTMSG_CHAR "
             + "where CHAR_VAL_FK1 in (select CM_CONTRACT_ID from CISADM.CM_CONTRACT where CM_OPPORTUNITY_ID in ('%s'))))) " ;
+    public static final String isolateOpp = "select * from CISADM.CM_OPPORTUNITY where CM_OPPORTUNITY_ID in ('%s') ";
+
 }

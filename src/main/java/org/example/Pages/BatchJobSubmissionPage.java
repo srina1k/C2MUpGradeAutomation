@@ -280,7 +280,9 @@ public class BatchJobSubmissionPage {
         Actions act = new Actions(driver);
         act.doubleClick(bulk).build().perform();
         act.sendKeys(Keys.BACK_SPACE);
-        driver.findElement(By.id("batchParameterValue_28")).sendKeys("Y");
+        WebElement BulkUpload=driver.findElement(By.id("batchParameterValue_27"));
+        BulkUpload.clear();
+        BulkUpload.sendKeys("Y");
         driver.findElement(By.id("batchParameterValue_29")).sendKeys("1");
         WebElement saveButton=driver.findElement(By.xpath("//input[@id='SAVE_BTN_MP']"));
         ((JavascriptExecutor)driver).executeScript("arguments[0].scrollIntoView(true);",saveButton);
@@ -291,8 +293,7 @@ public class BatchJobSubmissionPage {
     public void CMOBMMDBatch(String batchcode){
         driver.switchTo().defaultContent();
         WaitUtils.waitForFrameAndSwitch(driver, "main", 5);
-        WaitUtils.waitForFrameAndSwitch(driver, "tabPage", 5);
-        WaitUtils.waitForFrameAndSwitch(driver, "uiMap", 5);
+        WaitUtils.waitForFrameAndSwitch(driver, "uiMap", 10);
         WaitUtils.ElementToBeClickable(driver,By.xpath("//span/input[@id='batchControlInp']"),5);
         WebElement batch_control= driver.findElement(By.xpath("//span/input[@id='batchControlInp']"));
         batch_control.click();
@@ -303,6 +304,11 @@ public class BatchJobSubmissionPage {
         WaitUtils.getWait(driver,10);
         driver.findElement(By.id("batchParameterValue_3")).sendKeys("CM-D0055Registration");
         driver.findElement(By.id("batchParameterValue_4")).sendKeys("PENDING");
+        WebElement saveButton=driver.findElement(By.xpath("//input[@id='SAVE_BTN_MP']"));
+        ((JavascriptExecutor)driver).executeScript("arguments[0].scrollIntoView(true);",saveButton);
+        WaitUtils.sleep(2000);
+        ((JavascriptExecutor)driver).executeScript("arguments[0].click();", saveButton);
+        WaitUtils.sleep(3000);
     }
     public void CMLTMPTBatch (String batchcode, String businessDate) {
         driver.switchTo().defaultContent();
@@ -402,6 +408,7 @@ public class BatchJobSubmissionPage {
         WaitUtils.getWait(driver,10);
         driver.findElement(By.id("batchParameterValue_3")).sendKeys("CM-Contract");
         driver.findElement(By.id("batchParameterValue_4")).sendKeys("INPROGRESS");
+        WaitUtils.waitAndClick(driver, By.cssSelector("input[id='SAVE_BTN_MP']"),5);
     }
 
     public void CMCUUB2Batch (String batchcode, String filename) {
@@ -463,14 +470,15 @@ public class BatchJobSubmissionPage {
         WaitUtils.waitForVisible(driver,By.xpath("//span/input[@id='boGroup_user']"));
         WebElement double_click= driver.findElement(By.xpath("//span/input[@id='boGroup_user']"));
         new Actions(driver).pause(Duration.ofSeconds(10)).doubleClick(double_click).sendKeys(Keys.BACK_SPACE).pause(Duration.ofSeconds(10)).sendKeys("BATCHUSR").sendKeys(Keys.ENTER).sendKeys(Keys.ENTER).perform();
-        WaitUtils.getWait(driver,10);
+        WaitUtils.getWait(driver,30);
         driver.findElement(By.id("batchParameterValue_3")).sendKeys("CM-Opportunity");
         driver.findElement(By.id("batchParameterValue_4")).sendKeys("QUOTE");
+        WaitUtils.waitAndClick(driver, By.cssSelector("input[id='SAVE_BTN_MP']"),5);
     }
     public void clickRefresh() {
 //        driver.switchTo().defaultContent();
 //        WaitUtils.waitForFrameAndSwitch(driver,"main",5);
-        WaitUtils.waitAndClick(driver, By.cssSelector("input[id='SAVE_BTN_MP']"),5);
+       // WaitUtils.waitAndClick(driver, By.cssSelector("input[id='SAVE_BTN_MP']"),5);
         driver.switchTo().defaultContent();
         WaitUtils.waitForFrameAndSwitch(driver,"main",5);
         WaitUtils.sleep(3000);
@@ -494,6 +502,22 @@ public class BatchJobSubmissionPage {
         WaitUtils.waitAndClick(driver, By.xpath("//ou-button[@id='IM_GOBACK']"),10);
         WaitUtils.sleep(2000);
         driver.switchTo().defaultContent();
+    }
+    public void CMQRSYN2Batch(String batchcode){
+        driver.switchTo().defaultContent();
+        WaitUtils.waitForFrameAndSwitch(driver, "main", 5);
+        WaitUtils.waitForFrameAndSwitch(driver, "uiMap", 5);
+        WaitUtils.getWait(driver,15);
+        WaitUtils.ElementToBeClickable(driver,By.xpath("//span/input[@id='batchControlInp']"),10);
+        WebElement batch_control=driver.findElement(By.xpath("//span/input[@id='batchControlInp']"));
+        batch_control.click();
+        new Actions(driver).doubleClick(batch_control).pause(Duration.ofSeconds(3)).sendKeys(Keys.BACK_SPACE).pause(Duration.ofSeconds(3)).sendKeys(batchcode).sendKeys(Keys.ENTER).sendKeys(Keys.ENTER).perform();
+        WaitUtils.waitForVisible(driver,By.xpath("//span/input[@id='boGroup_user']"));
+        //driver.findElement(By.cssSelector("input[id='BATCH_CD']")).sendKeys(batchcode);
+        WebElement double_click = driver.findElement(By.xpath("//span/input[@id='boGroup_user']"));
+        new Actions(driver).doubleClick(double_click).pause(Duration.ofSeconds(8)).sendKeys(Keys.BACK_SPACE).pause(Duration.ofSeconds(13)).sendKeys("BATCHUSR").pause(Duration.ofSeconds(10)).sendKeys(Keys.ENTER).sendKeys(Keys.ENTER).perform();
+        WaitUtils.sleep(1000);
+        driver.findElement(By.id("batchParameterValue_3")).sendKeys("PENDING");
     }
     public void C1AdmovBatch(String batchcode) {
         driver.switchTo().defaultContent();

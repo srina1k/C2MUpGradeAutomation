@@ -97,12 +97,12 @@ public class liveBillingP1 extends BaseClass {
         OppForPerson oppPer=new OppForPerson();
         oppPer.echoeStatuscheck4LiveBilling();
         ScreenShotUtils.captureScreenshotToWord("Live-Billing-P1.docx","Validating the batches for Ecoes Validation");
-        oppPer.goBack();
+        //oppPer.goBack();
         batchP.BatchPage();
         batchP.enterBatchCode("CMRCECOE ");
-//        String query1 = String.format(DBQueries.DeisolateOpportunity,oppId);
-//        DBUtils.UpdateQuery(query1);
-//        System.out.println(query1);
+        String query1 = String.format(DBQueries.DeisolateOpportunity,oppId);
+        DBUtils.UpdateQuery(query1);
+        System.out.println(query1);
     }
 //
     @Test(dependsOnMethods = "BatchRun")
