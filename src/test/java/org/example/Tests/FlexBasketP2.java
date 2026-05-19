@@ -14,7 +14,7 @@ import java.sql.SQLException;
 public class FlexBasketP2 extends BaseClass {
 
     String contractID;
-    String  storeOppID1;
+    String storeOppID1;
     String storeOppID2;
     String storeOppID3;
     String mmID;

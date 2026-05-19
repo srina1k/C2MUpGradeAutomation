@@ -62,8 +62,7 @@ public class DBQueries {
             + "and CM_MKTMSG_ID not in (select CM_MKTMSG_ID from CISADM.CM_OUT_MKTMSG_CHAR "
             + "where CHAR_VAL_FK1 in (select CM_CONTRACT_ID from CISADM.CM_CONTRACT where CM_OPPORTUNITY_ID in ('%s'))) "
             + "and BUS_OBJ_CD='CM-D0055Registration' ";
-
-
+    public static final String marketMessage2="SELECT * FROM CISADM.CM_OUT_MKTMSG WHERE CM_MKTMSG_ID IN (SELECT CM_MKTMSG_ID FROM CISADM.CM_OUT_MKTMSG_CHAR WHERE CHAR_VAL_FK1 IN (SELECT CM_CONTRACT_ID FROM CISADM.CM_CONTRACT WHERE CM_OPPORTUNITY_ID IN ('%s'))) AND BUS_OBJ_CD = 'CM-D0055Registration'";
     public static final String newSACheckQuery = "select * from CISADM.CI_SA WHERE acct_id in (select ACCT_ID from CISADM.CM_OUT_MKTMSG  "
             + "where CM_MKTMSG_ID in(select CM_MKTMSG_ID from CISADM.CM_OUT_MKTMSG_CHAR "
             + "where CHAR_VAL_FK1 in (select CM_CONTRACT_ID from CISADM.CM_CONTRACT where CM_OPPORTUNITY_ID in ('%s'))) "

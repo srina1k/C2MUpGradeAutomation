@@ -6,7 +6,7 @@
 <!--                    <listener class-name="org.example.Listener.ExtentScreenshotListener"/>-->
 <!--                </listeners>-->
         <classes>
-            <class name="org.example.Tests.smallFixedP2"/>
+            <class name="org.example.Tests.ConnectionNew"/>
         </classes>
     </test>
 </suite>

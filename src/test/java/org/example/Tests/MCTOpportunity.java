@@ -10,7 +10,7 @@ import java.nio.file.Paths;
 import java.sql.SQLException;
 
 public class MCTOpportunity extends BaseClass {
-    String MCTID="MCTS19-C2M-17-2026";
+    String MCTID="MCTS19-C2M-21-2026";
     @Test
     public void testLogin() {
         String fileName = "MCTOpportunity.docx";
@@ -37,6 +37,8 @@ public class MCTOpportunity extends BaseClass {
         perpage.AddOpportunityDetails("MCT");
         perpage.opportunityType("Warm Prospect");
         perpage.MCTId(MCTID);
+        perpage.MCTSW();
+        perpage.createRenewalSW();
         ScreenShotUtils.captureScreenshotToWord("MCTOpportunity.docx", "Step3:Entering Opportunity details");
         perpage.startEndDate();
         ScreenShotUtils.captureScreenshotToWord("MCTOpportunity.docx", "Step4:Enter Start and end date");

@@ -1,5 +1,6 @@
 package org.example.Pages;
 
+import org.example.Utils.ExcelUtils;
 import org.example.Utils.ScreenShotUtils;
 import org.example.Utils.WaitUtils;
 import org.openqa.selenium.*;
@@ -49,7 +50,7 @@ public class PersonPage {
 
         WebElement priorityDropdown = driver.findElement(By.xpath("//select[@id='prio']"));
         Select s2 = new Select(priorityDropdown);
-        s2.selectByVisibleText("Low");
+        s2.selectByVisibleText("Medium");
 
         WebElement WinProb = driver.findElement(By.id("winProb"));
         Select s3 = new Select(WinProb);
@@ -166,6 +167,12 @@ public class PersonPage {
     }
     public void MCTId(String mctid){
         driver.findElement(By.xpath("//input[@id='multiCustId']")).sendKeys(mctid);
+    }
+    public void MCTSW(){
+        driver.findElement(By.xpath("//input[@id='ch1']")).click();
+    }
+    public void createRenewalSW(){
+        driver.findElement(By.xpath("//input[@id='createRenewalCheckbox']")).click();
     }
     public void opportunityType(String OppType){
         WebElement opptype = driver.findElement(By.id("oppTypeFlag"));
@@ -316,10 +323,21 @@ public class PersonPage {
         JavascriptExecutor js = (JavascriptExecutor) driver;
         js.executeScript("arguments[0].click();",searchClick);
         WaitUtils.sleep(2000);
-
     }
-
-
+    public String opportunity(){
+        driver.switchTo().defaultContent();
+        WaitUtils.waitForFrameAndSwitch(driver,"main",5);
+        WaitUtils.waitForFrameAndSwitch(driver,"tabPage",10);
+        String OppId=driver.findElement(By.xpath("//tbody[@id='dataExplorerTableBody1']/tr/td[2]/span")).getText().trim();
+        System.out.println("Opporunity id:"+OppId);
+        return OppId;
+    }
+    public void clickSearchAtSF(){
+        WebElement searchClick=driver.findElement(By.xpath("//input[@value='Search']"));
+        JavascriptExecutor js = (JavascriptExecutor) driver;
+        js.executeScript("arguments[0].click();",searchClick);
+        WaitUtils.sleep(2000);
+    }
     public String OpportunityId2(){
         driver.switchTo().defaultContent();
         WaitUtils.waitForFrameAndSwitch(driver,"main",3);

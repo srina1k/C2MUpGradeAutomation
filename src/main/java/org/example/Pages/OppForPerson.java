@@ -292,7 +292,7 @@ public class OppForPerson {
         driver.switchTo().defaultContent();
         WaitUtils.waitForFrameAndSwitch(driver,"main",5);
         WaitUtils.waitForFrameAndSwitch(driver,"tabPage",10);
-        String OppId=driver.findElement(By.xpath("//span[@class='label']")).getText().trim();
+        String OppId=driver.findElement(By.xpath("(//span[@class='label'])[1]")).getText().trim();
         System.out.println("Opporunity id:"+OppId);
         return OppId;
     }
@@ -314,11 +314,16 @@ public class OppForPerson {
         }
         driver.switchTo().defaultContent();
         WaitUtils.waitForFrameAndSwitch(driver,"main",10);
-        for (int i = 0; i < 3; i++) {
-            WaitUtils.waitAndClick(driver, By.xpath("//ou-button[@id='IM_GOBACK']"), 15);
-            WaitUtils.waitForPageLoad(driver,20);
-            WaitUtils.sleep(5000); // ~2–3 secs
-        }
+//        for (int i = 0; i < 3; i++) {
+        WaitUtils.waitAndClick(driver, By.xpath("//ou-button[@id='IM_GOBACK']"), 15);
+        WaitUtils.waitForPageLoad(driver,20);
+        WaitUtils.sleep(5000);
+        WaitUtils.waitAndClick(driver, By.xpath("//ou-button[@id='IM_GOBACK']"), 15);
+        WaitUtils.waitForPageLoad(driver,20);
+        WaitUtils.sleep(5000);
+        WaitUtils.waitAndClick(driver, By.xpath("//ou-button[@id='IM_GOBACK']"), 15);
+        WaitUtils.sleep(3000); // ~2–3 secs
+        //}
         WaitUtils.waitForFrameAndSwitch(driver,"tabPage",2);
         driver.switchTo().frame(driver.findElement(By.cssSelector("iframe[title='zoneMapFrame_1']")));
         WaitUtils.getWait(driver,10);

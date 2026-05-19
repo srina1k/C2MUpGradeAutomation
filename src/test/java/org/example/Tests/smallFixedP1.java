@@ -28,11 +28,11 @@ public class smallFixedP1 extends BaseClass {
         FileRenameUtils.replaceDate(CsvFilePath);
         String remotePath = "/ccbfsx/Common/prospect_upload/";
         WinScpServerUtils.uploadFile(CsvFilePath,remotePath);
-//        String csvFilename = FileRenameUtils.getFileNameFromPath(CsvFilePath);
-//        BatchJobSubmissionPage batchP = new BatchJobSubmissionPage();
-//        batchP.BatchPage();
-//        batchP.CMSPSU2Batch("CM-SPSU2", csvFilename," ");
-//        ScreenShotUtils.captureScreenshotToWord("SmallFixed.docx","Batch completed");
+        String csvFilename = FileRenameUtils.getFileNameFromPath(CsvFilePath);
+        BatchJobSubmissionPage batchP = new BatchJobSubmissionPage();
+        batchP.BatchPage();
+        batchP.CMSPSU2Batch("CM-SPSU2", csvFilename," ");
+        ScreenShotUtils.captureScreenshotToWord("SmallFixed.docx","Batch completed");
     }
     @Test(dependsOnMethods = "uploadFile")
     public void oppSearch() throws IOException {
@@ -41,15 +41,17 @@ public class smallFixedP1 extends BaseClass {
         PersonPage perpage = new PersonPage();
         perpage.SearchOppByname(CustName);
         ScreenShotUtils.captureScreenshotToWord("SmallFixed.docx","Opportunity Created");
-        AddPremisePage premise = new AddPremisePage();
+        String oppid= perpage.opportunity();
+        System.out.println(oppid);
+        ExcelUtils.setCellData(3,9,oppid);
+        perpage.clickSearchAtSF();
+        AddPremisePage premise=new AddPremisePage();
         premise.siteDetails();
         ScreenShotUtils.captureScreenshotToWord("SmallFixed.docx","Ecoes Validation - Yes.");
     }
     @Test(dependsOnMethods = "oppSearch")
     public void CCTermSet() throws IOException {
         OppForPerson oppPer = new OppForPerson();
-        String oppid=oppPer.Opportunity();
-        ExcelUtils.setCellData(3,9,oppid);
         oppPer.CreditCheck();
         ScreenShotUtils.captureScreenshotToWord("SmallFixed.docx","Credit Check Processed");
         oppPer.TermSet();

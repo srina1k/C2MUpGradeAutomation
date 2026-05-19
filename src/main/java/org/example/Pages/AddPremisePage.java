@@ -8,6 +8,8 @@ import org.openqa.selenium.support.ui.Wait;
 import org.openqa.selenium.support.ui.WebDriverWait;
 import org.example.Utils.DriverManager;
 import org.example.Utils.*;
+
+import java.io.IOException;
 import java.time.Duration;
 import java.util.Set;
 
@@ -345,16 +347,20 @@ public class AddPremisePage {
 //        driver.switchTo().defaultContent();
 //        WaitUtils.waitForFrameAndSwitch(driver,"main",15);
     }
-    public void siteDetails(){
+    public void siteDetails() throws IOException {
 //        WebElement personClick=driver.findElement(By.xpath("//a[@navoptcd='cmoppptlTabMenu']"));
 //        JavascriptExecutor js=(JavascriptExecutor)driver;
 //        js.executeScript("arguments[0].click();",personClick);
         WaitUtils.waitAndClick(driver, By.xpath("//a[@navoptcd='cmoppptlTabMenu']"),15);
         WaitUtils.sleep(2000);
+        driver.switchTo().defaultContent();
+        WaitUtils.waitForFrameAndSwitch(driver,"main",10);
+        WaitUtils.waitForFrameAndSwitch(driver,"tabPage",10);
         WaitUtils.waitAndClick(driver, By.xpath("//span[@title='Go To Opportunity for Person ']"),5);
         driver.switchTo().defaultContent();
         WaitUtils.waitForFrameAndSwitch(driver,"main",3);
         WaitUtils.waitForFrameAndSwitch(driver,"tabPage",3);
+
         WaitUtils.waitAndClick(driver, By.xpath("(//span[@title='Opportunity for Person at SP - Maintenance'])[2]"),10);
         WaitUtils.sleep(5000);
         for(String premise_details : driver.getWindowHandles()){
