@@ -39,7 +39,7 @@ public class MediumFixedP2 extends BaseClass {
         syncReq.NavigateTosyncRequestQuery();
         syncReq.dropdownSyncRequestID(syncRequestID);
         ScreenShotUtils.captureScreenshotToWord("MediumFixedP2.docx","Quote Accepted and Sync Request Created in system");
-        //syncReq.validation();
+        syncReq.validation();
         ScreenShotUtils.captureScreenshotToWord("MediumFixedP2.docx","Sync Request Validation completed");
 
         String quoteQuery1 = String.format(DBQueries.IsolateQuote, oppID);

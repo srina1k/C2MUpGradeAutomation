@@ -87,6 +87,7 @@ public class COMC16P1 extends BaseClass {
         batchP.BatchPage();
         batchP.enterBatchCode("CM-ECCHK");
         //batchP.clickRefresh();
+        ScreenShotUtils.captureScreenshotToWord( "COMC16P1.docx","Echoes Batch");
     }
 
     @Test(dependsOnMethods = "CCTermSet")
