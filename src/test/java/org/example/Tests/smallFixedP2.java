@@ -56,7 +56,7 @@ public class smallFixedP2 extends BaseClass {
         contractID = DBUtils.getSingleDate(contractQuery, "CM_CONTRACT_ID");
         System.out.println("Contract_ID: " + contractID);
 
-        String marketMsgQuery = String.format(DBQueries.marketMessage1, contractID);
+        String marketMsgQuery = String.format(DBQueries.marketMessage1, oppID);
         String MarketMsgID = DBUtils.getSingleDate(marketMsgQuery, "CM_MKTMSG_ID");
         System.out.println("MKTMSG_ID: " + MarketMsgID);
 
@@ -85,7 +85,7 @@ public class smallFixedP2 extends BaseClass {
         batchP.clickRefresh();
         mktmsg.mmclickRefresh();
         ScreenShotUtils.captureScreenshotToWord("SmallFixed-P2.docx","Batch Completed. Market message Moved to Completed Status ");
-        String marketMsgQuery = String.format(DBQueries.marketMessage2, contractID);
+        String marketMsgQuery = String.format(DBQueries.marketMessage2, oppID);
         String MarketMsgID = DBUtils.getSingleDate(marketMsgQuery, "CM_MKTMSG_ID");
         System.out.println("MKTMSG_ID: " + MarketMsgID);
         //Next mail to AFMS for required flow..

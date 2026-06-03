@@ -4,12 +4,12 @@ import org.example.Utils.ExcelUtils;
 import org.example.Utils.ScreenShotUtils;
 import org.example.Utils.WaitUtils;
 import org.openqa.selenium.*;
-import org.openqa.selenium.support.ui.ExpectedConditions;
+import org.openqa.selenium.NoSuchElementException;
 import org.openqa.selenium.support.ui.Select;
 import org.example.Utils.DriverManager;
 import org.openqa.selenium.support.ui.Wait;
 import org.openqa.selenium.support.ui.WebDriverWait;
-
+import java.util.*;
 import java.awt.event.WindowAdapter;
 import java.io.IOException;
 import java.time.LocalDate;
@@ -417,5 +417,19 @@ public class PersonPage {
         WaitUtils.waitForFrameAndSwitch(driver, "main", 5);
         WaitUtils.waitAndClick(driver, By.xpath("//span[@id='IM_GOBACK']"),15);
         WaitUtils.waitAndClick(driver, By.id("IM_REFRESH"), 5);
+    }
+    public String generateName() {
+        return generateRandomWord(5) + "," + generateRandomWord(6) + "SIT";
+    }
+
+    private String generateRandomWord(int length) {
+        String alphabet = "ABCDEFGHIJKLMNOPQRSTUVWXYZ";
+        StringBuilder word = new StringBuilder();
+        Random random = new Random();
+
+        for (int i = 0; i < length; i++) {
+            word.append(alphabet.charAt(random.nextInt(alphabet.length())));
+        }
+        return word.toString();
     }
 }

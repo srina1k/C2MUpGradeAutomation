@@ -361,7 +361,7 @@ public class AddPremisePage {
         WaitUtils.waitForFrameAndSwitch(driver,"main",3);
         WaitUtils.waitForFrameAndSwitch(driver,"tabPage",3);
 
-        WaitUtils.waitAndClick(driver, By.xpath("(//span[@title='Opportunity for Person at SP - Maintenance'])[2]"),10);
+        WaitUtils.waitAndClick(driver, By.xpath("(//span[@title='Opportunity for Person at SP - Maintenance'])[5]"),10);
         WaitUtils.sleep(5000);
         for(String premise_details : driver.getWindowHandles()){
             driver.switchTo().window(premise_details);
@@ -382,6 +382,7 @@ public class AddPremisePage {
             }
         }
     }
+
     public void customerHyperlink(){
         WaitUtils.waitAndClick(driver, customerHyperLink, 2);
     }

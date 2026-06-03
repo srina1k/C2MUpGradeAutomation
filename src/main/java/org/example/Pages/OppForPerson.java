@@ -4,6 +4,7 @@ import org.example.Utils.ScreenShotUtils;
 import org.example.Utils.WaitUtils;
 import org.openqa.selenium.*;
 import org.openqa.selenium.support.ui.Select;
+import org.openqa.selenium.support.ui.Wait;
 import org.openqa.selenium.support.ui.WebDriverWait;
 import org.example.Utils.DriverManager;
 import java.io.IOException;
@@ -308,21 +309,23 @@ public class OppForPerson {
         try {
             JavascriptExecutor js = (JavascriptExecutor) driver;
             js.executeScript("arguments[0].click()", PendingAnalysis);
-                WaitUtils.sleep(3000);
+                WaitUtils.sleep(8000);
         }catch (StaleElementReferenceException e) {
             throw new StaleElementReferenceException(e.getMessage());
         }
         driver.switchTo().defaultContent();
         WaitUtils.waitForFrameAndSwitch(driver,"main",10);
 //        for (int i = 0; i < 3; i++) {
+        WaitUtils.getWait(driver,20);
         WaitUtils.waitAndClick(driver, By.xpath("//ou-button[@id='IM_GOBACK']"), 15);
-        WaitUtils.waitForPageLoad(driver,20);
+        WaitUtils.waitForPVisible(driver,By.xpath("//div[text()='Person']"),10);
         WaitUtils.sleep(5000);
         WaitUtils.waitAndClick(driver, By.xpath("//ou-button[@id='IM_GOBACK']"), 15);
-        WaitUtils.waitForPageLoad(driver,20);
+        WaitUtils.waitForPVisible(driver,By.xpath("//div[text()='Control Central Search']"),10);
         WaitUtils.sleep(5000);
-        WaitUtils.waitAndClick(driver, By.xpath("//ou-button[@id='IM_GOBACK']"), 15);
-        WaitUtils.sleep(3000); // ~2–3 secs
+        WaitUtils.waitAndClick(driver,By.xpath("//ou-button[@id='IM_GOBACK']"),10);
+        WaitUtils.waitForPVisible(driver,By.xpath("//div[text()='Opportunity']"),10);
+       // WaitUtils.sleep(3000);
         //}
         WaitUtils.waitForFrameAndSwitch(driver,"tabPage",2);
         driver.switchTo().frame(driver.findElement(By.cssSelector("iframe[title='zoneMapFrame_1']")));
