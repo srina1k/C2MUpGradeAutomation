@@ -18,9 +18,10 @@ public class servicePointPage {
         WaitUtils.waitForFrameAndSwitch(driver, "main", 3);
 
         WaitUtils.waitAndClick(driver, By.id("IM_menuButton"), 5);
+        WaitUtils.waitAndClick(driver,By.xpath("//li[@id='mainMenu']"),5);
         WaitUtils.waitAndClick(driver, By.xpath("//span[text()='Customer Information']"), 5);
-        WaitUtils.waitAndClick(driver, By.xpath("//span[text()='Service Point - CCB']"), 5);
-        WaitUtils.waitAndClick(driver, By.xpath("//span[text()='Add']"), 5);
+        WaitUtils.waitAndClick(driver, By.xpath("(//span[text()='Add'])[24]"), 5);
+//        WaitUtils.waitAndClick(driver, By.xpath("//span[text()='Add']"), 5);
 
         driver.switchTo().defaultContent();
         WaitUtils.waitForFrameAndSwitch(driver, "main", 3);
@@ -47,9 +48,10 @@ public class servicePointPage {
         driver.switchTo().defaultContent();
         WaitUtils.waitForFrameAndSwitch(driver, "main", 3);
         WaitUtils.waitForFrameAndSwitch(driver, "tabPage", 3);
-        WaitUtils.waitForFrameAndSwitch(driver, "spGrid_spChrGrid", 3);
-
-        driver.findElement(By.cssSelector("input[id='SP_CHAR:0$CHAR_TYPE_CD']")).sendKeys("CM-MCLSS");
+        //WaitUtils.waitForFrameAndSwitch(driver, "spGrid_spChrGrid", 3);
+        WebElement spGridFrame=driver.findElement(By.cssSelector("iframe[id='spGrid_spChrGrid']"));
+        driver.switchTo().frame(spGridFrame);
+        driver.findElement(By.cssSelector("input[id='SP_CHAR:0$CHAR_TYPE_CD']")).sendKeys("CM-SUPLR");
         driver.findElement(By.cssSelector("input[id='SP_CHAR:0$CHAR_VAL']")).click();
         WaitUtils.sleep(1000);
         driver.findElement(By.cssSelector("input[id='SP_CHAR:0$CHAR_VAL']")).sendKeys("A");
@@ -62,8 +64,9 @@ public class servicePointPage {
         driver.switchTo().defaultContent();
         WaitUtils.waitForFrameAndSwitch(driver, "main", 3);
         WaitUtils.waitForFrameAndSwitch(driver, "tabPage", 3);
-        WaitUtils.waitForFrameAndSwitch(driver, "dataGrid", 3);
-
+        //WaitUtils.waitForFrameAndSwitch(driver, "dataGrid", 3);
+        WebElement dataGridFrame=driver.findElement(By.cssSelector("iframe[id='dataGrid']"));
+        driver.switchTo().frame(dataGridFrame);
         WebElement characteristicsB = driver.findElement(By.cssSelector("select[id='SP_GEO:0$GEO_TYPE_CD']"));
         Select dropdown_characteristicsB = new Select(characteristicsB);
         dropdown_characteristicsB.selectByVisibleText("MPAN Core Identifier");

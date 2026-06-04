@@ -20,9 +20,10 @@ public class accountPage {
         WaitUtils.waitForFrameAndSwitch(driver, "main", 3);
 
         WaitUtils.waitAndClick(driver, By.id("IM_menuButton"), 5);
+        WaitUtils.waitAndClick(driver,By.xpath("//li[@id='mainMenu']"),5);
         WaitUtils.waitAndClick(driver, By.xpath("//span[text()='Customer Information']"), 5);
-        WaitUtils.waitAndClick(driver, By.xpath("//span[text()='Account']"), 5);
-        WaitUtils.waitAndClick(driver, By.xpath("//span[text()='Add']"), 5);
+        //WaitUtils.waitAndClick(driver, By.xpath("//span[text()='Account']"), 5);
+        WaitUtils.waitAndClick(driver, By.xpath("(//span[text()='Add'])[1]"), 5);
 
         driver.switchTo().defaultContent();
         WaitUtils.waitForFrameAndSwitch(driver, "main", 3);

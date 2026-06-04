@@ -46,15 +46,17 @@ public class ServiceAgreementPage {
         WaitUtils.sleep(2000);
     }
     public void navigatToSAFromAccountDropdown(){
-        driver.switchTo().defaultContent();
-        WaitUtils.waitForFrameAndSwitch(driver,"main",8);
-        WaitUtils.waitForFrameAndSwitch(driver,"tabPage",8);
-        driver.findElement(By.xpath("//img[@name='IM_Main_acctCntxt']")).click();
+//        driver.switchTo().defaultContent();
+//        WaitUtils.waitForFrameAndSwitch(driver,"main",8);
+//        WaitUtils.waitForFrameAndSwitch(driver,"tabPage",8);
+//        driver.findElement(By.xpath("//img[@name='IM_Main_acctCntxt']")).click();
 
         driver.switchTo().defaultContent();
         WaitUtils.waitForFrameAndSwitch(driver,"main",8);
-        driver.findElement(By.xpath("//span[text()='Go To Service Agreement']")).click();
-        driver.findElement(By.xpath("//span[text()='Add']")).click();
+        driver.findElement(By.xpath("IM_menuButton")).click();
+        driver.findElement(By.xpath("//li[@id='mainMenu']")).click();
+        driver.findElement(By.xpath("//span[text()='Customer Information']")).click();
+        driver.findElement(By.xpath("(//span[text()='Add'])[17]")).click();
     }
     public void saMainTab(String premiseID){
 
@@ -79,7 +81,7 @@ public class ServiceAgreementPage {
         Select dropdown_start_day_option = new Select(start_day_option);
         dropdown_start_day_option.selectByIndex(1);
 
-        WebElement premID = driver.findElement(By.id("CHAR_PREM_ID"));
+        WebElement premID = driver.findElement(By.cssSelector("input[id='CHAR_PREM_ID']"));
         premID.click();
         WaitUtils.sleep(2000);
         premID.sendKeys(premiseID);
@@ -95,6 +97,7 @@ public class ServiceAgreementPage {
         WaitUtils.waitForFrameAndSwitch(driver,"tabPage",5);
         WaitUtils.waitForVisible(driver,By.xpath("//input[@name='SA_SP$SP_ID']"));
         WebElement spIDxtField = driver.findElement(By.xpath("//input[@name='SA_SP$SP_ID']"));
+        spIDxtField.click();
         spIDxtField.sendKeys(spID);
     }
     public void VerifysaSp() {
@@ -113,7 +116,9 @@ public class ServiceAgreementPage {
         driver.switchTo().defaultContent();
         WaitUtils.waitForFrameAndSwitch(driver,"main",5);
         WaitUtils.waitForFrameAndSwitch(driver,"tabPage",5);
-        WaitUtils.waitForFrameAndSwitch(driver,"SA_CHAR",5);
+        //WaitUtils.waitForFrameAndSwitch(driver,"SA_CHAR",5);
+        WebElement sacharframe=driver.findElement(By.cssSelector("iframe[id='SA_CHAR']"));
+        driver.switchTo().frame(sacharframe);
         WebElement CHARACTERISTIC_TYPE1 = driver.findElement(By.cssSelector("select[id='SA_CHAR:0$CHAR_TYPE_CD']"));
         Select dropdown_CHARACTERISTIC_TYPE1 = new Select(CHARACTERISTIC_TYPE1);
         dropdown_CHARACTERISTIC_TYPE1.selectByVisibleText("Bill Cycle");

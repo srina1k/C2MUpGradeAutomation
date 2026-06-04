@@ -22,10 +22,10 @@ public class PaymentEventPage {
         driver.switchTo().defaultContent();
         WaitUtils.waitForFrameAndSwitch(driver, "main", 8);
         WaitUtils.waitAndClick(driver, By.id("IM_menuButton"), 5);
-
+        WaitUtils.waitAndClick(driver,By.xpath("//li[@id='mainMenu']"),5);
         WaitUtils.waitAndClick(driver, By.xpath("//span[text()='Financial']"),5);
         WaitUtils.waitAndClick(driver, By.xpath("//span[text()='Payment Event']"),5);
-        WaitUtils.waitAndClick(driver, By.xpath("//span[text()='Search']"),5);
+        //WaitUtils.waitAndClick(driver, By.xpath("//span[text()='Search']"),5);
     }
 
     public void searchPayEventID(String PaymentEventID){
@@ -38,12 +38,12 @@ public class PaymentEventPage {
             }
         }
         System.out.println("Switched to new window: " + driver.getTitle());
-        WebElement payEventField = WaitUtils.waitForPVisible(driver, By.cssSelector("input[id='PAY_EVENT_ID']"), 10);
+        WebElement payEventField = WaitUtils.waitForPVisible(driver, By.cssSelector("input[id='PAYOR_ACCT_ID']"), 10);
         payEventField.sendKeys(PaymentEventID);
     }
 
     public void payclickSearch() {
-        WaitUtils.waitAndClick(driver, By.xpath("//input[@name='BU_Main_payEvtSrch']"), 5);
+        WaitUtils.waitAndClick(driver, By.xpath("//input[@name='OK_LBL_LBL']"), 5);
         String mainHandle = driver.getWindowHandles().iterator().next();
         driver.switchTo().window(mainHandle);
         WaitUtils.sleep(5000);
@@ -51,17 +51,19 @@ public class PaymentEventPage {
         driver.switchTo().defaultContent();
         WaitUtils.waitForFrameAndSwitch(driver, "main", 5);
         WaitUtils.waitForFrameAndSwitch(driver, "tabPage", 5);
-        WaitUtils.waitForFrameAndSwitch(driver, "payGridpaymentGri", 5);
+        //WaitUtils.waitForFrameAndSwitch(driver, "payGridpaymentGri", 5);
+        WebElement payGridFrame=driver.findElement(By.cssSelector("iframe[id='payGridpaymentGri']"));
+        driver.switchTo().frame(payGridFrame);
         WaitUtils.waitForVisible(driver, By.id("IM_PAY:0$ADD_BTN"));
     }
 
     public void payEventDetails(String AccountID, String payment){
-        driver.switchTo().defaultContent();
-        WaitUtils.waitForFrameAndSwitch(driver, "main", 5);
-        WaitUtils.waitForFrameAndSwitch(driver, "tabPage", 5);
-        WaitUtils.waitForFrameAndSwitch(driver, "payGridpaymentGri", 5);
+//        driver.switchTo().defaultContent();
+//        WaitUtils.waitForFrameAndSwitch(driver, "main", 5);
+//        WaitUtils.waitForFrameAndSwitch(driver, "tabPage", 5);
+//        WaitUtils.waitForFrameAndSwitch(driver, "payGridpaymentGri", 5);
 
-        WaitUtils.waitAndClick(driver, By.id("IM_PAY:0$ADD_BTN"),5);
+        //WaitUtils.waitAndClick(driver, By.id("IM_PAY:0$ADD_BTN"),5);
         WaitUtils.waitForVisible(driver, By.cssSelector("input[id='PAY:1$ACCT_ID']"));
         WebElement accountIdField = driver.findElement(By.cssSelector("input[id='PAY:1$ACCT_ID']"));
         accountIdField.clear();
@@ -104,9 +106,10 @@ public class PaymentEventPage {
         WaitUtils.waitForFrameAndSwitch(driver, "main", 3);
 
         WaitUtils.waitAndClick(driver, By.id("IM_menuButton"), 5);
+        WaitUtils.waitAndClick(driver,By.xpath("//li[@id='mainMenu']"),5);
         WaitUtils.waitAndClick(driver, By.xpath("//span[text()='Financial']"),5);
         WaitUtils.waitAndClick(driver, By.xpath("//span[text()='Payment']"),5);
-        WaitUtils.waitAndClick(driver, By.xpath("//span[text()='Search']"),5);
+//        WaitUtils.waitAndClick(driver, By.xpath("//span[text()='Search']"),5);
 
         new WebDriverWait(driver, Duration.ofSeconds(10)).until(d -> d.getWindowHandles().size() > 1);
         for (String window : driver.getWindowHandles()){

@@ -45,8 +45,8 @@ public class adjustmentPage {
         //amountField.sendKeys(Keys.DELETE);
         WaitUtils.sleep(2000);
         amountField.sendKeys("50");
-        amountField.clear();
-        amountField.sendKeys("50");
+//        amountField.clear();
+//        amountField.sendKeys("50");
     }
 
     public void adjustmentCharTab(){
@@ -57,18 +57,20 @@ public class adjustmentPage {
 
         driver.switchTo().defaultContent();
         WaitUtils.waitForFrameAndSwitch(driver,"main",8);
-        WaitUtils.waitForFrameAndSwitch(driver,"tabPage",8);
-        WaitUtils.waitForFrameAndSwitch(driver,"ADJ_CHAR",8);
-
+        WaitUtils.waitForFrameAndSwitch(driver,"tabMenu",8);
+       // WaitUtils.waitForFrameAndSwitch(driver,"ADJ_CHAR",8);
+        WebElement adjframe= driver.findElement(By.cssSelector("iframe[id='ADJ_CHAR']"));
+        driver.switchTo().frame(adjframe);
         Date date = new Date();
         SimpleDateFormat formatter = new SimpleDateFormat("dd-MM-yyyy");
         String currentDate = formatter.format(date);
-
-        WebElement chars = driver.findElement(By.cssSelector("input[id='ADJ_CHAR:0$ADHOC_CHAR_VAL']"));
+        driver.findElement(By.cssSelector("input[id='ADJ_CHAR:0$CHAR_TYPE_CD']")).sendKeys("CM-RCNAM");
+        WebElement chars = driver.findElement(By.cssSelector("input[id='ADJ_CHAR:0$CHAR_VAL']"));
         chars.sendKeys("50");
-
-        driver.findElement(By.cssSelector("input[id='ADJ_CHAR:1$ADHOC_CHAR_VAL']")).click();
-        driver.findElement(By.cssSelector("input[id='ADJ_CHAR:1$ADHOC_CHAR_VAL']")).sendKeys(currentDate);
+        driver.findElement(By.cssSelector("img[id='IM_ADJ_CHAR:0$ADD']")).click();
+        driver.findElement(By.cssSelector("input[id='ADJ_CHAR:1$CHAR_TYPE_CD']")).sendKeys("CM-RCNDT");
+        driver.findElement(By.cssSelector("input[id='ADJ_CHAR:1$CHAR_VAL']")).click();
+        driver.findElement(By.cssSelector("input[id='ADJ_CHAR:1$CHAR_VAL']")).sendKeys(currentDate);
 
         driver.switchTo().defaultContent();
         WaitUtils.waitForFrameAndSwitch(driver,"main",8);

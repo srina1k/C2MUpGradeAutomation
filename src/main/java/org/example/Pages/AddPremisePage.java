@@ -117,8 +117,9 @@ public class AddPremisePage {
             WaitUtils.waitAndClick(driver, menuItem2, 2);
         }
     }
-    public void premiseDetails(){
-
+    public void premiseDetails(String personId){
+//        driver.switchTo().defaultContent();
+//        WaitUtils.waitForFrameAndSwitch(driver,"main",5);
         WaitUtils.waitForFrameAndSwitch(driver, "tabPage", 3);
         WaitUtils.waitForVisible(driver,By.xpath("//select[@id='PREM_TYPE_CD']"));
         WebElement premise_type = driver.findElement(By.xpath("//select[@id='PREM_TYPE_CD']"));
@@ -131,6 +132,23 @@ public class AddPremisePage {
 
         driver.switchTo().defaultContent();
         driver.switchTo().frame("main");
+        WaitUtils.waitForFrameAndSwitch(driver,"tabMenu",10);
+        WaitUtils.waitAndClick(driver,By.xpath("//td[@title='Characteristics']"),10);
+        driver.switchTo().defaultContent();
+        WaitUtils.waitForFrameAndSwitch(driver,"main",10);
+        WaitUtils.waitForFrameAndSwitch(driver,"tabPage",10);
+        WebElement premGridFrame=driver.findElement(By.cssSelector("iframe[id=premGrid_preChrGrid]"));
+        driver.switchTo().frame(premGridFrame);
+        WebElement AddPerson = driver.findElement(By.cssSelector("select[id='PREM_CHAR:0$CHAR_TYPE_CD']"));
+        Select select=new Select(AddPerson);
+        select.selectByVisibleText("Person");
+        System.out.println(personId);
+        WaitUtils.waitForClickable(driver,By.xpath("//td/input[@id='PREM_CHAR:0$CHAR_VAL_FK1']"));
+        WebElement personlink=driver.findElement(By.xpath("//td/input[@id='PREM_CHAR:0$CHAR_VAL_FK1']"));
+        Actions action=new Actions(driver);
+        action.doubleClick(personlink).sendKeys(personId).perform();
+        driver.switchTo().defaultContent();
+        WaitUtils.waitForFrameAndSwitch(driver,"main",10);
         driver.findElement(By.xpath("//input[@id='IM_SAVE']")).click();
     }
     public String premiseID(){
@@ -452,7 +470,7 @@ public class AddPremisePage {
         driver.findElement(By.xpath("//input[@id='annualConsumption']")).sendKeys("100");
         driver.findElement(By.xpath("//input[@id='agreedCapacity']")).sendKeys("120");
     }
-    public void gitTest(){
+    public void AddpersonCharacteristics(){
 
     }
 }

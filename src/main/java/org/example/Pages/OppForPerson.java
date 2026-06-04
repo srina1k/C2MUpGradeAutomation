@@ -317,6 +317,7 @@ public class OppForPerson {
         WaitUtils.waitForFrameAndSwitch(driver,"main",10);
 //        for (int i = 0; i < 3; i++) {
         WaitUtils.getWait(driver,20);
+        WaitUtils.waitForClickable(driver,By.xpath("//ou-button[@id='IM_GOBACK']"));
         WaitUtils.waitAndClick(driver, By.xpath("//ou-button[@id='IM_GOBACK']"), 15);
         WaitUtils.waitForPVisible(driver,By.xpath("//div[text()='Person']"),10);
         WaitUtils.sleep(5000);
