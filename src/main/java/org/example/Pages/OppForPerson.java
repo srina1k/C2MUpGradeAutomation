@@ -309,7 +309,7 @@ public class OppForPerson {
         try {
             JavascriptExecutor js = (JavascriptExecutor) driver;
             js.executeScript("arguments[0].click()", PendingAnalysis);
-                WaitUtils.sleep(8000);
+                WaitUtils.sleep(5000);
         }catch (StaleElementReferenceException e) {
             throw new StaleElementReferenceException(e.getMessage());
         }

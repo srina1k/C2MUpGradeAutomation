@@ -12,7 +12,7 @@ import java.io.File;
 
 public class EntityCreation_Elec extends BaseClass {
 
-    String perID;
+    String perID="12345";
     String premID;
     String mpan = "1200036784281";
     String accID;

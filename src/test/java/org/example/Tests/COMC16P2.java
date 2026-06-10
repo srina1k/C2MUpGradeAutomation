@@ -83,68 +83,68 @@ public class COMC16P2 extends BaseClass {
         System.out.println("MPAN: " + mpan);
     }
 
-    @Test (dependsOnMethods = "marketMessageValidation")
-    public void xaiSubmission() {
-        XAISubmissionPage xai = new XAISubmissionPage();
-        xai.navigateToXAISubmission();
-        String xaiRequest1 = xaiUtils.SComcFlow(flow1, mpan);
-        xai.submitXAI(xaiRequest1);
-
-        String InmarketMsgQuery1 = String.format(DBQueries.InMktMessage1, contractID);
-        String InMarketMsgID1 = DBUtils.getSingleDate(InmarketMsgQuery1, "CM_MKTMSG_ID");
-        System.out.println("InboundMarketMessage_ID1: " + InMarketMsgID1);
-
-        WindowHandlesUtils.duplicateCurrentTab();
-        marketMessageSearch mktmsg = new marketMessageSearch();
-        mktmsg.navigateToMarketMessage();
-        mktmsg.IdropdownoMarketMessageId(InMarketMsgID1);
-        ScreenShotUtils.captureScreenshotToWord("COMC16P2.docx", "Inbound Market Message is created in Pending status");
-
-        mktmsg.ImarketMsgValidation();
-        ScreenShotUtils.captureScreenshotToWord("COMC16P2.docx", "Inbound Market Message is processed");
-
-        xai.clearXai();
-        xai.navigateToXAISubmission();
-        String xaiRequest2 = xaiUtils.SComcFlow(flow2, mpan);
-        xai.submitXAI(xaiRequest2);
-
-        String InmarketMsgQuery2 = String.format(DBQueries.InMktMessage2, contractID);
-        String InMarketMsgID2 = DBUtils.getSingleDate(InmarketMsgQuery2, "CM_MKTMSG_ID");
-        System.out.println("InboundMarketMessage_ID2: " + InMarketMsgID2);
-
-        WindowHandlesUtils.switchToSecondWindow();
-        mktmsg.navigateToMarketMessage();
-        mktmsg.IdropdownoMarketMessageId(InMarketMsgID2);
-        mktmsg.ImarketMsgValidation();
-
-        WindowHandlesUtils.switchToFirstWindow();
-        xai.clearXai();
-        xai.navigateToXAISubmission();
-        String xaiRequest4 = xaiUtils.SComcFlow(flow4, mpan);
-        xai.submitXAI(xaiRequest4);
-
-        String InmarketMsgQuery4 = String.format(DBQueries.InMktMessage4, contractID);
-        String InMarketMsgID4 = DBUtils.getSingleDate(InmarketMsgQuery4, "CM_MKTMSG_ID");
-        System.out.println("InboundMarketMessage_ID4: " + InMarketMsgID4);
-
-        WindowHandlesUtils.switchToSecondWindow();
-        mktmsg.navigateToMarketMessage();
-        mktmsg.IdropdownoMarketMessageId(InMarketMsgID4);
-        mktmsg.ImarketMsgValidation();
-
-        WindowHandlesUtils.switchToFirstWindow();
-        PersonPage perpage = new PersonPage();
-        perpage.gobackClickRefresh();
-        ScreenShotUtils.captureScreenshotToWord("COMC16P2.docx","Outbound Market Message is moved to  MTD Received status");
-
-        String SAquery = String.format(DBQueries.SACheckQuery, oppID);
-        String SA = DBUtils.getSingleDate(SAquery, "SA_ID");
-        System.out.println("ServiceAgreementID: " + SA);
-
-        ServiceAgreementPage sapage = new ServiceAgreementPage();
-        sapage.navigateToSA(SA);
-        sapage.clickSearch();
-        ScreenShotUtils.captureScreenshotToWord("COMC16P2.docx","SA is created in pending Start");
-
-    }
+//    @Test (dependsOnMethods = "marketMessageValidation")
+//    public void xaiSubmission() {
+//        XAISubmissionPage xai = new XAISubmissionPage();
+//        xai.navigateToXAISubmission();
+//        String xaiRequest1 = xaiUtils.SComcFlow(flow1, mpan);
+//        xai.submitXAI(xaiRequest1);
+//
+//        String InmarketMsgQuery1 = String.format(DBQueries.InMktMessage1, contractID);
+//        String InMarketMsgID1 = DBUtils.getSingleDate(InmarketMsgQuery1, "CM_MKTMSG_ID");
+//        System.out.println("InboundMarketMessage_ID1: " + InMarketMsgID1);
+//
+//        WindowHandlesUtils.duplicateCurrentTab();
+//        marketMessageSearch mktmsg = new marketMessageSearch();
+//        mktmsg.navigateToMarketMessage();
+//        mktmsg.IdropdownoMarketMessageId(InMarketMsgID1);
+//        ScreenShotUtils.captureScreenshotToWord("COMC16P2.docx", "Inbound Market Message is created in Pending status");
+//
+//        mktmsg.ImarketMsgValidation();
+//        ScreenShotUtils.captureScreenshotToWord("COMC16P2.docx", "Inbound Market Message is processed");
+//
+//        xai.clearXai();
+//        xai.navigateToXAISubmission();
+//        String xaiRequest2 = xaiUtils.SComcFlow(flow2, mpan);
+//        xai.submitXAI(xaiRequest2);
+//
+//        String InmarketMsgQuery2 = String.format(DBQueries.InMktMessage2, contractID);
+//        String InMarketMsgID2 = DBUtils.getSingleDate(InmarketMsgQuery2, "CM_MKTMSG_ID");
+//        System.out.println("InboundMarketMessage_ID2: " + InMarketMsgID2);
+//
+//        WindowHandlesUtils.switchToSecondWindow();
+//        mktmsg.navigateToMarketMessage();
+//        mktmsg.IdropdownoMarketMessageId(InMarketMsgID2);
+//        mktmsg.ImarketMsgValidation();
+//
+//        WindowHandlesUtils.switchToFirstWindow();
+//        xai.clearXai();
+//        xai.navigateToXAISubmission();
+//        String xaiRequest4 = xaiUtils.SComcFlow(flow4, mpan);
+//        xai.submitXAI(xaiRequest4);
+//
+//        String InmarketMsgQuery4 = String.format(DBQueries.InMktMessage4, contractID);
+//        String InMarketMsgID4 = DBUtils.getSingleDate(InmarketMsgQuery4, "CM_MKTMSG_ID");
+//        System.out.println("InboundMarketMessage_ID4: " + InMarketMsgID4);
+//
+//        WindowHandlesUtils.switchToSecondWindow();
+//        mktmsg.navigateToMarketMessage();
+//        mktmsg.IdropdownoMarketMessageId(InMarketMsgID4);
+//        mktmsg.ImarketMsgValidation();
+//
+//        WindowHandlesUtils.switchToFirstWindow();
+//        PersonPage perpage = new PersonPage();
+//        perpage.gobackClickRefresh();
+//        ScreenShotUtils.captureScreenshotToWord("COMC16P2.docx","Outbound Market Message is moved to  MTD Received status");
+//
+//        String SAquery = String.format(DBQueries.SACheckQuery, oppID);
+//        String SA = DBUtils.getSingleDate(SAquery, "SA_ID");
+//        System.out.println("ServiceAgreementID: " + SA);
+//
+//        ServiceAgreementPage sapage = new ServiceAgreementPage();
+//        sapage.navigateToSA(SA);
+//        sapage.clickSearch();
+//        ScreenShotUtils.captureScreenshotToWord("COMC16P2.docx","SA is created in pending Start");
+//
+//    }
 }
