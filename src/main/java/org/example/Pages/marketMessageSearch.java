@@ -78,7 +78,7 @@ public class marketMessageSearch {
         WaitUtils.waitForFrameAndSwitch(driver,"main",8);
         WaitUtils.waitForFrameAndSwitch(driver,"tabPage",8);
         driver.switchTo().frame(driver.findElement(By.cssSelector("iframe[id='zoneMapFrame_3']")));
-        WaitUtils.waitForTextTiBePresent(driver, By.cssSelector("//td[text()='Message Requested']"),"Message Requested",20);
+        WaitUtils.waitForTextTiBePresent(driver, By.xpath("//td[text()='Message Requested']"),"Message Requested",20);
     }
     public void OmarketMsgValidation1(){
 //        driver.switchTo().defaultContent();

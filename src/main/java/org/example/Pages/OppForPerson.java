@@ -315,23 +315,23 @@ public class OppForPerson {
         }
         driver.switchTo().defaultContent();
         WaitUtils.waitForFrameAndSwitch(driver,"main",10);
-//        for (int i = 0; i < 3; i++) {
+       for (int i = 0; i < 3; i++) {
         WaitUtils.getWait(driver,20);
         WaitUtils.waitForClickable(driver,By.xpath("//ou-button[@id='IM_GOBACK']"));
         WaitUtils.waitAndClick(driver, By.xpath("//ou-button[@id='IM_GOBACK']"), 15);
-        WaitUtils.waitForPVisible(driver,By.xpath("//div[text()='Person']"),10);
-        WaitUtils.sleep(5000);
-        WaitUtils.waitAndClick(driver, By.xpath("//ou-button[@id='IM_GOBACK']"), 15);
-        WaitUtils.waitForPVisible(driver,By.xpath("//div[text()='Control Central Search']"),10);
-        WaitUtils.sleep(5000);
-        WaitUtils.waitAndClick(driver,By.xpath("//ou-button[@id='IM_GOBACK']"),10);
-        WaitUtils.waitForPVisible(driver,By.xpath("//div[text()='Opportunity']"),10);
+//        WaitUtils.waitForPVisible(driver,By.xpath("//div[text()='Person']"),10);
+//        WaitUtils.sleep(5000);
+//        WaitUtils.waitAndClick(driver, By.xpath("//ou-button[@id='IM_GOBACK']"), 15);
+//        WaitUtils.waitForPVisible(driver,By.xpath("//div[text()='Control Central Search']"),10);
+//        WaitUtils.sleep(5000);
+//        WaitUtils.waitAndClick(driver,By.xpath("//ou-button[@id='IM_GOBACK']"),10);
+//        WaitUtils.waitForPVisible(driver,By.xpath("//div[text()='Opportunity']"),10);
        // WaitUtils.sleep(3000);
-        //}
+           WaitUtils.getWait(driver,20);
+        }
         WaitUtils.waitForFrameAndSwitch(driver,"tabPage",2);
         driver.switchTo().frame(driver.findElement(By.cssSelector("iframe[title='zoneMapFrame_1']")));
         WaitUtils.getWait(driver,10);
-        WaitUtils.sleep(5000);
         WaitUtils.waitForVisible(driver,By.cssSelector("input[value='Deemed Won - Pending Analysis']"));
         WaitUtils.waitAndClick2(driver,By.cssSelector("input[value='Deemed Won - Pending Analysis']"),10);
         WaitUtils.sleep(2000);

@@ -11,7 +11,7 @@ public class smallFixedP2 extends BaseClass {
 
     String oppID;
     String contractID;
-
+    String mpan;
     @Test
     public void testLogin(){
 
@@ -88,6 +88,16 @@ public class smallFixedP2 extends BaseClass {
         String marketMsgQuery = String.format(DBQueries.marketMessage2, oppID);
         String MarketMsgID = DBUtils.getSingleDate(marketMsgQuery, "CM_MKTMSG_ID");
         System.out.println("MKTMSG_ID: " + MarketMsgID);
+
+//        marketMessageSearch mktmsg = new marketMessageSearch();
+//        mktmsg.navigateToMarketMessage();
+//        mktmsg.OdropdownoMarketMessageId(MarketMsgID);
+//        ScreenShotUtils.captureScreenshotToWord("SmallFixed-P2.docx","Market Message is created in Pending status");
+//
+//        mktmsg.OmarketMsgValidation();
+//        ScreenShotUtils.captureScreenshotToWord("SmallFixed-P2.docx","Market Message Validated and moved to message requested status");
+//        mpan = mktmsg.fetchMpan();
+//        System.out.println("MPAN: " + mpan);
         //Next mail to AFMS for required flow..
         //Continue manual process by validating all flow droped from AFMS
     }
