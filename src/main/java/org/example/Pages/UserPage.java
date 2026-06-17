@@ -29,7 +29,7 @@ public class UserPage {
         WaitUtils.waitAndClick(driver, (By.id("IM_menuButton")), 30);
         WaitUtils.getWait(driver,20);
         By[] menuSequence1 = {
-                By.xpath("//li[@id='mainMenu']"), By.xpath("//li[@id='CI_MAINMENU_topMenuItem0x28']"), By.xpath("(//span[contains(text(),'Add')])[9]")};
+                By.xpath("//li[@id='mainMenu']"), By.xpath("//li[@id='CI_MAINMENU_topMenuItem0x31']"), By.xpath("(//span[contains(text(),'Add')])[9]")};
         for (By menuItem1 : menuSequence1) {
             WaitUtils.waitAndClick(driver, menuItem1, 15);
             WaitUtils.sleep(3000);
@@ -41,7 +41,7 @@ public class UserPage {
         System.out.println("Current frame switched to: " + secondFrame);
         WaitUtils.waitAndClick(driver, (By.id("IM_menuButton")), 15);
         By[] menuSequence2 = {
-                By.xpath("//li[@id='mainMenu']"), By.xpath("//li[@id='CI_MAINMENU_topMenuItem0x9']"), By.xpath("(//span[contains(text(),'Add')])[12]")};// By.xpath("//input[@id=\"PER_ID\"]")};
+                By.xpath("//li[@id='mainMenu']"), By.xpath("//li[@id='CI_MAINMENU_topMenuItem0x10']"), By.xpath("(//span[contains(text(),'Add')])[12]")};// By.xpath("//input[@id=\"PER_ID\"]")};
         for (By menuItem2 : menuSequence2) {
             WaitUtils.waitAndClick(driver, menuItem2, 20);
             WaitUtils.sleep(2000);
@@ -53,21 +53,15 @@ public class UserPage {
         String mainWindow = driver.getWindowHandle();
         WaitUtils.waitAndClick(driver, By.xpath("//img[@id='IM_PER_ID']"), 20);
         System.out.println(mainWindow);
-        String childwindow = null;
         new WebDriverWait(driver, Duration.ofSeconds(10)).until(d -> d.getWindowHandles().size() > 1);
         Set<String> allWindows = driver.getWindowHandles();
         System.out.println(allWindows);
         for (String window : allWindows) {
             if (!window.equals(mainWindow)) {
-                childwindow = window;
+                driver.switchTo().window(window);
                 break;
             }
         }
-        System.out.println(childwindow);
-        if(childwindow==null) {
-            System.out.println("No new window opened after clicking person search");
-        }
-        driver.switchTo().window(childwindow);
         new WebDriverWait(driver,Duration.ofSeconds(10)).until(ExpectedConditions.titleContains("Person Search"));
         WebElement personField = WaitUtils.waitForPVisible(driver, By.id("PER_ID"), 10);
         personField.clear();

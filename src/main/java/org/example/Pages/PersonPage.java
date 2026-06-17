@@ -303,8 +303,8 @@ public class PersonPage {
         WaitUtils.waitForFrameAndSwitch(driver,"main",3);
         WaitUtils.waitAndClick(driver, By.id("IM_menuButton"), 5);
         WaitUtils.waitAndClick(driver, By.xpath("//li[@id='mainMenu']"), 5);
-        WaitUtils.waitAndClick(driver, By.xpath("//li[@id='CI_MAINMENU_topMenuItem0x28']"), 5);
-        WaitUtils.waitAndClick(driver, By.xpath("//li[@id='ci_mainmenu_topmenuitem0x28Opportunity']"), 5);
+        WaitUtils.waitAndClick(driver, By.xpath("//li/div[contains(.,'Sales & Marketing')]"), 5);
+        WaitUtils.waitAndClick(driver, By.id("ci_mainmenu_topmenuitem0x31Opportunity"), 5);
         WaitUtils.waitForFrameAndSwitch(driver,"tabPage",5);
         WaitUtils.sleep(2000);
 

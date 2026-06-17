@@ -40,7 +40,7 @@ public class AddPremisePage {
         WaitUtils.waitForFrameAndSwitch(driver, "main", 10);
         WaitUtils.getWait(driver,20);
         By[] menuSequence2 = {
-                By.id("IM_menuButton"), By.xpath("//li[@id='mainMenu']"), By.xpath("//li[@id='CI_MAINMENU_topMenuItem0x9']"), By.xpath("(//span[contains(text(),'Add')])[13]")};
+                By.id("IM_menuButton"), By.xpath("//li[@id='mainMenu']"), By.xpath("//li[@id='CI_MAINMENU_topMenuItem0x10']"), By.xpath("(//span[contains(text(),'Add')])[13]")};
         for (By menuItem2 : menuSequence2){
             WaitUtils.waitAndClick(driver, menuItem2, 2);
         }

@@ -29,7 +29,7 @@ public class BatchJobSubmissionPage {
             String currentFrame = (String) ((JavascriptExecutor) driver).executeScript("return window.frameElement? window.frameElement.name : 'main';");
             System.out.println("Current frame switched to: " + currentFrame);
             WaitUtils.sleep(2000);
-            By[] menuSequence2 = {By.id("IM_menuButton"), By.xpath("//li[@id='mainMenu']/child::div"), By.id("CI_MAINMENU_topMenuItem0x32"), By.xpath("(//span[contains(text(),'Add')])[1]")};
+            By[] menuSequence2 = {By.id("IM_menuButton"), By.xpath("//li[@id='mainMenu']/child::div"), By.id("CI_MAINMENU_topMenuItem0x35"), By.xpath("(//span[contains(text(),'Add')])[1]")};
             for (By menuItem2 : menuSequence2){
                 WaitUtils.waitAndClick(driver, menuItem2, 20);
                 WaitUtils.sleep(1000);
@@ -124,13 +124,14 @@ public class BatchJobSubmissionPage {
                 driver.switchTo().defaultContent();
                 WaitUtils.waitForFrameAndSwitch(driver, "main", 5);
                 refresh.click();
-                WaitUtils.sleep(8000);
+                WaitUtils.sleep(5000);
             }
             ScreenShotUtils.captureScreenshotToWord("COMC15P1.docx","Step12:Running Ecoes batch");
             driver.switchTo().defaultContent();
             WaitUtils.waitForFrameAndSwitch(driver, "main", 5);
             System.out.println("Main frame");
             WaitUtils.waitAndClick(driver, By.xpath("//ou-button[@id='IM_GOBACK']"),5);
+            WaitUtils.getWait1(driver,20);
         }
         public void CMBLRNOPBatch(String batchcode,String filename){
             driver.switchTo().defaultContent();

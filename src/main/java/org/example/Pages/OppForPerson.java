@@ -297,38 +297,42 @@ public class OppForPerson {
         System.out.println("Opporunity id:"+OppId);
         return OppId;
     }
-    public void DeemedWon() throws NoSuchElementException,StaleElementReferenceException{
+    public void DeemedWon() throws NoSuchElementException,StaleElementReferenceException {
         WaitUtils.sleep(8000);
         driver.switchTo().defaultContent();
-        WaitUtils.waitForFrameAndSwitch(driver,"main",10);
-        WaitUtils.waitForFrameAndSwitch(driver,"tabPage",10);
+        WaitUtils.waitForFrameAndSwitch(driver, "main", 10);
+        WaitUtils.waitForFrameAndSwitch(driver, "tabPage", 10);
         //WaitUtils.waitForFrameAndSwitch(driver,"zoneMapFrame_1",10);
         driver.switchTo().frame(driver.findElement(By.cssSelector("iframe[title='zoneMapFrame_1']")));
-        WaitUtils.waitForVisible(driver,By.cssSelector("input[value='Deemed Won - Pending Analysis']"));
+        WaitUtils.waitForVisible(driver, By.cssSelector("input[value='Deemed Won - Pending Analysis']"));
         WebElement PendingAnalysis = driver.findElement(By.xpath("//input[@value='Deemed Won - Pending Analysis']"));
-        try {
-            JavascriptExecutor js = (JavascriptExecutor) driver;
-            js.executeScript("arguments[0].click()", PendingAnalysis);
-                WaitUtils.sleep(5000);
-        }catch (StaleElementReferenceException e) {
-            throw new StaleElementReferenceException(e.getMessage());
-        }
+        PendingAnalysis.click();
+        WaitUtils.getWait1(driver, 20);
+//        try {
+//            JavascriptExecutor js = (JavascriptExecutor) driver;
+//            js.executeScript("arguments[0].click()", PendingAnalysis);
+//                WaitUtils.sleep(5000);
+//        }catch (StaleElementReferenceException e) {
+//            throw new StaleElementReferenceException(e.getMessage());
+//        }
+    }
+        public void wonclick(){
         driver.switchTo().defaultContent();
         WaitUtils.waitForFrameAndSwitch(driver,"main",10);
-       for (int i = 0; i < 3; i++) {
+       //for (int i = 0; i < 3; i++) {
         WaitUtils.getWait(driver,20);
         WaitUtils.waitForClickable(driver,By.xpath("//ou-button[@id='IM_GOBACK']"));
-        WaitUtils.waitAndClick(driver, By.xpath("//ou-button[@id='IM_GOBACK']"), 15);
-//        WaitUtils.waitForPVisible(driver,By.xpath("//div[text()='Person']"),10);
-//        WaitUtils.sleep(5000);
-//        WaitUtils.waitAndClick(driver, By.xpath("//ou-button[@id='IM_GOBACK']"), 15);
-//        WaitUtils.waitForPVisible(driver,By.xpath("//div[text()='Control Central Search']"),10);
-//        WaitUtils.sleep(5000);
-//        WaitUtils.waitAndClick(driver,By.xpath("//ou-button[@id='IM_GOBACK']"),10);
-//        WaitUtils.waitForPVisible(driver,By.xpath("//div[text()='Opportunity']"),10);
+        WaitUtils.waitAndClickFluent(driver, By.xpath("//ou-button[@id='IM_GOBACK']"), 15);
+        WaitUtils.waitForPVisible(driver,By.xpath("//div[text()='Person']"),10);
+        WaitUtils.waitForClickable(driver,By.xpath("//ou-button[@id='IM_GOBACK']"));
+        WaitUtils.waitAndClickFluent(driver, By.xpath("//ou-button[@id='IM_GOBACK']"), 15);
+        WaitUtils.waitForPVisible(driver,By.xpath("//div[text()='Control Central Search']"),10);
+        WaitUtils.waitForClickable(driver,By.xpath("//ou-button[@id='IM_GOBACK']"));
+        WaitUtils.waitAndClickFluent(driver,By.xpath("//ou-button[@id='IM_GOBACK']"),10);
+        WaitUtils.waitForPVisible(driver,By.xpath("//div[text()='Opportunity']"),10);
        // WaitUtils.sleep(3000);
-           WaitUtils.getWait(driver,20);
-        }
+           WaitUtils.getWait1(driver,20);
+        //}
         WaitUtils.waitForFrameAndSwitch(driver,"tabPage",2);
         driver.switchTo().frame(driver.findElement(By.cssSelector("iframe[title='zoneMapFrame_1']")));
         WaitUtils.getWait(driver,10);

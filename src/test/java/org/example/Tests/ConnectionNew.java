@@ -130,6 +130,7 @@ public class ConnectionNew extends BaseClass {
     public void won(){
         OppForPerson oppPer = new OppForPerson();
         oppPer.DeemedWon();
+        oppPer.wonclick();
         ScreenShotUtils.captureScreenshotToWord("New_Connection.docx","Opportunity Moved to Won Status");
     }
 }

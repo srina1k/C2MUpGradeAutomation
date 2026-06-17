@@ -3,6 +3,7 @@ package org.example.Utils;
 import org.openqa.selenium.*;
 import org.openqa.selenium.support.ui.ExpectedCondition;
 import org.openqa.selenium.support.ui.ExpectedConditions;
+import org.openqa.selenium.support.ui.FluentWait;
 import org.openqa.selenium.support.ui.WebDriverWait;
 
 import java.time.Duration;
@@ -12,6 +13,7 @@ import static org.example.Utils.DriverManager.driver;
 
 public class WaitUtils {
     private static final long DEFAULT_TIMEOUT = 50;
+
 
     public static WebDriverWait getWait(WebDriver driver, long seconds){
         return new WebDriverWait(driver, Duration.ofSeconds(seconds));
@@ -133,6 +135,23 @@ public class WaitUtils {
         } catch (TimeoutException e) {
             return false;
         }
+    }
+    public static void waitAndClickFluent(WebDriver driver, By locator, int seconds) {
+        try {
+            getWait(driver, seconds)
+                    .until(ExpectedConditions.elementToBeClickable(locator))
+                    .click();
+        } catch (TimeoutException te) {
+            throw new NoSuchElementException("Element not clickable after " + seconds + "s: " + locator, te);
+        }
+    }
+
+    public static FluentWait<WebDriver> getWait1(WebDriver driver, long seconds) {
+        return new FluentWait<>(driver)
+                .withTimeout(Duration.ofSeconds(seconds))
+                .pollingEvery(Duration.ofMillis(500))
+                .ignoring(NoSuchElementException.class)
+                .ignoring(StaleElementReferenceException.class);
     }
 
 
