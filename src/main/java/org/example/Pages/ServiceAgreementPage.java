@@ -3,8 +3,10 @@ package org.example.Pages;
 import org.example.Utils.DriverManager;
 import org.example.Utils.WaitUtils;
 import org.openqa.selenium.By;
+import org.openqa.selenium.Keys;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
+import org.openqa.selenium.interactions.Actions;
 import org.openqa.selenium.support.ui.Select;
 import org.openqa.selenium.support.ui.WebDriverWait;
 import java.time.Duration;
@@ -53,24 +55,29 @@ public class ServiceAgreementPage {
 
         driver.switchTo().defaultContent();
         WaitUtils.waitForFrameAndSwitch(driver,"main",8);
-        driver.findElement(By.xpath("IM_menuButton")).click();
-        driver.findElement(By.xpath("//li[@id='mainMenu']")).click();
-        driver.findElement(By.xpath("//span[text()='Customer Information']")).click();
-        driver.findElement(By.xpath("(//span[text()='Add'])[17]")).click();
+        WaitUtils.waitAndClick(driver,By.id("IM_menuButton"),10);
+        WaitUtils.waitAndClick(driver,By.xpath("//li[@id='mainMenu']"),10);
+        WaitUtils.waitAndClick(driver,By.xpath("//span[text()='Customer Information']"),10);
+        WaitUtils.waitAndClick(driver,By.xpath("(//span[text()='Add'])[17]"),10);
     }
-    public void saMainTab(String premiseID){
+    public void saMainTab(String premiseID,String accountId){
 
         WaitUtils.waitForFrameAndSwitch(driver,"tabPage",8);
         WaitUtils.waitForVisible(driver, By.cssSelector("select[id='CIS_DIVISION']"));
+        WebElement account=driver.findElement(By.cssSelector("input[name='ACCT_ID']"));
+        Actions action = new Actions(driver);
+        action.moveToElement(account).doubleClick(account).sendKeys(accountId).sendKeys(Keys.ENTER).sendKeys(Keys.ENTER).perform();
+        WaitUtils.sleep(4000);
         WebElement CIS_DIVISION = driver.findElement(By.cssSelector("select[id='CIS_DIVISION']"));
         Select dropdown_CIS_DIVISION = new Select(CIS_DIVISION);
         dropdown_CIS_DIVISION.selectByIndex(1);
-
         WaitUtils.waitForVisible(driver, By.xpath("//input[@name='SA_TYPE_CD']"));
         WebElement saTypeCd = driver.findElement(By.xpath("//input[@name='SA_TYPE_CD']"));
         saTypeCd.click();
         saTypeCd.sendKeys("E-MAJOR");
         WaitUtils.sleep(4000);
+//        WebElement account=driver.findElement(By.cssSelector("input[name=ACCT_ID]"));
+//        account.sendKeys(accountId);
         WebElement cutOffTime =  driver.findElement(By.cssSelector("input[id='IB_SA_CUTOFF_TM']"));
         cutOffTime.click();
         WaitUtils.sleep(2000);
@@ -85,6 +92,7 @@ public class ServiceAgreementPage {
         premID.click();
         WaitUtils.sleep(2000);
         premID.sendKeys(premiseID);
+        WaitUtils.getWait1(driver,20);
     }
     public void saSpTab(String spID) {
         driver.switchTo().defaultContent();
@@ -117,6 +125,7 @@ public class ServiceAgreementPage {
         WaitUtils.waitForFrameAndSwitch(driver,"main",5);
         WaitUtils.waitForFrameAndSwitch(driver,"tabPage",5);
         //WaitUtils.waitForFrameAndSwitch(driver,"SA_CHAR",5);
+        WaitUtils.getWait(driver,20);
         WebElement sacharframe=driver.findElement(By.cssSelector("iframe[id='SA_CHAR']"));
         driver.switchTo().frame(sacharframe);
         WebElement CHARACTERISTIC_TYPE1 = driver.findElement(By.cssSelector("select[id='SA_CHAR:0$CHAR_TYPE_CD']"));

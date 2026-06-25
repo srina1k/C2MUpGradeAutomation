@@ -7,14 +7,14 @@ import org.example.Utils.ScreenShotUtils;
 import org.testng.annotations.Test;
 import org.example.Utils.DBQueries;
 import org.example.Utils.DBUtils;
-import java.io.File;
 
+import java.io.File;
 
 public class EntityCreation_Elec extends BaseClass {
 
-    String perID="12345";
+    String perID="2533794355";
     String premID;
-    String mpan = "1200036784281";
+    String mpan="1700053089554";
     String accID;
     String spId;
     String saID;
@@ -40,6 +40,7 @@ public class EntityCreation_Elec extends BaseClass {
 //        System.out.println("created Name:"+name);
 //        perpage.personNavigation();
 //        perpage.personDetails(name, "12345 678989");
+//        perpage.ElecCommercial();
 //        perpage.correspondenceTab();
 //        perpage.charTab();
 //        ScreenShotUtils.captureScreenshotToWord("Entity Creation.docx","Adding Person details");
@@ -58,18 +59,7 @@ public class EntityCreation_Elec extends BaseClass {
         ScreenShotUtils.captureScreenshotToWord("Entity Creation.docx","Premise Entity Created:  " + premID);
         System.out.println("Generated Premise ID: " + premID);
     }
-
     @Test(dependsOnMethods = "premiseCreation")
-    public void servicePointCreation(){
-        servicePointPage spPage = new servicePointPage();
-        spPage.navigateToCCBServicePoint();
-        spPage.CCBServicePointDetails(premID, mpan);
-        ScreenShotUtils.captureScreenshotToWord("Entity Creation.docx","ServicePoint Entity Details:  " + premID);
-        spId = spPage.servicePointID();
-        ScreenShotUtils.captureScreenshotToWord("Entity Creation.docx","ServicePoint Entity Created:  " + premID);
-        System.out.println("Generated SP ID: " + spId);
-    }
-    @Test(dependsOnMethods = "servicePointCreation")
     public void accountCreation() {
         accountPage accpage = new accountPage();
         accpage.navigateToAccount();
@@ -82,11 +72,23 @@ public class EntityCreation_Elec extends BaseClass {
         ScreenShotUtils.captureScreenshotToWord("Entity Creation.docx","Account Entity Created: " + accID);
         System.out.println("Generated Account ID: " + accID);
     }
+
     @Test(dependsOnMethods = "accountCreation")
+    public void servicePointCreation(){
+        servicePointPage spPage = new servicePointPage();
+        spPage.navigateToCCBServicePoint();
+        spPage.CCBServicePointDetails(premID, mpan);
+        ScreenShotUtils.captureScreenshotToWord("Entity Creation.docx","ServicePoint Entity Details:  " + premID);
+        spId = spPage.servicePointID();
+        ScreenShotUtils.captureScreenshotToWord("Entity Creation.docx","ServicePoint Entity Created:  " + premID);
+        System.out.println("Generated SP ID: " + spId);
+    }
+
+    @Test(dependsOnMethods = "servicePointCreation")
     public void serviceAgreementCreation() {
         ServiceAgreementPage saPage = new ServiceAgreementPage();
         saPage.navigatToSAFromAccountDropdown();
-        saPage.saMainTab(premID);
+        saPage.saMainTab(premID,accID);
         ScreenShotUtils.captureScreenshotToWord("Entity Creation.docx","Premise entity added in SA");
         saPage.saSpTab(spId);
         ScreenShotUtils.captureScreenshotToWord("Entity Creation.docx","ServicePoint entity entity added in SA");
@@ -99,7 +101,7 @@ public class EntityCreation_Elec extends BaseClass {
         ServiceAgreementPage saPage = new ServiceAgreementPage();
         saPage.navigateToAdjustment();
         adjustmentPage adjPage = new adjustmentPage();
-        adjPage.adjustmentDetails();
+        adjPage.adjustmentDetails(saID);
         ScreenShotUtils.captureScreenshotToWord("Entity Creation.docx","Adding Adjustment details");
 
         adjPage.adjustmentCharTab();

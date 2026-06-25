@@ -97,6 +97,11 @@ public class PersonPage {
         driver.switchTo().defaultContent();
         WaitUtils.waitForFrameAndSwitch(driver, "main", 3);
         WaitUtils.waitForFrameAndSwitch(driver, "tabPage", 3);
+//        WebElement customer_class = driver.findElement(By.xpath("//select[@id='CUST_CL_CD']"));
+//        Select dropdown_customer_class = new Select(customer_class);
+//        dropdown_customer_class.selectByVisibleText("Electric Commercial");
+    }
+    public void ElecCommercial(){
         WebElement customer_class = driver.findElement(By.xpath("//select[@id='CUST_CL_CD']"));
         Select dropdown_customer_class = new Select(customer_class);
         dropdown_customer_class.selectByVisibleText("Electric Commercial");
