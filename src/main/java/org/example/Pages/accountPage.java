@@ -108,6 +108,8 @@ public class accountPage {
         driver.switchTo().defaultContent();
         WaitUtils.waitForFrameAndSwitch(driver, "main", 3);
         WaitUtils.waitForFrameAndSwitch(driver, "tabPage", 3);
+        WaitUtils.getWait(driver,20);
+        WaitUtils.waitForPageLoad(driver,20);
         WaitUtils.waitForVisible(driver,By.xpath("//input[@name='ACCT_ID']"));
         WebElement accIDtxtField =driver.findElement(By.xpath("//input[@name='ACCT_ID']"));
         WaitUtils.waitForTextToBePresentInValue(driver,accIDtxtField);

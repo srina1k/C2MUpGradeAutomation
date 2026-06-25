@@ -88,5 +88,10 @@ public class DBQueries {
             + "where CM_MKTMSG_ID in(select CM_MKTMSG_ID from CISADM.CM_OUT_MKTMSG_CHAR "
             + "where CHAR_VAL_FK1 in (select CM_CONTRACT_ID from CISADM.CM_CONTRACT where CM_OPPORTUNITY_ID in ('%s'))))) " ;
     public static final String isolateOpp = "select * from CISADM.CM_OPPORTUNITY where CM_OPPORTUNITY_ID in ('%s') ";
-
+    public static final String GasServicePoint="select * from CISADM.CI_SP_GEO where geo_val in ('%s')";
+    public static final String GasSupplyQuantity="select * from ci_sp_char where char_type_cd='CMANUQTY' and sp_id in ('%s')";
+    public static final String supplypoint="select * from ci_sp_char where char_type_cd='CM-SLAPI' and sp_id in ('%s')";
+    public static final String updateQuantity="UPDATE ci_sp_char SET ADHOC_CHAR_VAL = '73150' WHERE char_type_cd = 'CMANUQTY' AND sp_id in ('%s')";
+    public static final String DeleteANUQuantity="Delete from ci_sp_char where char_type_cd='CMANUQTY' and sp_id in ('%s')";
+    public static final String DeleteSupplyIndicator="Delete from ci_sp_char where char_type_cd='CM-SLAPI' and sp_id in ('%s')";
 }

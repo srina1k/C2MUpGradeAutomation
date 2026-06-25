@@ -154,5 +154,11 @@ public class WaitUtils {
                 .ignoring(StaleElementReferenceException.class);
     }
 
+    public static void waitForNewWindow(WebDriver driver, int timeoutInSeconds) {
+        new WebDriverWait(driver, Duration.ofSeconds(timeoutInSeconds))
+                .until(d -> d.getWindowHandles().size() > 1);
+    }
+
+
 
 }
