@@ -39,7 +39,7 @@ public class COMC16P1 extends BaseClass {
         ScreenShotUtils.captureScreenshotToWord("COMC16P1.docx","Step2:Person Details");
 
         PersonPage perpage = new PersonPage();
-        perpage.AddOpportunityDetails("COMC16");
+        perpage.AddOpportunityDetails("COMC16","Burnett, Richard","Medium","Eighty");
         perpage.opportunityType("Change of Measurement Class");
         ScreenShotUtils.captureScreenshotToWord("COMC16P1.docx","Step3:Entering Opportunity details");
         perpage.startEndDate();

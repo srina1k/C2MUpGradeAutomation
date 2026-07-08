@@ -40,7 +40,7 @@ public class AddPremisePage {
         WaitUtils.waitForFrameAndSwitch(driver, "main", 10);
         WaitUtils.getWait(driver,20);
         By[] menuSequence2 = {
-                By.id("IM_menuButton"), By.xpath("//li[@id='mainMenu']"), By.xpath("//li[@id='CI_MAINMENU_topMenuItem0x10']"), By.xpath("(//span[contains(text(),'Add')])[13]")};
+                By.id("IM_menuButton"), By.xpath("//li[@id='mainMenu']"), By.xpath("//span[text()='Customer Information']"), By.xpath("(//span[contains(text(),'Add')])[13]")};
         for (By menuItem2 : menuSequence2){
             WaitUtils.waitAndClick(driver, menuItem2, 2);
         }
@@ -408,10 +408,16 @@ public class AddPremisePage {
     }
 
     public void customerHyperlink(){
+        driver.switchTo().defaultContent();
+        WaitUtils.waitForFrameAndSwitch(driver,"main",10);
+        WaitUtils.waitForFrameAndSwitch(driver,"tabPage",10);
         WaitUtils.waitAndClick(driver, customerHyperLink, 2);
     }
-    public void addSiteMpan(String mpan){
+    public void addSiteMpan(String mpan,String GeoType){
         try {
+            driver.switchTo().defaultContent();
+            WaitUtils.waitForFrameAndSwitch(driver,"main",10);
+            WaitUtils.waitForFrameAndSwitch(driver,"tabPage",10);
             WaitUtils.sleep(2000);
             WaitUtils.waitForClickable(driver,By.xpath("//a[normalize-space()='Add Site']"));
             WaitUtils.waitAndClick(driver, By.xpath("//a[normalize-space()='Add Site']"), 20);
@@ -427,14 +433,14 @@ public class AddPremisePage {
         driver.switchTo().defaultContent();
         WaitUtils.waitForFrameAndSwitch(driver, "main", 3);
         WaitUtils.waitForFrameAndSwitch(driver, "tabPage", 3);
-        WaitUtils.sleep(7000);
+        WaitUtils.sleep(4000);
         WebElement dropdown = driver.findElement(By.xpath("//select[@id='multiQueryZoneFilters1']"));
         Select s = new Select(dropdown);
         s.selectByIndex(4);
         WaitUtils.sleep(7000);
         //WebElement geoType = driver.findElement(By.id("geographicType1"));
         Select s1 = new Select(driver.findElement(By.xpath("//select[@orafield='geographicType']")));
-        s1.selectByIndex(1);
+        s1.selectByVisibleText(GeoType);
 
         WebElement mpanText = driver.findElement(By.xpath("//input[@id='geographicValue1']"));
         mpanText.sendKeys(mpan);
@@ -458,7 +464,7 @@ public class AddPremisePage {
         }
     }
     public void servicePointSelectLiveBilling(){
-        WaitUtils.waitImplicitly(driver,20);
+
         WebElement ServicePointSelect=driver.findElement(By.xpath("//select[@id='servicePointIdDisplay']"));
         Actions action = new Actions(driver);
         action.moveToElement(ServicePointSelect).click().perform();
@@ -476,7 +482,38 @@ public class AddPremisePage {
         driver.findElement(By.xpath("//input[@id='annualConsumption']")).sendKeys("100");
         driver.findElement(By.xpath("//input[@id='agreedCapacity']")).sendKeys("120");
     }
-    public void AddpersonCharacteristics(){
-
+    public void gaspremise(){
+        WaitUtils.waitImplicitly(driver,30);
+        WebElement ServicePointSelect=driver.findElement(By.xpath("//select[@id='servicePointIdDisplay']"));
+        Actions action = new Actions(driver);
+        action.moveToElement(ServicePointSelect).click().perform();
+//        WaitUtils.waitForClickable(driver,By.xpath("//select[@id='servicePointIdDisplay']"));
+//        WaitUtils.waitForVisible(driver,By.xpath("//select[@id='servicePointIdDisplay']"));
+        WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(20));
+        wait.until(driver -> {
+            Select s = new Select(driver.findElement(By.xpath("//select[@id='servicePointIdDisplay']")));
+            return s.getOptions().size() > 1;
+        });
+        //WebElement service_point = WaitUtils.waitForPVisible(driver, By.xpath("//select[@id='servicePointIdDisplay']"),20 );
+        Select dropdown_service_point = new Select(ServicePointSelect);
+        dropdown_service_point.selectByIndex(1);
+        driver.findElement(By.xpath("//input[@orafield='boGroup/customerOwnReference']")).sendKeys("DD");
+    }
+    public void RemoveSite(){
+        driver.switchTo().defaultContent();
+        WaitUtils.waitForFrameAndSwitch(driver,"main",5);
+        WaitUtils.waitForFrameAndSwitch(driver,"tabPage",5);
+        String parentWindow= driver.getWindowHandle();
+        WaitUtils.waitAndClick(driver,By.xpath("(//span[text()='Delete'])[6]"),10);
+        new WebDriverWait(driver, Duration.ofSeconds(10)).until(d -> d.getWindowHandles().size() > 1);
+        for(String window: driver.getWindowHandles()){
+            if(!window.equals(parentWindow)){
+                driver.switchTo().window(window);
+                break;
+            }
+        }
+        WaitUtils.waitAndClick(driver,By.xpath("//input[@value='OK']"),10);
+        driver.switchTo().window(parentWindow);
+        WaitUtils.sleep(2000);
     }
 }

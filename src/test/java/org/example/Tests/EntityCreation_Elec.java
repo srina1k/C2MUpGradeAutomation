@@ -12,7 +12,7 @@ import java.io.File;
 
 public class EntityCreation_Elec extends BaseClass {
 
-    String perID="2533794355";
+    String perID;
     String premID;
     String mpan="1700053089554";
     String accID;
@@ -33,21 +33,21 @@ public class EntityCreation_Elec extends BaseClass {
         lp.Logincredentials();
     }
 
-//    @Test(dependsOnMethods = "testLogin")
-//    public void personCreation(){
-//        PersonPage perpage = new PersonPage();
-//        String name=perpage.generateName();
-//        System.out.println("created Name:"+name);
-//        perpage.personNavigation();
-//        perpage.personDetails(name, "12345 678989");
-//        perpage.ElecCommercial();
-//        perpage.correspondenceTab();
-//        perpage.charTab();
-//        ScreenShotUtils.captureScreenshotToWord("Entity Creation.docx","Adding Person details");
-//        perID = perpage.personID();
-//        ScreenShotUtils.captureScreenshotToWord("Entity Creation.docx","Person Entity Created: " + perID);
-//        System.out.println("Generated Person ID: " + perID);
-//    }
+    @Test(dependsOnMethods = "testLogin")
+    public void personCreation(){
+        PersonPage perpage = new PersonPage();
+        String name=perpage.generateName();
+        System.out.println("created Name:"+name);
+        perpage.personNavigation();
+        perpage.personDetails(name, "12345 678989");
+        perpage.ElecCommercial();
+        perpage.correspondenceTab();
+        perpage.charTab();
+        ScreenShotUtils.captureScreenshotToWord("Entity Creation.docx","Adding Person details");
+        perID = perpage.personID();
+        ScreenShotUtils.captureScreenshotToWord("Entity Creation.docx","Person Entity Created: " + perID);
+        System.out.println("Generated Person ID: " + perID);
+    }
 
     @Test(dependsOnMethods = "testLogin")
     public void premiseCreation(){

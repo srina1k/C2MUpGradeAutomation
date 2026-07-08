@@ -29,7 +29,7 @@ public class MediumFixedP1 extends BaseClass {
         userpage.clickSearch();
         ScreenShotUtils.captureScreenshotToWord("Medium Fixed-Renewal.docx","Step2:Person Details");
         PersonPage perpage = new PersonPage();
-        perpage.AddOpportunityDetails("Medium Fixed");
+        perpage.AddOpportunityDetails("Medium Fixed","Burnett, Richard","Medium","Eighty");
         perpage.opportunityType("Renewal");
         ScreenShotUtils.captureScreenshotToWord("Medium Fixed-Renewal.docx","Step3:Entering Opportunity details");
         perpage.startEndDate();

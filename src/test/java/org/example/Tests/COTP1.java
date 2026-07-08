@@ -34,7 +34,7 @@ public class COTP1 extends BaseClass {
         userpage.clickSearch();
         //userpage.personTab("Key Business Contact");
         PersonPage perpage = new PersonPage();
-        perpage.AddOpportunityDetails("COT");
+        perpage.AddOpportunityDetails("COT","Burnett, Richard","Medium","Eighty");
         perpage.opportunityType("Change of Tenancy");
         ScreenShotUtils.captureScreenshotToWord("COTP1.docx","Entering Opportunity details");
         perpage.startEndDate();

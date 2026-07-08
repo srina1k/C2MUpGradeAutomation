@@ -38,7 +38,7 @@ public class liveBillingP1 extends BaseClass {
         //perpage.personTab(childPerID, "Key Business Contact");
         ScreenShotUtils.captureScreenshotToWord("Live-Billing-P1.docx","Adding Child Person as Key business contract");
 
-        perpage.AddOpportunityDetails("Live_Billing_p1_RT");
+        perpage.AddOpportunityDetails("Live_Billing_p1_RT","Burnett, Richard","Medium","Eighty");
         perpage.opportunityType("Cold Prospect");
         ScreenShotUtils.captureScreenshotToWord("Live-Billing-P1.docx","Step3:Entering Opportunity details");
         perpage.startEndDate();
@@ -58,13 +58,13 @@ public class liveBillingP1 extends BaseClass {
         String hhMpan = ExcelUtils.getCellData(17,4);
         AddPremisePage premise = new AddPremisePage();
         premise.customerHyperlink();
-        premise.addSiteMpan(NhhMpan);
+        premise.addSiteMpan(NhhMpan,"MPAN Core Identifier");
         ScreenShotUtils.captureScreenshotToWord("Live-Billing-P1.docx","Add site using NhhMPAN details");
         premise.siteDetailsForLiveBilling();
         premise.servicePointSelectLiveBilling();
         ScreenShotUtils.captureScreenshotToWord("Live-Billing-P1.docx","Details are added");
         premise.clickSave();
-        premise.addSiteMpan(hhMpan);
+        premise.addSiteMpan(hhMpan,"MPAN Core Identifier");
         ScreenShotUtils.captureScreenshotToWord("Live-Billing-P1.docx","Add site using HHMPAN details");
         premise.siteDetailsForLiveBilling();
         premise.servicePointSelectLiveBilling();
