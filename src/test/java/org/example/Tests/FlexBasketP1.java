@@ -46,7 +46,7 @@ public class FlexBasketP1 extends BaseClass {
         userpage.clickSearch();
         ScreenShotUtils.captureScreenshotToWord("FlexBasket-P1.docx", "Step2:Person Details");
         PersonPage perpage = new PersonPage();
-        perpage.AddOpportunityDetails("FlexBasketOpp1");
+        perpage.AddOpportunityDetails("FlexBasketOpp1","Burnett, Richard","Medium","Eighty");
         perpage.basketInd();
         perpage.opportunityType("Cold Prospect");
         ScreenShotUtils.captureScreenshotToWord("FlexBasket-P1.docx", "Step3:Entering Opportunity details");
@@ -68,7 +68,7 @@ public class FlexBasketP1 extends BaseClass {
 
         userpage.clickSearch();
         ScreenShotUtils.captureScreenshotToWord("FlexBasket-P1.docx", "Step2:Person Details");
-        perpage.AddOpportunityDetails("FlexBasketOpp2");
+        perpage.AddOpportunityDetails("FlexBasketOpp2","Burnett, Richard","Medium","Eighty");
         perpage.basketInd();
         perpage.opportunityType("Cold Prospect");
         perpage.startEndDate();
@@ -87,7 +87,7 @@ public class FlexBasketP1 extends BaseClass {
 
         userpage.clickSearch();
         ScreenShotUtils.captureScreenshotToWord("FlexBasket-P1.docx", "Step2:Person Details");
-        perpage.AddOpportunityDetails("FlexBasketOpp3");
+        perpage.AddOpportunityDetails("FlexBasketOpp3","Burnett, Richard","Medium","Eighty");
         perpage.basketInd();
         perpage.opportunityType("Cold Prospect");
         perpage.startEndDate();

@@ -94,4 +94,9 @@ public class DBQueries {
     public static final String updateQuantity="UPDATE ci_sp_char SET ADHOC_CHAR_VAL = '73150' WHERE char_type_cd = 'CMANUQTY' AND sp_id in ('%s')";
     public static final String DeleteANUQuantity="Delete from ci_sp_char where char_type_cd='CMANUQTY' and sp_id in ('%s')";
     public static final String DeleteSupplyIndicator="Delete from ci_sp_char where char_type_cd='CM-SLAPI' and sp_id in ('%s')";
+    public static final String InsertQTY="INSERT INTO ci_sp_char (sp_id, char_type_cd, adhoc_char_val, effdt)" +
+            "VALUES ('%s', '%s', '%s', SYSDATE);";
+    public static final String InsertClass="INSERT INTO ci_sp_char (sp_id,char_type_cd,char_val,effdt) VALUES ('%s','%s','%s',SYSDATE)";
+    public static final String IsolateContract="update cm_contract set bo_status_cd='INPROGRESSX' where bo_status_cd='INPROGRESS'  cm_contract_id NOT in ('%s’)";
+    public static final String DeIsolateContract="update cm_contract set bo_status_cd='INPROGRESS' where bo_status_cd='INPROGRESSX'  cm_contract_id NOT in ('%s’)";
 }

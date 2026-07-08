@@ -3,6 +3,7 @@ package org.example.Pages;
 import org.example.Utils.ScreenShotUtils;
 import org.example.Utils.WaitUtils;
 import org.openqa.selenium.*;
+import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.Select;
 import org.openqa.selenium.support.ui.Wait;
 import org.openqa.selenium.support.ui.WebDriverWait;
@@ -104,25 +105,40 @@ public class OppForPerson {
     }
 
     public void QualifyingOpportunity(){
-//        driver.switchTo().defaultContent();
-//        WaitUtils.waitForFrameAndSwitch(driver,"main",10);
-//        WaitUtils.sleep(4000);
-//        WaitUtils.waitAndClick(driver,By.id("IM_GOBACK"),10);
-        WaitUtils.sleep(2000);
         WaitUtils.waitForFrameAndSwitch(driver,"tabPage",5);
         WaitUtils.getWait(driver,15);
-        WaitUtils.sleep(5000);
+        WaitUtils.sleep(2000);
         //WaitUtils.waitForPresence(driver,By.cssSelector("iframe[title='zoneMapFrame_1']"));
-        WaitUtils.waitForFrameAndSwitch(driver,"zoneMapFrame_1",10);
+        //System.out.println(driver.getPageSource());
+        driver.switchTo().frame(driver.findElement(By.cssSelector("iframe[title='zoneMapFrame_1']")));
         driver.findElement(By.cssSelector("input[value='Contacted']")).click();
+        WaitUtils.sleep(6000);
+        System.out.println("Second sourcer afte clicking contacted");
+        driver.switchTo().defaultContent();
+        WaitUtils.waitForFrameAndSwitch(driver,"main",2);
+        WaitUtils.waitAndClick(driver, By.id("IM_REFRESH"), 5);
         WaitUtils.sleep(5000);
+        driver.switchTo().defaultContent();
+        WaitUtils.waitForFrameAndSwitch(driver, "main", 10);
+        WaitUtils.waitForFrameAndSwitch(driver, "tabPage", 10);
+        driver.switchTo().frame(driver.findElement(By.cssSelector("iframe[title='zoneMapFrame_1']")));
+        //System.out.println(driver.getPageSource());
+        System.out.println(WaitUtils.getCurrentFrameName(driver));
+        WaitUtils.waitForClickable(driver,By.xpath("//input[contains(@class,'oraButton oraDefault') and contains(@value,'Qualified')]"));
+        WaitUtils.getWait(driver,20);
+        WebElement clickqualify=driver.findElement(By.cssSelector("input[value='Qualified']"));
+        JavascriptExecutor js=(JavascriptExecutor)driver;
+        js.executeScript("arguments[0].click();",clickqualify);
+        WaitUtils.sleep(10000);
+
+    }
+    public void clickqualified(){
         driver.switchTo().defaultContent();
         WaitUtils.waitForFrameAndSwitch(driver,"main",2);
         WaitUtils.waitAndClick(driver, By.id("IM_REFRESH"), 5);
         WaitUtils.waitForFrameAndSwitch(driver,"tabPage",2);
         driver.switchTo().frame(driver.findElement(By.cssSelector("iframe[title='zoneMapFrame_1']")));
         WaitUtils.waitAndClick(driver, By.cssSelector("input[value='Qualified']"), 5);
-        WaitUtils.sleep(15000);
     }
     public void QualifyingFlexBasketOpportunity(){
 //        driver.switchTo().defaultContent();
@@ -172,10 +188,15 @@ public class OppForPerson {
         driver.switchTo().defaultContent();
         WaitUtils.waitForFrameAndSwitch(driver,"main",2);
         WaitUtils.waitForFrameAndSwitch(driver,"tabPage",2);
+        //driver.switchTo().frame(driver.findElement(By.cssSelector("iframe[title='zoneMapFrame_1']")));
+        WaitUtils.sleep(4000);
         WaitUtils.waitAndClick(driver, By.cssSelector("span[title='Go To Opportunity for Person ']"), 2);
         String parentWindow = driver.getWindowHandle();
         WaitUtils.waitForVisible(driver, By.xpath("//input[@value='Override']"));
-        ScreenShotUtils.captureScreenshotToWord("COMC15P1.docx","Step13:Click on Override Button");
+        //ScreenShotUtils.captureScreenshotToWord("COMC15P1.docx","Step13:Click on Override Button");
+        driver.switchTo().defaultContent();
+        WaitUtils.waitForFrameAndSwitch(driver,"main",10);
+        WaitUtils.waitForFrameAndSwitch(driver,"tabPage",10);
         driver.findElement(By.xpath("//input[@value='Override']")).click();
         WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(10));
         wait.until(driver -> driver.getWindowHandles().size() > 1);
@@ -273,6 +294,7 @@ public class OppForPerson {
         driver.switchTo().defaultContent();
         WaitUtils.waitForFrameAndSwitch(driver,"main",2);
         WaitUtils.waitAndClick(driver, goBackBtn, 5);
+        WaitUtils.sleep(2000);
     }
     public void goBack3times(){
         driver.switchTo().defaultContent();
@@ -285,8 +307,20 @@ public class OppForPerson {
         }
     }
     public String quote() {
+        driver.switchTo().defaultContent();
+        WaitUtils.waitForFrameAndSwitch(driver,"main",5);
+        WaitUtils.waitForFrameAndSwitch(driver,"tabPage",10);
         String Caseid = driver.findElement(By.xpath("//span[@title='Go To Case ']")).getText().trim();
         System.out.println("Case ID:" + Caseid);
+        WaitUtils.waitAndClick(driver,By.xpath("//span[@title='Go To Case ']"),10);
+        WaitUtils.getWait(driver,10);
+        return Caseid;
+    }
+    public String quote1() {
+        String Caseid = driver.findElement(By.xpath("(//span[@title='Go To Case '])[2]")).getText().trim();
+        System.out.println("Case ID:" + Caseid);
+        WaitUtils.waitAndClick(driver,By.xpath("(//span[@title='Go To Case '])[2]"),10);
+        WaitUtils.getWait(driver,10);
         return Caseid;
     }
     public String Opportunity(){
@@ -413,6 +447,8 @@ public class OppForPerson {
     }
     public void echoeStatuscheck4LiveBilling(){
         WaitUtils.getWait(driver,15);
+        driver.switchTo().defaultContent();
+        WaitUtils.waitForFrameAndSwitch(driver,"main",10);
         WaitUtils.waitForVisible(driver,By.xpath("//div[@id='pageTitleArea']/h1/div"));
         WaitUtils.waitForFrameAndSwitch(driver, "tabPage", 10);
         System.out.println("Switching frame");
@@ -452,6 +488,7 @@ public class OppForPerson {
             driver.switchTo().window(parentwindow);
             driver.switchTo().defaultContent();
             WaitUtils.waitForFrameAndSwitch(driver,"main",2);
+            WaitUtils.sleep(2000);
             WaitUtils.waitAndClick(driver, goBackBtn,5);
         }
     }
@@ -616,5 +653,24 @@ public class OppForPerson {
         driver.switchTo().window(parentWindow);
         WaitUtils.waitForFrameAndSwitch(driver,"main",5);
         WaitUtils.waitAndClick(driver,By.xpath("//ou-button[@id='IM_GOBACK']"),10);
+    }
+    public void amendContractManager(){
+        driver.switchTo().defaultContent();
+        WaitUtils.waitForFrameAndSwitch(driver,"main",10);
+        WaitUtils.waitForFrameAndSwitch(driver,"tabPage",5);
+        driver.switchTo().frame(driver.findElement(By.cssSelector("iframe[name='zoneMapFrame_1']")));
+        String parentWindow=driver.getWindowHandle();
+        WaitUtils.waitAndClick(driver,By.xpath("//input[@value='Amend Contract Manager']"),10);
+        new WebDriverWait(driver, Duration.ofSeconds(10)).until(d -> d.getWindowHandles().size() > 1);
+        for(String window: driver.getWindowHandles()){
+            if(!window.equals(parentWindow)){
+                driver.switchTo().window(window);
+                break;
+            }
+        }
+        WebElement contractManager=driver.findElement(By.xpath("//select[@orafield='contractManager']"));
+        WaitUtils.selectByVisibleText(contractManager,"Srinath, Keshetti");
+        WaitUtils.waitAndClick(driver,By.xpath("//input[@value='Save']"),10);
+        driver.switchTo().window(parentWindow);
     }
 }

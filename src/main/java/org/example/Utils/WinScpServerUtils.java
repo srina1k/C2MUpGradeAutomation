@@ -77,10 +77,10 @@ public class WinScpServerUtils {
         }
         return fileNameFound;
     }
-    public static String fetchFileName() {
+    public static String fetchFileName(String remoteDir,String check) {
 
         String fileNameFound = null;
-        String remoteDir = "/c2m/HOCPayments/in/";
+        //String remoteDir = "/c2m/HOCPayments/in/";
         String Host = ConfigReader.getWinScpProperty("sftp.host");
         int port = Integer.parseInt(ConfigReader.getWinScpProperty("sftp.port").trim());
         String username = ConfigReader.getWinScpProperty("sftp.username");
@@ -104,7 +104,7 @@ public class WinScpServerUtils {
             for (ChannelSftp.LsEntry file : files) {
                 String fileName = file.getFilename();
 
-                if (fileName.contains("HOCX")) {
+                if (fileName.contains(check)) {
                     fileNameFound = fileName;
                     break;
                 }
@@ -118,5 +118,51 @@ public class WinScpServerUtils {
             if (session != null) session.disconnect();
         }
         return fileNameFound;
+    }
+    public static String downloadFile(
+            String remoteDir,
+            String fileName,
+            String localDir) {
+
+        String localFilePath = localDir + File.separator + fileName;
+
+        String host = ConfigReader.getWinScpProperty("sftp.host");
+        int port = Integer.parseInt(
+                ConfigReader.getWinScpProperty("sftp.port").trim());
+        String username = ConfigReader.getWinScpProperty("sftp.username");
+        String password = ConfigReader.getWinScpProperty("sftp.password");
+
+        Session session = null;
+        ChannelSftp channel = null;
+
+        try {
+            JSch jsch = new JSch();
+
+            session = jsch.getSession(username, host, port);
+            session.setPassword(password);
+            session.setConfig("StrictHostKeyChecking", "no");
+            session.connect();
+
+            channel = (ChannelSftp) session.openChannel("sftp");
+            channel.connect();
+
+            String remoteFilePath = remoteDir + "/" + fileName;
+
+            channel.get(remoteFilePath, localFilePath);
+
+            System.out.println("Downloaded Successfully: " + localFilePath);
+
+            return localFilePath;
+
+        } catch (Exception e) {
+            throw new RuntimeException(
+                    "Failed to download file: " + fileName, e);
+        } finally {
+            if (channel != null)
+                channel.disconnect();
+
+            if (session != null)
+                session.disconnect();
+        }
     }
 }

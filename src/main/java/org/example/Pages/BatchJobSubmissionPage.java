@@ -29,7 +29,7 @@ public class BatchJobSubmissionPage {
             String currentFrame = (String) ((JavascriptExecutor) driver).executeScript("return window.frameElement? window.frameElement.name : 'main';");
             System.out.println("Current frame switched to: " + currentFrame);
             WaitUtils.sleep(2000);
-            By[] menuSequence2 = {By.id("IM_menuButton"), By.xpath("//li[@id='mainMenu']/child::div"), By.id("CI_MAINMENU_topMenuItem0x35"), By.xpath("(//span[contains(text(),'Add')])[1]")};
+            By[] menuSequence2 = {By.id("IM_menuButton"), By.xpath("//li[@id='mainMenu']/child::div"), By.xpath("//span[text()='Tools']"), By.xpath("(//span[contains(text(),'Add')])[1]")};
             for (By menuItem2 : menuSequence2){
                 WaitUtils.waitAndClick(driver, menuItem2, 20);
                 WaitUtils.sleep(1000);
@@ -103,7 +103,7 @@ public class BatchJobSubmissionPage {
             WebElement double_click = driver.findElement(By.xpath("//span/input[@id='boGroup_user']"));
             new Actions(driver).doubleClick(double_click).pause(Duration.ofSeconds(8)).sendKeys(Keys.BACK_SPACE).pause(Duration.ofSeconds(13)).sendKeys("BATCHUSR").pause(Duration.ofSeconds(10)).sendKeys(Keys.ENTER).sendKeys(Keys.ENTER).perform();
             WaitUtils.sleep(1000);
-            ScreenShotUtils.captureScreenshotToWord("COMC15P1.docx","Step12:Running" +batchcode+ "batch");
+            ScreenShotUtils.captureScreenshotToWord("SuspectQueryCreationToRemoveQuote.docx","Step12:Running" +batchcode+ "batch");
             WebElement saveButton=driver.findElement(By.xpath("//div[@class='oraSectionFull']/div/input[@id='SAVE_BTN_MP']"));
             ((JavascriptExecutor)driver).executeScript("arguments[0].scrollIntoView(true);",saveButton);
             WaitUtils.sleep(2000);
@@ -126,7 +126,7 @@ public class BatchJobSubmissionPage {
                 refresh.click();
                 WaitUtils.sleep(5000);
             }
-            ScreenShotUtils.captureScreenshotToWord("COMC15P1.docx","Step12:Running Ecoes batch");
+            //ScreenShotUtils.captureScreenshotToWord("COMC15P1.docx","Step12:Running Ecoes batch");
             driver.switchTo().defaultContent();
             WaitUtils.waitForFrameAndSwitch(driver, "main", 5);
             System.out.println("Main frame");

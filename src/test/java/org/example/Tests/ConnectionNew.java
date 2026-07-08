@@ -30,16 +30,14 @@ public class ConnectionNew extends BaseClass {
         userpage.NavigateToOpportunity(personID1);
         ScreenShotUtils.captureScreenshotToWord("New_Connection.docx","Step1:Entering Person ID");
         userpage.clickSearch();
-        WaitUtils.sleep(3000);
         ScreenShotUtils.captureScreenshotToWord("New_Connection.docx","Step2:Person Details");
         PersonPage perpage = new PersonPage();
-        perpage.AddOpportunityDetails("New Connection");
+        perpage.AddOpportunityDetails("New Connection","Burnett, Richard","Medium","Eighty");
         perpage.opportunityType("New Connection");
         ScreenShotUtils.captureScreenshotToWord("New_Connection.docx","Step3:Entering Opportunity details");
         perpage.startEndDate();
         ScreenShotUtils.captureScreenshotToWord("New_Connection.docx","Step4:Enter Start and end date");
         perpage.nonFlexProductname("DEEMED");
-        WaitUtils.sleep(2000);
         perpage.addressIndicator();
         String storeOppID = perpage.captureOppID();
         perpage.addOppIDToWord("New_Connection.docx", "Step5:Opportunity created in Identified status");
@@ -82,7 +80,7 @@ public class ConnectionNew extends BaseClass {
         WaitUtils.sleep(3000);
         ScreenShotUtils.captureScreenshotToWord("New_Connection.docx","Step2:Person Details");
         PersonPage perpage = new PersonPage();
-        perpage.AddOpportunityDetails("New Connection");
+        perpage.AddOpportunityDetails("New Connection","Burnett, Richard","Medium","Eighty");
         perpage.opportunityType("New Connection");
         ScreenShotUtils.captureScreenshotToWord("New_Connection.docx","Step3:Entering Opportunity details");
         perpage.startEndDate();

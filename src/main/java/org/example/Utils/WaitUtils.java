@@ -1,13 +1,11 @@
 package org.example.Utils;
 
 import org.openqa.selenium.*;
-import org.openqa.selenium.support.ui.ExpectedCondition;
-import org.openqa.selenium.support.ui.ExpectedConditions;
-import org.openqa.selenium.support.ui.FluentWait;
-import org.openqa.selenium.support.ui.WebDriverWait;
+import org.openqa.selenium.support.ui.*;
 
 import java.time.Duration;
 import java.util.List;
+import java.util.Random;
 
 import static org.example.Utils.DriverManager.driver;
 
@@ -158,6 +156,30 @@ public class WaitUtils {
         new WebDriverWait(driver, Duration.ofSeconds(timeoutInSeconds))
                 .until(d -> d.getWindowHandles().size() > 1);
     }
+    public static String getCurrentFrameName(WebDriver driver) {
+        JavascriptExecutor js = (JavascriptExecutor) driver;
+
+        return (String) js.executeScript(
+                "return window.frameElement ? window.frameElement.name : 'defaultContent';");
+    }
+    public static void selectByVisibleText(WebElement dropdown, String visibleText) {
+        Select select = new Select(dropdown);
+        select.selectByVisibleText(visibleText);
+    }
+    public static String generateName() {
+        return generateRandomWord(5) + "," + generateRandomWord(6) + "SIT";
+    }
+    private static String generateRandomWord(int length) {
+        String alphabet = "ABCDEFGHIJKLMNOPQRSTUVWXYZ";
+        StringBuilder word = new StringBuilder();
+        Random random = new Random();
+
+        for (int i = 0; i < length; i++) {
+            word.append(alphabet.charAt(random.nextInt(alphabet.length())));
+        }
+        return word.toString();
+    }
+
 
 
 

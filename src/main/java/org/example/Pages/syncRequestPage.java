@@ -20,8 +20,8 @@ public class syncRequestPage {
         WaitUtils.waitForFrameAndSwitch(driver,"main",2);
         WaitUtils.waitAndClick(driver, By.id("IM_menuButton"), 5);
         WaitUtils.waitAndClick(driver, By.xpath("//li[@id='mainMenu']"), 5);
-        WaitUtils.waitAndClick(driver, By.id("CI_MAINMENU_topMenuItem0x11"), 5);
-        WaitUtils.waitAndClick(driver,By.id("ci_mainmenu_topmenuitem0x11SyncRequestOutbound"),10);
+        WaitUtils.waitAndClick(driver, By.xpath("//span[text()='Data Synchronization']"), 5);
+        WaitUtils.waitAndClick(driver,By.xpath("//span[text()='Sync Request Outbound']"),10);
         //WaitUtils.waitForFrameAndSwitch(driver,"tabPage",2);
         WaitUtils.waitForFrameAndSwitch(driver,"tabPage",10);
         WaitUtils.waitForPVisible(driver,By.xpath("//span[text()='Sync Request Search']"),10);

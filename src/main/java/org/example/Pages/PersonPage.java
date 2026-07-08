@@ -24,11 +24,10 @@ public class PersonPage {
         this.driver = DriverManager.getDriver();
     }
 
-    public void AddOpportunityDetails(String _Scenarioname){
+    public void AddOpportunityDetails(String _Scenarioname,String manager,String Priority,String WinProbaility){
         driver.switchTo().defaultContent();
         WaitUtils.waitForFrameAndSwitch(driver,"main",20);
         WaitUtils.getWait(driver,20);
-        //WebElement continueBtn=driver.findElement(By.xpath("//input[@id='Bundefined']"));
         if(!WaitUtils.isElementVisible(driver,By.xpath("//input[@id='Bundefined']"),10)){
             throw new NoSuchElementException("Element not visible");
         }
@@ -59,6 +58,40 @@ public class PersonPage {
 //        Select s4 = new Select(OpportunityType);
 //        s4.selectByVisibleText("New Connection");
 
+    }
+        public void AddOpportunityDetailsGas(String _Scenarioname){
+            driver.switchTo().defaultContent();
+            WaitUtils.waitForFrameAndSwitch(driver,"main",20);
+            WaitUtils.getWait(driver,20);
+            if(!WaitUtils.isElementVisible(driver,By.xpath("//input[@id='Bundefined']"),10)){
+                throw new NoSuchElementException("Element not visible");
+            }
+            WaitUtils.waitAndClick(driver, By.xpath("//input[@id='Bundefined']"),10);
+
+            //WaitUtils.waitForFrameAndSwitch(driver,"uiMap",5);
+            String currentFrame1 = (String) ((JavascriptExecutor) driver).executeScript("return window.frameElement? window.frameElement.name : 'default';");
+            System.out.println("Current frame switched to: " + currentFrame1);
+            WaitUtils.waitForPageLoad(driver,15);
+            driver.switchTo().frame("uiMap");
+            //WaitUtils.waitForPageLoad(driver,15);
+            String month = LocalDate.now().getMonth().getDisplayName(TextStyle.SHORT, Locale.ENGLISH);
+            WebElement ref = WaitUtils.waitForPVisible(driver, By.xpath("//textarea[@class='oraInput oraDefault']"), 20);
+            ref.sendKeys("RT_" + month + "_2026" + _Scenarioname);
+
+            WebElement managerDropdown = driver.findElement(By.xpath("//select[@id='user']"));
+            Select s1 = new Select(managerDropdown);
+            s1.selectByVisibleText("Mukherjee, Indranil");
+
+            WebElement priorityDropdown = driver.findElement(By.xpath("//select[@id='prio']"));
+            Select s2 = new Select(priorityDropdown);
+            s2.selectByVisibleText("Medium");
+
+            WebElement WinProb = driver.findElement(By.id("winProb"));
+            Select s3 = new Select(WinProb);
+            s3.selectByVisibleText("Eighty");
+        WebElement OpportunityType = driver.findElement(By.xpath("//select[@id='oppTypeFlag']"));
+        Select s4 = new Select(OpportunityType);
+        s4.selectByVisibleText("Gas New Connection");
     }
     public void personNavigation(){
         driver.switchTo().defaultContent();

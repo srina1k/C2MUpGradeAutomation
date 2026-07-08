@@ -34,7 +34,7 @@ public class MCTOpportunity extends BaseClass {
         WaitUtils.sleep(3000);
         ScreenShotUtils.captureScreenshotToWord("MCTOpportunity.docx", "Step2:Person Details");
         PersonPage perpage = new PersonPage();
-        perpage.AddOpportunityDetails("MCT");
+        perpage.AddOpportunityDetails("MCT","Burnett, Richard","Medium","Eighty");
         perpage.opportunityType("Warm Prospect");
         perpage.MCTId(MCTID);
         perpage.MCTSW();

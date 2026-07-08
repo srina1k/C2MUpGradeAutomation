@@ -37,7 +37,8 @@ public class PaymentReceiptAndAutomaticAllocation extends BaseClass {
 
     @Test(dependsOnMethods = "testLogin")
     public void fileVerification(){
-        HocxFileName = WinScpServerUtils.fetchFileName();
+        String filepath="/c2m/HOCPayments/in/";
+        HocxFileName = WinScpServerUtils.fetchFileName(filepath,"HOCX");
         System.out.println("File Name: " + HocxFileName);
         Assert.assertNotNull(HocxFileName, "No file Found on server");
     }
