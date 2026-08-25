@@ -257,6 +257,7 @@ public class PersonPage {
         String currentFrame2 = (String) ((JavascriptExecutor) driver)
                 .executeScript("return window.frameElement ? window.frameElement.name : 'no frame';");
         System.out.println("Current frame switched to: " + currentFrame2);
+        WaitUtils.sleep(2000);
         WaitUtils.waitForVisible(driver, By.cssSelector("div[id='dataExplorerFilterText2'] span[class='label']"));
     }
 
@@ -326,7 +327,7 @@ public class PersonPage {
         WaitUtils.sleep(2000);
         WaitUtils.waitAndClick(driver, By.id("IM_menuButton"), 10);
         WaitUtils.waitAndClick(driver, By.xpath("//li[@id='mainMenu']"), 10);
-        WaitUtils.waitAndClick(driver, By.xpath("//li[@id='CI_MAINMENU_topMenuItem0x28']"), 10);
+        WaitUtils.waitAndClick(driver, By.xpath("//span[text()='Sales & Marketing']"), 10);
         WaitUtils.waitAndClick(driver, By.xpath("//span[normalize-space()='Opportunity']"), 10);
         WaitUtils.waitForFrameAndSwitch(driver,"tabPage",10);
         WaitUtils.sleep(2000);
@@ -342,7 +343,7 @@ public class PersonPage {
         WaitUtils.waitAndClick(driver, By.id("IM_menuButton"), 5);
         WaitUtils.waitAndClick(driver, By.xpath("//li[@id='mainMenu']"), 5);
         WaitUtils.waitAndClick(driver, By.xpath("//li/div[contains(.,'Sales & Marketing')]"), 5);
-        WaitUtils.waitAndClick(driver, By.id("ci_mainmenu_topmenuitem0x31Opportunity"), 5);
+        WaitUtils.waitAndClick(driver, By.xpath("//span[text()='Opportunity']"), 5);
         WaitUtils.waitForFrameAndSwitch(driver,"tabPage",5);
         WaitUtils.sleep(2000);
 

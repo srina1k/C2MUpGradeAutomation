@@ -23,16 +23,16 @@ public class smallFixedP1 extends BaseClass {
     }
     @Test(dependsOnMethods = "Logintest")
     public void uploadFile(){
-//        ExcelUtils.loadExcel("C:\\Users\\srina1k\\IdeaProjects\\C2MUpGradeAutomation\\src\\main\\java\\Resources\\RTScenarioTestDataReport.xlsx","Sheet1");
-//        String CsvFilePath = ExcelUtils.getCellData(1,9);
-//        FileRenameUtils.replaceDate(CsvFilePath);
-//        String remotePath = "/ccbfsx/Common/prospect_upload/";
-//        WinScpServerUtils.uploadFile(CsvFilePath,remotePath);
-//        String csvFilename = FileRenameUtils.getFileNameFromPath(CsvFilePath);
-//        BatchJobSubmissionPage batchP = new BatchJobSubmissionPage();
-//        batchP.BatchPage();
-//        batchP.CMSPSU2Batch("CM-SPSU2", csvFilename," ");
-//        ScreenShotUtils.captureScreenshotToWord("SmallFixed.docx","Batch completed");
+        ExcelUtils.loadExcel("C:\\Users\\srina1k\\IdeaProjects\\C2MUpGradeAutomation\\src\\main\\java\\Resources\\RTScenarioTestDataReport.xlsx","Sheet1");
+        String CsvFilePath = ExcelUtils.getCellData(1,9);
+        FileRenameUtils.replaceDate(CsvFilePath);
+        String remotePath = "/ccbfsx/Common/prospect_upload/";
+        WinScpServerUtils.uploadFile(CsvFilePath,remotePath);
+        String csvFilename = FileRenameUtils.getFileNameFromPath(CsvFilePath);
+        BatchJobSubmissionPage batchP = new BatchJobSubmissionPage();
+        batchP.BatchPage();
+        batchP.CMSPSU2Batch("CM-SPSU2", csvFilename," ");
+        ScreenShotUtils.captureScreenshotToWord("SmallFixed.docx","Batch completed");
     }
     @Test(dependsOnMethods = "uploadFile")
     public void oppSearch() throws IOException {

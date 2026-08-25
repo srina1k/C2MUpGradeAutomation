@@ -4,6 +4,7 @@ import org.example.Utils.DriverManager;
 import org.example.Utils.WaitUtils;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
+import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.ui.Select;
 
 
@@ -19,11 +20,13 @@ public class marketMessageSearch {
         WaitUtils.waitForFrameAndSwitch(driver,"main",8);
         WaitUtils.waitAndClick(driver, By.id("IM_menuButton"), 5);
         WaitUtils.waitAndClick(driver,By.xpath("//li[@id='mainMenu']"),5);
-        WaitUtils.waitAndClick(driver, By.id("CI_MAINMENU_topMenuItem0x36"), 5);
-        WaitUtils.waitAndClick(driver, By.id("ci_mainmenu_topmenuitem0x36MarketMessageSearch"), 5);
+        WaitUtils.waitAndClick(driver, By.xpath("//span[text()='Workflow and Notification']"), 5);
+        WaitUtils.waitAndClick(driver, By.xpath("//span[text()='Market Message Search']"), 5);
         WaitUtils.sleep(2000);
     }
     public void mmSearchContractID(String contractID){
+        driver.switchTo().defaultContent();
+        WaitUtils.waitForFrameAndSwitch(driver,"main",10);
         WaitUtils.waitForFrameAndSwitch(driver,"tabPage",8);
         Select searchByMktMsg = new Select(driver.findElement(By.cssSelector("select[id='multiQueryZoneFilters1']")));
         searchByMktMsg.selectByIndex(5);
@@ -33,6 +36,7 @@ public class marketMessageSearch {
         //Select messageFlow = new Select(driver.findElement(By.cssSelector("select[onkeydown='dataExplorerDropDownKeyPress(event)']")));
         //messageFlow.selectByIndex(1);
         WaitUtils.waitAndClick(driver, By.xpath("//input[@value='Search']"),5);
+        WaitUtils.waitAndClick(driver, By.cssSelector("span[title='Go To Outbound Market Message Maintenance ']"),5);
     }
 
     public void OdropdownoMarketMessageId(String marketMessagID){
@@ -78,6 +82,13 @@ public class marketMessageSearch {
         WaitUtils.waitForFrameAndSwitch(driver,"main",8);
         WaitUtils.waitForFrameAndSwitch(driver,"tabPage",8);
         driver.switchTo().frame(driver.findElement(By.cssSelector("iframe[id='zoneMapFrame_3']")));
+        //WaitUtils.waitForTextTiBePresent(driver, By.xpath("//td[text()='Message Requested']"),"Message Requested",20);
+    }
+    public void OmarketMsgRequested(){
+        driver.switchTo().defaultContent();
+        WaitUtils.waitForFrameAndSwitch(driver,"main",8);
+        WaitUtils.waitForFrameAndSwitch(driver,"tabPage",8);
+        driver.switchTo().frame(driver.findElement(By.cssSelector("iframe[id='zoneMapFrame_3']")));
         WaitUtils.waitForTextTiBePresent(driver, By.xpath("//td[text()='Message Requested']"),"Message Requested",20);
     }
     public void OmarketMsgValidation1(){
@@ -93,7 +104,7 @@ public class marketMessageSearch {
         WaitUtils.getWait(driver,20);
         driver.switchTo().frame(driver.findElement(By.cssSelector("iframe[id='zoneMapFrame_3']")));
         WaitUtils.waitForVisible(driver,By.xpath("//td[text()='Completed']"));
-        //WaitUtils.waitForTextTiBePresent(driver, By.xpath("//td[text()='Completed']"),"Completed",20);
+        WaitUtils.waitForTextTiBePresent(driver, By.xpath("//td[text()='Completed']"),"Completed",20);
     }
     public void ImarketMsgValidation(){
         /*driver.switchTo().defaultContent();
@@ -123,5 +134,30 @@ public class marketMessageSearch {
         driver.switchTo().defaultContent();
         WaitUtils.waitForFrameAndSwitch(driver,"main",8);
         WaitUtils.waitForPVisible(driver, By.xpath("//div[text()='Service Agreement']"),5);
+    }
+    public void NewConnectionIndicator(){
+        driver.switchTo().defaultContent();
+        WaitUtils.waitForFrameAndSwitch(driver,"main",5);
+        WaitUtils.waitForFrameAndSwitch(driver,"tabPage",5);
+        driver.switchTo().frame(driver.findElement(By.cssSelector("iframe[id='zoneMapFrame_3']")));
+        WaitUtils.waitForVisible(driver,By.xpath("//td[normalize-space()='New Connection Indicator']/following-sibling::td[normalize-space()='Yes']"));
+    }
+    public String settlementDate(){
+        driver.switchTo().defaultContent();
+        WaitUtils.waitForFrameAndSwitch(driver,"main",5);
+        WaitUtils.waitForFrameAndSwitch(driver,"tabPage",5);
+        driver.switchTo().frame(driver.findElement(By.cssSelector("iframe[id='zoneMapFrame_3']")));
+        String settlementDate = driver.findElement(By.xpath("//td[text()='Effective From Settlement Date {REGI}']/following-sibling::td")).getText().trim();
+        return settlementDate;
+    }
+    public void fetchWithMpan(String mpan){
+        driver.switchTo().defaultContent();
+        WaitUtils.waitForFrameAndSwitch(driver,"main",5);
+        WaitUtils.waitForFrameAndSwitch(driver,"tabPage",5);
+        WebElement selectMPAN=driver.findElement(By.xpath("//select[@orafield='validateInput/marketIdentifierType']"));
+        WaitUtils.selectByVisibleText(selectMPAN,"MPAN");
+        driver.findElement(By.xpath("//input[@orafield='validateInput/marketIdentifier']")).sendKeys(mpan);
+        WaitUtils.waitAndClick(driver,By.xpath("//input[@value='Search']"),10);
+
     }
 }

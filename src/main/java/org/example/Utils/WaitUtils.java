@@ -4,6 +4,8 @@ import org.openqa.selenium.*;
 import org.openqa.selenium.support.ui.*;
 
 import java.time.Duration;
+import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
 import java.util.List;
 import java.util.Random;
 
@@ -178,6 +180,16 @@ public class WaitUtils {
             word.append(alphabet.charAt(random.nextInt(alphabet.length())));
         }
         return word.toString();
+    }
+    public static String sysdate(){
+        LocalDate date=LocalDate.now();
+        DateTimeFormatter formatter= DateTimeFormatter.ofPattern("dd/MMM/yy");
+        return date.format(formatter);
+    }
+    public static String sysdate1(){
+        LocalDate date=LocalDate.now();
+        DateTimeFormatter formatter= DateTimeFormatter.ofPattern("dd-MM-yyyy");
+        return date.format(formatter);
     }
 
 

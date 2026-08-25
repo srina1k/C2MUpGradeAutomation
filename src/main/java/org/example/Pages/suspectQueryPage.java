@@ -99,6 +99,7 @@ public class suspectQueryPage {
         WaitUtils.selectByVisibleText(phoneType,"Business Phone - 11 digits");
         driver.findElement(By.xpath("//input[@orafield='phone']")).sendKeys("76897577453");
         WaitUtils.waitAndClick2(driver,By.xpath("//input[@oramdlabel='SAVE_BTN_LBL']"),10);
+        WaitUtils.sleep(6000);
     }
     public String personid(){
         driver.switchTo().defaultContent();
@@ -164,6 +165,8 @@ public class suspectQueryPage {
                 break;
             }
         }
+        WaitUtils.getWait(driver,20);
+        WaitUtils.waitForVisible(driver,By.xpath("//select[@orafield='qualificationStatus']"));
         WebElement QualificationStatus= driver.findElement(By.xpath("//select[@orafield='qualificationStatus']"));
         WaitUtils.selectByVisibleText(QualificationStatus,"Qualified");
         driver.findElement(By.xpath("//textarea[@orafield='changeReason']")).sendKeys("Testing");

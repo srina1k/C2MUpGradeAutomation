@@ -10,7 +10,7 @@ import java.nio.file.Paths;
 import java.sql.SQLException;
 
 public class MCTOpportunity extends BaseClass {
-    String MCTID="MCTS19-C2M-21-2026";
+    String MCTID;
     @Test
     public void testLogin() {
         String fileName = "MCTOpportunity.docx";
@@ -34,6 +34,8 @@ public class MCTOpportunity extends BaseClass {
         WaitUtils.sleep(3000);
         ScreenShotUtils.captureScreenshotToWord("MCTOpportunity.docx", "Step2:Person Details");
         PersonPage perpage = new PersonPage();
+        MCTID=perpage.generateName();
+        System.out.println("MCTID=" + MCTID);
         perpage.AddOpportunityDetails("MCT","Burnett, Richard","Medium","Eighty");
         perpage.opportunityType("Warm Prospect");
         perpage.MCTId(MCTID);
@@ -145,8 +147,8 @@ public class MCTOpportunity extends BaseClass {
             oppPer.QualifyingOpportunity();
         }
     }
-    @Test(dependsOnMethods = "CCTermSet")
-    public void BatchRun(){
+    @Test(dependsOnMethods = "siteFileUpoading")
+    public void BatchRun() throws Exception {
         BatchJobSubmissionPage batchP = new BatchJobSubmissionPage();
         batchP.BatchPage();
         batchP.enterBatchCode("CM-ECCHK");
@@ -161,12 +163,11 @@ public class MCTOpportunity extends BaseClass {
         System.out.println("Quote ID-4: " + Caseid4);
         oppPer.goBack();
         oppPer.holdPenNavigation3();
-        oppPer.holdingPenOverride();
+        //oppPer.holdingPenOverride();
         oppPer.qualifiedQuoteInProgress();
         ScreenShotUtils.captureScreenshotToWord("MCTOpportunity.docx","Quote Generated for 3rd Opportunity");
         String Caseid3 = oppPer.quote();
         System.out.println("Quote ID-3: " + Caseid3);
-
         oppPer.goBack();
         oppPer.holdPenNavigation2();
         oppPer.AgreedSupplyCapacity();

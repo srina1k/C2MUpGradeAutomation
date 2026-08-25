@@ -27,4 +27,36 @@ public class CasePage {
         WaitUtils.waitAndClick(driver,By.xpath("//span[text()='Customer Information']"),5);
         WaitUtils.waitAndClick(driver,By.xpath("//span[text()='Case']"),5);
     }
+    public String getCaseID(){
+        driver.switchTo().defaultContent();
+        WaitUtils.waitForFrameAndSwitch(driver,"main",5);
+        WaitUtils.waitForFrameAndSwitch(driver,"tabPage",5);
+        String caseID=WaitUtils.waitForVisible(driver,By.xpath("(//span[@title='Go To Case '])[1]")).getText().trim();
+        WaitUtils.waitAndClick(driver,By.xpath("(//span[@title='Go To Case '])[1]"),5);
+        return caseID;
+    }
+    public void validateCaseLog(){
+        driver.switchTo().defaultContent();
+        WaitUtils.waitForFrameAndSwitch(driver,"main",5);
+        WaitUtils.waitForFrameAndSwitch(driver,"tabPage",5);
+        WaitUtils.waitForVisible(driver,By.cssSelector("iframe[title='zoneMapFrame_1']"));
+        driver.switchTo().frame(driver.findElement(By.cssSelector("iframe[title='zoneMapFrame_1']")));
+        WaitUtils.waitForVisible(driver,By.xpath("//span[text()='Monitor for Multiple Cancel Re-Bills']"));
+        driver.switchTo().defaultContent();
+        WaitUtils.waitForFrameAndSwitch(driver,"main",5);
+        driver.switchTo().frame(driver.findElement(By.cssSelector("iframe[id='tabMenu']")));
+        WaitUtils.waitAndClick(driver,By.cssSelector("td[title='Log']"),5);
+    }
+    public void validateCancelCaseLog(){
+        driver.switchTo().defaultContent();
+        WaitUtils.waitForFrameAndSwitch(driver,"main",5);
+        WaitUtils.waitForFrameAndSwitch(driver,"tabPage",5);
+        driver.switchTo().frame(driver.findElement(By.cssSelector("iframe[title='zoneMapFrame_1']")));
+        WaitUtils.waitForVisible(driver,By.xpath("//span[text()='Completed']"));
+        driver.switchTo().defaultContent();
+        WaitUtils.waitForFrameAndSwitch(driver,"main",5);
+        driver.switchTo().frame(driver.findElement(By.cssSelector("iframe[id='tabMenu']")));
+        WaitUtils.waitAndClick(driver,By.cssSelector("td[title='Log']"),5);
+    }
+
 }

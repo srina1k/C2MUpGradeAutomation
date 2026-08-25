@@ -16,9 +16,9 @@ import java.time.format.DateTimeFormatter;
 import java.util.Random;
 
 public class OpportunityToMarketMessageCreationGas extends BaseClass {
-    String storeOppId;
+    String storeOppId="4777374657";
     String personId;
-    String quote;
+    String quote="1261588292";
     String quoteReqFileName;
     String archiveFileName;
     String quoteId;
@@ -69,7 +69,6 @@ public class OpportunityToMarketMessageCreationGas extends BaseClass {
         ScreenShotUtils.captureScreenshotToWord("OpportunityToMarketMessageGas.docx", "Credit Check done");
         oppForPerson.TermSet();
         ScreenShotUtils.captureScreenshotToWord("OpportunityToMarketMessageGas.docx", "Term Set added");
-
     }
 
     @Test(dependsOnMethods = "InitiateCreditCheck")
@@ -98,7 +97,7 @@ public class OpportunityToMarketMessageCreationGas extends BaseClass {
     }
 
     @Test(dependsOnMethods = "siteAddition")
-    public void validateSites() throws SQLException, IOException {
+    public void validateSites() throws Exception {
         BatchJobSubmissionPage batchPage = new BatchJobSubmissionPage();
         batchPage.BatchPage();
         batchPage.enterBatchCode("CM-XOSRV");
@@ -110,15 +109,16 @@ public class OpportunityToMarketMessageCreationGas extends BaseClass {
         premisePage.customerHyperlink();
         batchPage.BatchPage();
         batchPage.enterBatchCode("CMRCECOE");
-//        premisePage.customerHyperlink();
-        oppPer.goBack();
+//        WaitUtils.sleep(8000);
+//        oppPer.goBack();
         oppPer.holdingPenOverride();
         oppPer.qualifiedQuoteInProgress();
         String quote=oppPer.quote();
+        oppPer.navigateToCase();
         System.out.println("Quote="+quote);
     }
     @Test(dependsOnMethods = "validateSites")
-    public void RequalifyingOpportunity() throws SQLException{
+    public void RequalifyingOpportunity() throws SQLException{ //Method eligible in RT & production environment
 //        String mprn3=ExcelUtils.getCellData(24,4);
 //        String mprn4=ExcelUtils.getCellData(25,4);
 //        String ServicePoint3=String.format(DBQueries.GasServicePoint,mprn3);
@@ -133,8 +133,8 @@ public class OpportunityToMarketMessageCreationGas extends BaseClass {
 //        DBUtils.UpdateQuery(sp4Anuqty);
 //        String sp4class=String.format(DBQueries.InsertClass,sp4,"CM-CLASS","3");
 //        DBUtils.UpdateQuery(sp4class);
-//        CasePage casePage=new CasePage();
-//        casePage.RemovedfromProcess();
+////        CasePage casePage=new CasePage();
+////        casePage.RemovedfromProcess();
 //        OppForPerson oppPer=new OppForPerson();
 //        oppPer.goBack();
 //        oppPer.clickqualified();
@@ -145,7 +145,7 @@ public class OpportunityToMarketMessageCreationGas extends BaseClass {
     @Test(dependsOnMethods = "RequalifyingOpportunity")
     public void verifyFile(){
     String filePath="/gas/hobs/quoteReq/out/";
-    quoteReqFileName=WinScpServerUtils.fetchFileName(filePath,quote);
+    quoteReqFileName=WinScpServerUtils.waitForFile(filePath,quote,20,5);
     System.out.println("FileName: "+quoteReqFileName);
     Assert.assertNotNull(quoteReqFileName,"No File Found/Generated On Server");
     String Localpath="C:\\AutomationDocuments\\OpportunityToMarketMessageCreationGas";
@@ -156,10 +156,10 @@ public class OpportunityToMarketMessageCreationGas extends BaseClass {
         String uploadPath="/gas/hobs/quoteAcc/in/";
         String localPath = Paths.get("C:\\AutomationDocuments\\OpportunityToMarketMessageCreationGas", quoteReqFileName).toString();
         System.out.println(localPath);
-        String uploadFilePath="C://AutomationDocuments//OpportunityToMarketMessageCreationGas//4228472141.xml";
+        String uploadFilePath="C:\\AutomationDocuments\\OpportunityToMarketMessageCreationGas\\4427813944.xml";
         XmlUtil.copyTagValues(localPath,uploadFilePath,"id","quoteRequestId");
         XmlUtil.updateTagValue(uploadFilePath,"ccbPersonId",personId);
-        //XmlUtil.copyTagValues(localPath,uploadFilePath,"ccbPersonId","ccbPersonId");
+        //XmlUtil.copyTagValues(localPath,uploadFilePath,"ccbPersonId","ccbPersonId"); --Neglect it
         Random random=new Random();
         int number=random.nextInt(10)+1;
         quoteId=number+"RTAUGGAS";
@@ -175,7 +175,7 @@ public class OpportunityToMarketMessageCreationGas extends BaseClass {
         WinScpServerUtils.uploadFile(RenamedFile,uploadPath);
     }
     @Test(dependsOnMethods = "xmlfileUpload")
-    public void generateSyncRequests(){
+    public void generateSyncRequests() throws Exception {
         BatchJobSubmissionPage batchPage=new BatchJobSubmissionPage();
         batchPage.BatchPage();
         batchPage.enterBatchCode("CM-QRGAS");
@@ -185,39 +185,40 @@ public class OpportunityToMarketMessageCreationGas extends BaseClass {
         Assert.assertNotNull(archiveFileName,"No File Found/Generated on server");
     }
     @Test(dependsOnMethods = "generateSyncRequests")
-    public void generateContract() throws SQLException{
+    public void generateContract() throws Exception {
         String query = String.format(DBQueries.syncReq, storeOppId);
         String syncRequestID = DBUtils.getSingleDate(query, "F1_SYNC_REQ_ID");
         System.out.println("F1_SYNC_REQ_ID: " + syncRequestID);
         syncRequestPage syncReq = new syncRequestPage();
         syncReq.NavigateTosyncRequestQuery();
         syncReq.dropdownSyncRequestID(syncRequestID);
-        syncReq.validation();
         String quoteQuery1 = String.format(DBQueries.IsolateQuote, storeOppId);
         DBUtils.UpdateQuery(quoteQuery1);
         BatchJobSubmissionPage batchPage=new BatchJobSubmissionPage();
         batchPage.BatchPage();
         batchPage.enterBatchCode("CMQRSYN2");
-        String quoteQuery2 = String.format(DBQueries.DeIsolateQuote, storeOppId);
-        DBUtils.UpdateQuery(quoteQuery2);
+        syncReq.syncRequestStatus();
+         //stop 2lines from here.
 //        CasePage casePage=new CasePage();
 //        casePage.navigateToCase();   ---Need to Update regarding the case page
         batchPage.BatchPage();
         batchPage.CMMONOPBatch("CM-MONOP");
         batchPage.clickRefresh();
+        String quoteQuery2 = String.format(DBQueries.DeIsolateQuote, storeOppId);
+        DBUtils.UpdateQuery(quoteQuery2);
         String OpportunityStatus=String.format(DBQueries.OppCreation,storeOppId);
         String status=DBUtils.getSingleDate(OpportunityStatus,"BO_STATUS_CD");
         System.out.println("Opportunity Status="+status);
         Assert.assertEquals(status,"WON-PA");
     }
     @Test(dependsOnMethods = "generateContract")
-    public void contractValidation() throws SQLException{
+    public void contractValidation() throws Exception {
         String contractQuery = String.format(DBQueries.fetchContract, storeOppId);
         contractID = DBUtils.getSingleDate(contractQuery, "CM_CONTRACT_ID");
         System.out.println("Contract_ID: " + contractID);
         contractSearch contract = new contractSearch();
         contract.navigateToContract(contractID);
-        contract.ContractValidation();
+        //contract.ContractValidation(); --keep it in uncomment
         String IsolateContract=String.format(DBQueries.IsolateContract,contractID);
         DBUtils.UpdateQuery(IsolateContract);
         BatchJobSubmissionPage batchPage=new BatchJobSubmissionPage();
@@ -226,7 +227,6 @@ public class OpportunityToMarketMessageCreationGas extends BaseClass {
         contract.clickrefresh();
         contract.contractStatus();
     }
-
     //Now you need to verify three accounts are created from the database
     // select * from ci_acct where acct_id in (select acct_id from ci_acct_per where per_id in ('2160000000')) order by SETUP_DT desc;
     // check the market message created by the script from database it should have three market message id's

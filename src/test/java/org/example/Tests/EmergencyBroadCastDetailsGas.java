@@ -3,32 +3,32 @@ package org.example.Tests;
 import org.example.Base.BaseClass;
 import org.example.Pages.LoginPage;
 import org.example.Pages.servicePointPage;
-import org.example.Utils.DBQueries;
-import org.example.Utils.DBUtils;
-import org.example.Utils.DriverManager;
-import org.example.Utils.ScreenShotUtils;
+import org.example.Utils.*;
 import org.testng.annotations.Test;
 
 import java.io.File;
 import java.sql.SQLException;
 
 public class EmergencyBroadCastDetailsGas extends BaseClass {
-    String mprn1="7678697306";
-    String mprn2="16705210";
+    String mprn1;
+    String mprn2;
 
     @Test
     public void testLogin(){
-        String fileName  = "EmergencyBroadCastDetailsGas.docx";
-        File file = new File(fileName);
-        if(file.exists()){
-            file.delete();
-            System.out.println("Old word file deleted: " + fileName);
-        }
+//        String fileName  = "EmergencyBroadCastDetailsGas.docx";
+//        File file = new File(fileName);
+//        if(file.exists()){
+//            file.delete();
+//            System.out.println("Old word file deleted: " + fileName);
+//        }
         LoginPage lp = new LoginPage(DriverManager.getDriver());
         lp.Logincredentials();
     }
     @Test (dependsOnMethods = "testLogin")
         public void AnnualCapacity1() throws SQLException {
+            ExcelUtils.loadExcel("C:\\Users\\srina1k\\IdeaProjects\\C2MUpGradeAutomation\\src\\main\\java\\Resources\\RTScenarioTestDataReport.xlsx","EmergencyBroadCastDetails");
+            mprn1=ExcelUtils.getCellData(1,1);
+            mprn2=ExcelUtils.getCellData(2,1);
             String ServicePoint1=String.format(DBQueries.GasServicePoint,mprn1);
             String servicepoint= DBUtils.getSingleDate(ServicePoint1,"SP_ID");
             System.out.println("ServicePoint"+"="+servicepoint);

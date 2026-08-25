@@ -93,7 +93,7 @@ public class COMC15P1 extends BaseClass {
     }
 
     @Test(dependsOnMethods = "CCTermSet")
-    public void BatchRun() throws SQLException {
+    public void BatchRun() throws Exception {
         ExcelUtils.loadExcel("C:\\Users\\srina1k\\IdeaProjects\\C2MUpGradeAutomation\\src\\main\\java\\Resources\\RTScenarioTestDataReport.xlsx","Sheet1");
         //String oppId = ExcelUtils.getCellData(6,1);
         //String query = String.format(DBQueries.IsolateOpportunity,oppId);

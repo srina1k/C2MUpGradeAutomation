@@ -94,7 +94,7 @@ public class smallFixedP2 extends BaseClass {
 //        mktmsg.OdropdownoMarketMessageId(MarketMsgID);
 //        ScreenShotUtils.captureScreenshotToWord("SmallFixed-P2.docx","Market Message is created in Pending status");
 //
-//        mktmsg.OmarketMsgValidation();
+        mktmsg.OmarketMsgValidation();
 //        ScreenShotUtils.captureScreenshotToWord("SmallFixed-P2.docx","Market Message Validated and moved to message requested status");
 //        mpan = mktmsg.fetchMpan();
 //        System.out.println("MPAN: " + mpan);

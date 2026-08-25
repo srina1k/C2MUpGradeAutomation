@@ -78,7 +78,7 @@ public class FlexBasketP1 extends BaseClass {
         perpage.addressIndicator();
         storeOppID2 = perpage.captureOppID();
         perpage.addOppIDToWord("FlexBasket-P1.docx", "Step4:2nd Opportunity created in Identified status:" + storeOppID2);
-        System.out.println("OPp ID: " + storeOppID2);
+        System.out.println("OPP ID: " + storeOppID2);
 
         //3rd Opportunity Creation
         String personID3 = ExcelUtils.getCellData(13, 7);
@@ -125,7 +125,7 @@ public class FlexBasketP1 extends BaseClass {
     }
 
     @Test(dependsOnMethods = "opportunityCreation")
-    public void batchRun() throws SQLException {
+    public void batchRun() throws Exception {
         ExcelUtils.loadExcel("C:\\Users\\srina1k\\IdeaProjects\\C2MUpGradeAutomation\\src\\main\\java\\Resources\\RTScenarioTestDataReport.xlsx","Sheet1");
         String CUUB2File = ExcelUtils.getCellData(14, 7);
         String CMBLRNOPfile = ExcelUtils.getCellData(15, 7);
@@ -213,7 +213,7 @@ public class FlexBasketP1 extends BaseClass {
 //////        System.out.println("caseID3:" +caseid1);
    }
     @Test(dependsOnMethods = "CCTermSetForFirstOpp")
-    public void batchForQuote() throws IOException {
+    public void batchForQuote() throws Exception {
         WindowHandlesUtils.duplicateCurrentTab();
         BatchJobSubmissionPage batchP = new BatchJobSubmissionPage();
         batchP.BatchPage();

@@ -362,7 +362,7 @@ public class AddPremisePage {
         WaitUtils.waitForFrameAndSwitch(driver,"main",10);
         driver.findElement(By.xpath("//ou-button[@id='IM_GOBACK']")).click();
 
-        WaitUtils.sleep(5000);
+        WaitUtils.sleep(8000);
         driver.findElement(By.xpath("//ou-button[@id='IM_GOBACK']")).click();
 
         WaitUtils.waitForFrameAndSwitch(driver,"tabPage",10);

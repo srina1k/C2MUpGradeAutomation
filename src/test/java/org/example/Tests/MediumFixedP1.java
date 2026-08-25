@@ -56,7 +56,7 @@ public class MediumFixedP1 extends BaseClass {
         DBUtils.executeSelectQuery(query);
     }
     @Test(dependsOnMethods = "FileUpoading")
-    public void BatchRun() throws SQLException {
+    public void BatchRun() throws Exception {
         BatchJobSubmissionPage batchP = new BatchJobSubmissionPage();
         batchP.BatchPage();
         ExcelUtils.loadExcel("C:\\Users\\srina1k\\IdeaProjects\\C2MUpGradeAutomation\\src\\main\\java\\Resources\\RTScenarioTestDataReport.xlsx","Sheet1");
