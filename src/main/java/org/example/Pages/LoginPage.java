@@ -15,7 +15,7 @@ public class LoginPage{
     private final WebDriver driver;
     private final WebDriverWait wait;
     public LoginPage(WebDriver driver) {
-        this.driver= driver;
+        this.driver= DriverManager.getDriver();
         this.wait=new WebDriverWait(driver,Duration.ofSeconds(20));
     }
     public void Logincredentials() {
@@ -27,10 +27,11 @@ public class LoginPage{
         }
         String authUrl=baseUrl.replaceFirst("https://","https://"+Username+":"+password+"@");
         System.out.println("Logging in with Basic Auth URL:"+authUrl);
-        getDriver().get(authUrl);
-        //driver.get(authUrl);
-        String currentUrl=getDriver().getCurrentUrl();
+        driver.get(authUrl);
+//        driver.get(authUrl);
+        String currentUrl=driver.getCurrentUrl();
+        System.out.println(currentUrl);
         wait.until(ExpectedConditions.titleContains("Oracle Utilities Customer To Meter"));
-        WaitUtils.sleep(50);
+        WaitUtils.getWait(driver,20);
     }
 }

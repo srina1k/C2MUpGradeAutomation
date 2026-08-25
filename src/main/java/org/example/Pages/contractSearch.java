@@ -31,6 +31,14 @@ public class contractSearch {
         WaitUtils.sleep(2000);
         WaitUtils.waitAndClick(driver, By.cssSelector("span[title='Go To Contract Navigation Option ']"), 5);
     }
+    public void contractValidation(){
+        driver.switchTo().defaultContent();
+        WaitUtils.waitForFrameAndSwitch(driver,"main",8);
+        WaitUtils.waitForFrameAndSwitch(driver,"tabPage",8);
+        driver.switchTo().frame(driver.findElement(By.cssSelector("iframe[title='zoneMapFrame_3']")));
+        WaitUtils.waitForVisible(driver,By.xpath("//span[text()='Accepted']"));
+
+    }
     public void navigatToContractwithQuoteId(String quoteid){
             driver.switchTo().defaultContent();
             WaitUtils.waitForFrameAndSwitch(driver,"main",8);

@@ -68,11 +68,7 @@ public class COTP1 extends BaseClass {
         ScreenShotUtils.captureScreenshotToWord("COTP1.docx","Opportunity Qualified");
     }
     @Test(dependsOnMethods = "CCTermSet")
-    public void BatchRun() throws InterruptedException, SQLException {
-        //ExcelUtils.loadExcel("D:\\Users\\sunag1a\\IdeaProjects\\AM_Tasks\\src\\main\\resources\\RTScenarioTestDataReport.xlsx","Sheet1");
-        //String oppId = ExcelUtils.getCellData(6,1);
-        //String query = String.format(DBQueries.IsolateOpportunity,oppId);
-        //DBUtils.UpdateQuery(query);
+    public void BatchRun() throws Exception {
         BatchJobSubmissionPage batchP = new BatchJobSubmissionPage();
         batchP.BatchPage();
         batchP.enterBatchCode("CM-ECCHK");

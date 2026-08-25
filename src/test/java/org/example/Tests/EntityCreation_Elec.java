@@ -23,12 +23,12 @@ public class EntityCreation_Elec extends BaseClass {
 
     @Test
     public void testLogin(){
-        String fileName  = "Entity Creation.docx";
-        File file = new File(fileName);
-        if(file.exists()){
-            file.delete();
-            System.out.println("Old word file deleted: " + fileName);
-        }
+//        String fileName  = "Entity Creation.docx";
+//        File file = new File(fileName);
+//        if(file.exists()){
+//            file.delete();
+//            System.out.println("Old word file deleted: " + fileName);
+//        }
         LoginPage lp = new LoginPage(DriverManager.getDriver());
         lp.Logincredentials();
     }

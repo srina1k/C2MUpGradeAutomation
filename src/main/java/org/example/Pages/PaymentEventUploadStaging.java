@@ -26,8 +26,6 @@ public class PaymentEventUploadStaging {
         WaitUtils.waitAndClick(driver,By.xpath("//li[@id='mainMenu']"),10);
         WaitUtils.waitAndClick(driver, By.xpath("//span[text()='Financial']"),5);
         WaitUtils.waitAndClick(driver, By.xpath("//span[text()='Payment Event Upload Staging']"),5);
-        //WaitUtils.waitAndClick(driver, By.xpath("//span[text()='Search']"),5);
-        WaitUtils.sleep(2000);
     }
 
     public void searchExtTransmitID(String TransmitID){
@@ -48,11 +46,10 @@ public class PaymentEventUploadStaging {
         WaitUtils.waitAndClick(driver, By.xpath("//input[@name='BU_MAIN_SEARCH']"), 5);
         String mainHandle = driver.getWindowHandles().iterator().next();
         driver.switchTo().window(mainHandle);
-        WaitUtils.sleep(5000);
-
         driver.switchTo().defaultContent();
         WaitUtils.waitForFrameAndSwitch(driver, "main", 5);
         WaitUtils.waitForFrameAndSwitch(driver, "tabPage", 5);
+        WaitUtils.waitForVisible(driver,By.xpath("//option[text()='Complete']"));
     }
 
     public void searchExtTransmitIDREMP(String TransmitID){
@@ -89,7 +86,12 @@ public class PaymentEventUploadStaging {
         JavascriptExecutor js = (JavascriptExecutor) driver;
         js.executeScript("arguments[0].scrollIntoView(true);", PayEventStagingStatus);
     }
-
+    public void scrollDownTenderControl(){
+        driver.switchTo().defaultContent();
+        WaitUtils.waitForFrameAndSwitch(driver, "main", 5);
+        WaitUtils.waitForFrameAndSwitch(driver, "tabPage", 5);
+        WaitUtils.waitForVisible(driver,By.xpath("//option[text()='Incomplete']"));
+    }
     public void clickRefresh(){
         driver.switchTo().defaultContent();
         WaitUtils.waitForFrameAndSwitch(driver, "main", 3);
@@ -117,6 +119,29 @@ public class PaymentEventUploadStaging {
         WaitUtils.waitForFrameAndSwitch(driver, "main", 3);
         WaitUtils.waitForFrameAndSwitch(driver, "tabPage", 3);
         WaitUtils.waitForVisible(driver,By.xpath("//input[@name='TNDR_CTL_ID']"));
+    }
+    public void pepl1TenderControlStatus(){
+        driver.switchTo().defaultContent();
+        WaitUtils.waitForFrameAndSwitch(driver, "main", 3);
+        WaitUtils.waitForFrameAndSwitch(driver, "tabPage", 3);
+        WebElement PayEventStagingStatus = driver.findElement(By.xpath("//option[text()='Open']"));
+        JavascriptExecutor js = (JavascriptExecutor) driver;
+        js.executeScript("arguments[0].scrollIntoView(true);", PayEventStagingStatus);
+    }
+    public void pepl3TenderControlStatus(){
+        driver.switchTo().defaultContent();
+        WaitUtils.waitForFrameAndSwitch(driver, "main", 3);
+        WaitUtils.waitForFrameAndSwitch(driver, "tabPage", 3);
+        WebElement PayEventStagingStatus = driver.findElement(By.xpath("//select[@id='TNDR_CTL_ST_FLG']/option[text()='Balanced']"));
+        JavascriptExecutor js = (JavascriptExecutor) driver;
+        js.executeScript("arguments[0].scrollIntoView(true);", PayEventStagingStatus);
+    }
+    public void pepl2payeventstatus(){
+        driver.switchTo().defaultContent();
+        WaitUtils.waitForFrameAndSwitch(driver, "main", 3);
+        WaitUtils.waitForFrameAndSwitch(driver, "tabPage", 3);
+        WaitUtils.waitForVisible(driver,By.xpath("//option[text()='Complete']"));
+
     }
 
 }

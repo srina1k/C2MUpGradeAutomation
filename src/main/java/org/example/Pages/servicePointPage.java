@@ -193,7 +193,7 @@ public class servicePointPage {
             //WaitUtils.waitForPresence(driver,By.xpath("(//span[contains(text(),'Service Point')]/parent::td)[1]"));
             WebElement logFrame=driver.findElement(By.cssSelector("iframe[id='tabMenu']"));
             driver.switchTo().frame(logFrame);
-            WaitUtils.sleep(2000);
+            WaitUtils.sleep(1000);
             WaitUtils.waitAndClick(driver,By.xpath("//td[contains(text(),'Log')]"),10);
             WaitUtils.getWait(driver,20);
             driver.switchTo().defaultContent();

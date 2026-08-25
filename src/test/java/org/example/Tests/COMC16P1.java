@@ -82,7 +82,7 @@ public class COMC16P1 extends BaseClass {
 
     }
     @Test(dependsOnMethods = "CCTermSet")
-    public void BatchRun() throws InterruptedException {
+    public void BatchRun() throws Exception {
         BatchJobSubmissionPage batchP = new BatchJobSubmissionPage();
         batchP.BatchPage();
         batchP.enterBatchCode("CM-ECCHK");

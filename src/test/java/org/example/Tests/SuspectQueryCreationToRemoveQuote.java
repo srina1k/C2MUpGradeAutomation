@@ -81,7 +81,7 @@ public class SuspectQueryCreationToRemoveQuote extends BaseClass {
         premisePage.clickSave();
     }
     @Test(dependsOnMethods = "PremiseCreation")
-    public void qualifyOpportunity() throws SQLException, IOException {
+    public void qualifyOpportunity() throws Exception {
         OppForPerson oppPer = new OppForPerson();
         oppPer.goBack();
         oppPer.QualifyingOpportunity();

@@ -1,6 +1,8 @@
 package org.example.Utils;
 
+import org.apache.poi.hssf.usermodel.HSSFWorkbook;
 import org.apache.poi.ss.usermodel.*;
+import org.apache.poi.xssf.usermodel.XSSFWorkbook;
 
 import java.io.File;
 import java.io.FileInputStream;
@@ -78,4 +80,23 @@ public class ExcelUtils {
             throw new RuntimeException("Failed to save", e);
         }
     }
-}
+    public static int getRowCount(String filePath) {
+        try (FileInputStream fis = new FileInputStream(filePath)) {
+            Workbook workbook;
+            if (filePath.toLowerCase().endsWith(".xlsx")) {
+                workbook = new XSSFWorkbook(fis);
+            } else if (filePath.toLowerCase().endsWith(".xls")) {
+                workbook = new HSSFWorkbook(fis);
+            } else {
+                throw new RuntimeException("Unsupported file format: " + filePath);
+            }
+            Sheet sheet = workbook.getSheetAt(0);
+
+            int rowCount = sheet.getPhysicalNumberOfRows() - 1;
+            workbook.close();
+            return rowCount;
+        } catch (Exception e) {
+            throw new RuntimeException("Unable to read Excel file: " + filePath, e);
+        }
+    }
+    }

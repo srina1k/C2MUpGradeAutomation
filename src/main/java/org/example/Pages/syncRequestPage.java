@@ -5,6 +5,7 @@ import org.example.Utils.WaitUtils;
 import org.openqa.selenium.By;
 import org.openqa.selenium.StaleElementReferenceException;
 import org.openqa.selenium.WebDriver;
+import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.ui.Select;
 import org.openqa.selenium.support.ui.Wait;
 
@@ -52,6 +53,30 @@ public class syncRequestPage {
         driver.switchTo().frame(driver.findElement(By.cssSelector("iframe[title='zoneMapFrame_3']")));
        // WaitUtils.waitForFrameAndSwitch(driver,"zoneMapFrame_3",5);
         WaitUtils.waitForTextTiBePresent(driver, By.xpath("//td[text()='Completed']"), "Completed", 20);
-
+    }
+    public void maintenanceObject(String quoteId){
+        driver.switchTo().defaultContent();
+        WaitUtils.waitForFrameAndSwitch(driver,"main",10);
+        WaitUtils.waitForFrameAndSwitch(driver,"tabPage",10);
+        Select search_by = new Select(driver.findElement(By.xpath("//select[@id='multiQueryZoneFilters1']")));
+        search_by.selectByIndex(2);
+        WaitUtils.waitForVisible(driver,By.cssSelector("select[id='filter1.F1']"));
+        WebElement maintenanceObject= driver.findElement(By.cssSelector("select[id='filter1.F1']"));
+        WaitUtils.selectByVisibleText(maintenanceObject,"Sync Request");
+        driver.findElement(By.xpath("//input[@id='filter1.F2']")).sendKeys(quoteId);
+        WaitUtils.waitAndClick(driver,By.xpath("//input[@id='anTLZ1Refresh']"),10);
+        WaitUtils.waitAndClick(driver,By.cssSelector("span[title='Go To Sync Request ']"),15);
+        driver.switchTo().defaultContent();
+        WaitUtils.waitForFrameAndSwitch(driver,"main",10);
+        WaitUtils.waitForFrameAndSwitch(driver,"tabPage",10);
+        driver.switchTo().frame(driver.findElement(By.cssSelector("iframe[title='zoneMapFrame_1']")));
+        WaitUtils.waitForVisible(driver,By.xpath("//input[@value='Validate']"));
+    }
+    public void syncRequestStatus(){
+        driver.switchTo().defaultContent();
+        WaitUtils.waitForFrameAndSwitch(driver,"main",10);
+        WaitUtils.waitForFrameAndSwitch(driver,"tabPage",10);
+        driver.switchTo().frame(driver.findElement(By.cssSelector("iframe[title='zoneMapFrame_3']")));
+        WaitUtils.waitForTextTiBePresent(driver, By.xpath("//td[text()='Completed']"), "Completed", 20);
     }
 }

@@ -4,7 +4,7 @@ import java.io.InputStream;
 import java.sql.*;
 import java.sql.DriverManager;
 import java.util.Properties;
-
+import java.util.*;
 public class DBUtils {
     private static Properties props = new Properties();
     static{
@@ -73,5 +73,19 @@ public class DBUtils {
         } catch (SQLException e){
             throw new RuntimeException("Query execution failed", e);
         }
+    }
+    public static List<Map<String, String>> executeQuery(String query) throws SQLException {
+        List<Map<String, String>> results = new ArrayList<>();
+        ResultSet rs = executeSelectQueryRS(query);
+        ResultSetMetaData metaData = rs.getMetaData();
+        int columnCount = metaData.getColumnCount();
+        while (rs.next()) {
+            Map<String, String> row = new HashMap<>();
+            for (int i = 1; i <= columnCount; i++) {
+                row.put(metaData.getColumnName(i),rs.getString(i));
+            }
+            results.add(row);
+        }
+        return results;
     }
 }

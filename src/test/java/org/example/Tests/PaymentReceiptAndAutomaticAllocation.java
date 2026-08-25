@@ -9,19 +9,19 @@ import org.testng.Assert;
 import org.testng.annotations.Test;
 import java.io.File;
 import java.sql.SQLException;
+import java.util.Map;
 
 import org.example.Pages.BatchJobSubmissionPage;
 
-/* before executing this sceanrio ask Tech team and fusion team to
-   drop HOCx file, and REMPT file respectively
+/* before executing this sceanrio ask AWS team
+   drop HOCx file respectively
  *
  */
 public class PaymentReceiptAndAutomaticAllocation extends BaseClass {
 
-    String transmitIDRemp;
-    String extTransmitId;
-
-    public static String HocxFileName;
+    String extTransmitId="26225 HO.EXPRESS";
+    String tenderctlId;
+    String HocxFileName;
     @Test
     public void testLogin(){
 
@@ -50,11 +50,9 @@ public class PaymentReceiptAndAutomaticAllocation extends BaseClass {
         batchP.CMHOCPAYBatch("CMHOCPAY", HocxFileName);
         ScreenShotUtils.captureScreenshotToWord("PaymentReceiptAndAutomaticAllocation.docx", "HOCSX payment upload batch is running");
         batchP.clickRefresh();
-
         String query = String.format(DBQueries.HocxFile);
         extTransmitId = DBUtils.getSingleDate(query, "EXT_TRANSMIT_ID");
         System.out.println("Transmit ID for HOCX file: " + extTransmitId);
-
         PaymentEventUploadStaging uploadStaging = new PaymentEventUploadStaging();
         uploadStaging.navigation();
         uploadStaging.searchExtTransmitID(extTransmitId);
@@ -62,100 +60,68 @@ public class PaymentReceiptAndAutomaticAllocation extends BaseClass {
         uploadStaging.ExtclickSearch();
         ScreenShotUtils.captureScreenshotToWord("PaymentReceiptAndAutomaticAllocation.docx", "Payment Event upload staging");
         uploadStaging.scrollDown();
+        uploadStaging.scrollDownTenderControl();
         ScreenShotUtils.captureScreenshotToWord("PaymentReceiptAndAutomaticAllocation.docx", "Payment Event upload staging is in 'Incomplete' status for HOCX payment");
-
     }
-
     @Test(dependsOnMethods = "HocxFilebatchRun")
-    public void REMPFileExtract() throws SQLException {
-        String rempQuery = String.format(DBQueries.REMPFile);
-        transmitIDRemp = DBUtils.getSingleDate(rempQuery, "EXT_TRANSMIT_ID");
-        System.out.println("Transmit ID for REMP file: " + transmitIDRemp);
-
-        PaymentEventUploadStaging uploadStaging = new PaymentEventUploadStaging();
-        uploadStaging.navigation();
-        uploadStaging.searchExtTransmitIDREMP(transmitIDRemp);
-        System.out.println();
-        ScreenShotUtils.captureScreenshotToWord("PaymentReceiptAndAutomaticAllocation.docx", "Payment Event upload staging");
-        uploadStaging.scrollDown();
-        ScreenShotUtils.captureScreenshotToWord("PaymentReceiptAndAutomaticAllocation.docx", "Payment Event upload staging is in 'Incomplete' status for REMP payment");
-    }
-
-    @Test(dependsOnMethods = "REMPFileExtract")
-    public void PEPL1batchRun() throws SQLException {
-
-        WindowHandlesUtils.duplicateCurrentTab();
+    public void PEPL1batchRun() throws Exception {
         BatchJobSubmissionPage batchP = new BatchJobSubmissionPage();
         batchP.BatchPage();
         batchP.enterBatchCode("C1-PEPL1");
         ScreenShotUtils.captureScreenshotToWord("PaymentReceiptAndAutomaticAllocation.docx", "Payment Event Upload Stage-1 batch is running");
-        //batchP.clickRefresh();
-
-        //REMP payment file Status moved to Pending
-        WindowHandlesUtils.switchToFirstWindow();
         PaymentEventUploadStaging uploadStaging = new PaymentEventUploadStaging();
-        uploadStaging.clickRefresh();
-        uploadStaging.scrollDown();
-        ScreenShotUtils.captureScreenshotToWord("PaymentReceiptAndAutomaticAllocation.docx", "Payment Event upload staging for REMP payment file is in 'Pending' status..");
-        uploadStaging.navigateToTenderControl();
-        ScreenShotUtils.captureScreenshotToWord("PaymentReceiptAndAutomaticAllocation.docx", "Tender Control is Created Open status for REMP payment");
-        uploadStaging.goback();
-
-        //HOCX payment file Status moved to Pending
         uploadStaging.navigation();
         uploadStaging.searchExtTransmitID(extTransmitId);
         uploadStaging.ExtclickSearch();
         ScreenShotUtils.captureScreenshotToWord("PaymentReceiptAndAutomaticAllocation.docx", "Payment Event upload staging is moved to 'pending' status for HOCX payment");
         uploadStaging.navigateToTenderControl();
         ScreenShotUtils.captureScreenshotToWord("PaymentReceiptAndAutomaticAllocation.docx", "Tender Control is Created Open status for HOCX payment");
+        uploadStaging.pepl1TenderControlStatus();
         uploadStaging.goback();
-
+        String PEVTPEPL1Query=String.format(DBQueries.PayEventStatus,"20",extTransmitId);
+        String PEVTPEPL1Status = DBUtils.getSingleDate(PEVTPEPL1Query, "PEVT_STG_ST_FLG");
+        tenderctlId=DBUtils.getSingleDate(PEVTPEPL1Query, "TNDR_CTL_ID");
+        System.out.println("Tender Control ID for HOCX file: " + tenderctlId);
+        System.out.println("Payment Event Upload Staging Status for HOCX file: " + PEVTPEPL1Status);
+        Assert.assertEquals(PEVTPEPL1Status.trim(), "20", "Payment Event Upload Staging Status is not in 'Pending' status for HOCX file");
+        String tenderControlQuery=String.format(DBQueries.tenderControl,tenderctlId);
+        String tenderControlStatus = DBUtils.getSingleDate(tenderControlQuery, "TNDR_CTL_ST_FLG");
+        System.out.println("Tender Control Status for HOCX file: " + tenderControlStatus);
+        Assert.assertEquals(tenderControlStatus.trim(), "10", "Tender Control is not in 'Open' status for HOCX file");
     }
     @Test(dependsOnMethods = "PEPL1batchRun")
-    public void PEPL2batchRun(){
-
-        WindowHandlesUtils.switchToSecondWindow();
+    public void PEPL2batchRun() throws Exception {
         BatchJobSubmissionPage batchP = new BatchJobSubmissionPage();
         batchP.BatchPage();
         batchP.enterBatchCode("C1-PEPL2");
         ScreenShotUtils.captureScreenshotToWord("PaymentReceiptAndAutomaticAllocation.docx", "Payment Event Upload Stage-2 batch is running");
-        //batchP.clickRefresh();
-
-        //HOCX payment file Status moved to Complete
-        WindowHandlesUtils.switchToFirstWindow();
         PaymentEventUploadStaging uploadStaging = new PaymentEventUploadStaging();
         uploadStaging.clickRefresh();
+        uploadStaging.pepl2payeventstatus();
         uploadStaging.scrollDown();
         ScreenShotUtils.captureScreenshotToWord("PaymentReceiptAndAutomaticAllocation.docx", "Payment Event upload staging for HOCX payment file is Completed");
-
-        //REMP payment moved to Complete
-        uploadStaging.navigation();
-        uploadStaging.searchExtTransmitIDREMP(transmitIDRemp);
-        uploadStaging.scrollDown();
-        ScreenShotUtils.captureScreenshotToWord("PaymentReceiptAndAutomaticAllocation.docx", "Payment Event upload staging for REMP payment file is Completed");
-
+        String PEVTPEPL2Query=String.format(DBQueries.PayEventStatus,"40",extTransmitId);
+        String PEVTPEPL2Status = DBUtils.getSingleDate(PEVTPEPL2Query, "PEVT_STG_ST_FLG");
+        Assert.assertEquals(PEVTPEPL2Status.trim(), "40", "Payment Event Upload Staging Status is not in 'Complete' status for HOCX file");
     }
     @Test(dependsOnMethods = "PEPL2batchRun")
-    public void PEPL3batchRun() {
-        WindowHandlesUtils.switchToSecondWindow();
+    public void PEPL3batchRun() throws Exception {
         BatchJobSubmissionPage batchP = new BatchJobSubmissionPage();
         batchP.BatchPage();
         batchP.enterBatchCode("C1-PEPL3");
         ScreenShotUtils.captureScreenshotToWord("PaymentReceiptAndAutomaticAllocation.docx", "Balance Tender Controls batch is running");
-        //batchP.clickRefresh();
-
-        //Tender Contraol is now balanced for REMP payment file.
-        WindowHandlesUtils.switchToFirstWindow();
         PaymentEventUploadStaging uploadStaging = new PaymentEventUploadStaging();
-        uploadStaging.navigateToTenderControl();
         ScreenShotUtils.captureScreenshotToWord("PaymentReceiptAndAutomaticAllocation.docx", "Tender Control is now Balanced for REMP payment");
-        uploadStaging.goback();
-
-        //Tender Contraol is now balanced for HOCX payment file.
         uploadStaging.navigation();
         uploadStaging.searchExtTransmitID(extTransmitId);
         uploadStaging.ExtclickSearch();
         uploadStaging.navigateToTenderControl();
         ScreenShotUtils.captureScreenshotToWord("PaymentReceiptAndAutomaticAllocation.docx", "Tender Control is now Balanced for HOCX payment");
+        uploadStaging.pepl3TenderControlStatus();
+        ScreenShotUtils.captureScreenshotToWord("PaymentReceiptAndAutomaticAllocation.docx", "Tender Control is now Balanced for HOCX payment");
+        String tenderControlQuery=String.format(DBQueries.tenderControl,tenderctlId);
+        String tenderControlStatus = DBUtils.getSingleDate(tenderControlQuery, "TNDR_CTL_ST_FLG");
+        System.out.println("Tender Control Status for HOCX file: " + tenderControlStatus);
+        Assert.assertEquals(tenderControlStatus.trim(), "30", "Tender Control is not in 'Balanced' status for HOCX file");
     }
 }

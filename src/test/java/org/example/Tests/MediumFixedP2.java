@@ -66,7 +66,7 @@ public class MediumFixedP2 extends BaseClass {
     }
 
     @Test(dependsOnMethods = "contractValidation")
-    public void SACreation() throws SQLException {
+    public void SACreation() throws Exception {
 
         marketMessageSearch mktmsg = new marketMessageSearch();
         mktmsg.navigateToMarketMessage();

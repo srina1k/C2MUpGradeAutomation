@@ -140,6 +140,24 @@ public class OppForPerson {
         driver.switchTo().frame(driver.findElement(By.cssSelector("iframe[title='zoneMapFrame_1']")));
         WaitUtils.waitAndClick(driver, By.cssSelector("input[value='Qualified']"), 5);
     }
+    public void NavigateToOpportunity(String Oppid){
+        driver.switchTo().defaultContent();
+        WaitUtils.waitForFrameAndSwitch(driver,"main",5);
+        WaitUtils.waitAndClick(driver, By.id("IM_menuButton"), 10);
+        WaitUtils.waitAndClick(driver, By.xpath("//li[@id='mainMenu']"), 10);
+        WaitUtils.waitAndClick(driver, By.xpath("//span[text()='Sales & Marketing']"), 10);
+        WaitUtils.waitAndClick(driver, By.xpath("//span[text()='Opportunity']"),10);
+        WaitUtils.waitForFrameAndSwitch(driver,"tabPage",5);
+        WaitUtils.waitForVisible(driver,By.cssSelector("select[id='multiQueryZoneFilters1']"));
+        WebElement searchByOppId = driver.findElement(By.cssSelector("select[id='multiQueryZoneFilters1']"));
+        Select searchByOpp = new Select(searchByOppId);
+        searchByOpp.selectByVisibleText("Search by Opportunity Id");
+        WaitUtils.waitForVisible(driver,By.xpath("//input[@orafield='opportunityId']"));
+        driver.findElement(By.xpath("//input[@orafield='opportunityId']")).sendKeys(Oppid);
+        WaitUtils.waitAndClick(driver, By.xpath("//input[@value='Search']"),5);
+        WaitUtils.waitForVisible(driver,By.cssSelector("span[title='Go To Opportunity ']"));
+        WaitUtils.waitAndClick(driver, By.cssSelector("span[title='Go To Opportunity ']"),5);
+    }
     public void QualifyingFlexBasketOpportunity(){
 //        driver.switchTo().defaultContent();
 //        WaitUtils.waitForFrameAndSwitch(driver,"main",10);
@@ -189,7 +207,6 @@ public class OppForPerson {
         WaitUtils.waitForFrameAndSwitch(driver,"main",2);
         WaitUtils.waitForFrameAndSwitch(driver,"tabPage",2);
         //driver.switchTo().frame(driver.findElement(By.cssSelector("iframe[title='zoneMapFrame_1']")));
-        WaitUtils.sleep(4000);
         WaitUtils.waitAndClick(driver, By.cssSelector("span[title='Go To Opportunity for Person ']"), 2);
         String parentWindow = driver.getWindowHandle();
         WaitUtils.waitForVisible(driver, By.xpath("//input[@value='Override']"));
@@ -293,6 +310,7 @@ public class OppForPerson {
         WaitUtils.getWait(driver,10);
         driver.switchTo().defaultContent();
         WaitUtils.waitForFrameAndSwitch(driver,"main",2);
+        WaitUtils.waitForClickable(driver,goBackBtn);
         WaitUtils.waitAndClick(driver, goBackBtn, 5);
         WaitUtils.sleep(2000);
     }
@@ -312,9 +330,16 @@ public class OppForPerson {
         WaitUtils.waitForFrameAndSwitch(driver,"tabPage",10);
         String Caseid = driver.findElement(By.xpath("//span[@title='Go To Case ']")).getText().trim();
         System.out.println("Case ID:" + Caseid);
+//        WaitUtils.waitAndClick(driver,By.xpath("//span[@title='Go To Case ']"),10);
+//        WaitUtils.getWait(driver,10);
+        return Caseid;
+    }
+    public void navigateToCase(){
+        driver.switchTo().defaultContent();
+        WaitUtils.waitForFrameAndSwitch(driver,"main",5);
+        WaitUtils.waitForFrameAndSwitch(driver,"tabPage",10);
         WaitUtils.waitAndClick(driver,By.xpath("//span[@title='Go To Case ']"),10);
         WaitUtils.getWait(driver,10);
-        return Caseid;
     }
     public String quote1() {
         String Caseid = driver.findElement(By.xpath("(//span[@title='Go To Case '])[2]")).getText().trim();
@@ -342,28 +367,28 @@ public class OppForPerson {
         WebElement PendingAnalysis = driver.findElement(By.xpath("//input[@value='Deemed Won - Pending Analysis']"));
         PendingAnalysis.click();
         WaitUtils.getWait1(driver, 20);
-//        try {
-//            JavascriptExecutor js = (JavascriptExecutor) driver;
-//            js.executeScript("arguments[0].click()", PendingAnalysis);
-//                WaitUtils.sleep(5000);
-//        }catch (StaleElementReferenceException e) {
-//            throw new StaleElementReferenceException(e.getMessage());
-//        }
+        new WebDriverWait(driver, Duration.ofSeconds(50)).until(
+                webDriver -> ((JavascriptExecutor) webDriver)
+                        .executeScript("return document.readyState")
+                        .equals("complete")
+        );
+        WaitUtils.sleep(10000);
+        //WaitUtils.waitForVisible(driver, By.xpath("//input[@value='Won']"));
     }
         public void wonclick(){
         driver.switchTo().defaultContent();
         WaitUtils.waitForFrameAndSwitch(driver,"main",10);
        //for (int i = 0; i < 3; i++) {
-        WaitUtils.getWait(driver,20);
-        WaitUtils.waitForClickable(driver,By.xpath("//ou-button[@id='IM_GOBACK']"));
-        WaitUtils.waitAndClickFluent(driver, By.xpath("//ou-button[@id='IM_GOBACK']"), 15);
-        WaitUtils.waitForPVisible(driver,By.xpath("//div[text()='Person']"),10);
-        WaitUtils.waitForClickable(driver,By.xpath("//ou-button[@id='IM_GOBACK']"));
-        WaitUtils.waitAndClickFluent(driver, By.xpath("//ou-button[@id='IM_GOBACK']"), 15);
-        WaitUtils.waitForPVisible(driver,By.xpath("//div[text()='Control Central Search']"),10);
-        WaitUtils.waitForClickable(driver,By.xpath("//ou-button[@id='IM_GOBACK']"));
-        WaitUtils.waitAndClickFluent(driver,By.xpath("//ou-button[@id='IM_GOBACK']"),10);
-        WaitUtils.waitForPVisible(driver,By.xpath("//div[text()='Opportunity']"),10);
+//        WaitUtils.getWait(driver,20);
+//        WaitUtils.waitForClickable(driver,By.xpath("//ou-button[@id='IM_GOBACK']"));
+//        WaitUtils.waitAndClickFluent(driver, By.xpath("//ou-button[@id='IM_GOBACK']"), 15);
+//        WaitUtils.waitForPVisible(driver,By.xpath("//div[text()='Person']"),10);
+//        WaitUtils.waitForClickable(driver,By.xpath("//ou-button[@id='IM_GOBACK']"));
+//        WaitUtils.waitAndClickFluent(driver, By.xpath("//ou-button[@id='IM_GOBACK']"), 15);
+//        WaitUtils.waitForPVisible(driver,By.xpath("//div[text()='Control Central Search']"),10);
+//        WaitUtils.waitForClickable(driver,By.xpath("//ou-button[@id='IM_GOBACK']"));
+//        WaitUtils.waitAndClickFluent(driver,By.xpath("//ou-button[@id='IM_GOBACK']"),10);
+//        WaitUtils.waitForPVisible(driver,By.xpath("//div[text()='Opportunity']"),10);
        // WaitUtils.sleep(3000);
            WaitUtils.getWait1(driver,20);
         //}
@@ -403,6 +428,7 @@ public class OppForPerson {
         WaitUtils.waitAndClick(driver, goBackBtn, 5);
 
         WaitUtils.waitForFrameAndSwitch(driver, "tabPage", 3);
+        WaitUtils.waitForVisible(driver,By.xpath("(//a[@navoptcd='cmoppptlTabMenu'])[3]"));
         WaitUtils.waitAndClick(driver, By.xpath("(//a[@navoptcd='cmoppptlTabMenu'])[3]"),10);
         WaitUtils.sleep(3000);
         WaitUtils.waitForVisible(driver, By.xpath("//span[@title='Go To Opportunity for Person ']"));
@@ -415,6 +441,7 @@ public class OppForPerson {
         WaitUtils.waitAndClick(driver, goBackBtn, 5);
 
         WaitUtils.waitForFrameAndSwitch(driver, "tabPage", 3);
+        WaitUtils.waitForVisible(driver,By.xpath("(//a[@navoptcd='cmoppptlTabMenu'])[4]"));
         WaitUtils.waitAndClick(driver, By.xpath("(//a[@navoptcd='cmoppptlTabMenu'])[4]"),10);
         WaitUtils.sleep(3000);
         WaitUtils.waitForVisible(driver, By.xpath("//span[@title='Go To Opportunity for Person ']"));
